@@ -12,6 +12,8 @@ public class UserHandler {
     private Collection<ItemInfo> cart;
 
     public static UserInfo getCurrentUser() {
-        return (UserInfo) User.searchUser(name);
+        //Koppla med login sen
+        User theUser = User.searchUser("ww");
+        return new UserInfo(theUser.getName(), theUser.getCart());
     }
 }

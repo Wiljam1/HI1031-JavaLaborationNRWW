@@ -18,4 +18,9 @@ public class UserInfo {
     public Collection<ItemInfo> getCart() {
         return cart;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

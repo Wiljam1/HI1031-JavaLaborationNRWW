@@ -1,4 +1,5 @@
-<%@ page import="java.util.Date" %><%--
+<%@ page import="java.util.Date" %>
+<%@ page import="bo.UserHandler" %><%--
   Created by IntelliJ IDEA.
   User: Wilja
   Date: 9/28/2023
@@ -14,7 +15,10 @@
 </head>
 <body>
 <h1>Welcome to the web-shop</h1>
-
+<a> Current user:
+    <%= UserHandler.getCurrentUser() %>
+</a>
+<br>
 <%= new Date() %>
 <br><br>
 
