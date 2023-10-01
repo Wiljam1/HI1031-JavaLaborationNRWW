@@ -9,7 +9,6 @@ import java.util.Iterator;
 
 public class ItemHandler {
 
-
     public static Collection<ItemInfo> getItemsWithGroup(String s) {
         Collection c = Item.searchItems(s);
         ArrayList<ItemInfo> items = new ArrayList<ItemInfo>();

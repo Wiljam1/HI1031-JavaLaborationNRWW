@@ -13,7 +13,7 @@
     <% String username = (String) request.getAttribute("username");
         String displayUsername = "Not logged in";
         if(username != null)
-            displayUsername = UserHandler.getUserInfo("ww").getName();
+            displayUsername = UserHandler.getUserInfo(username).getName();
     %>
     <%= displayUsername%>
 </a>

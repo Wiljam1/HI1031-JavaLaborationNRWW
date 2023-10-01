@@ -16,14 +16,13 @@
 <body>
 <h1>Here are the items; </h1>
 <ul>
-    <% Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(" ");
-        Iterator<ItemInfo> it = items.iterator();
-        for(; it.hasNext();) {
-        ItemInfo item = it.next();
+    <%
+        // Retrieve items from the session attribute
+        Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(" ");
+        for (ItemInfo item : items) { %>
+<li><%=item.getDesc()%></li>
+<% }
     %>
-<br>
-    <%= item.getDesc()%>
-    <% }%>
 </ul>
 </body>
 </html>
