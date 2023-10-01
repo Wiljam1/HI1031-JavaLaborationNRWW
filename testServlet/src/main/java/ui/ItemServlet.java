@@ -1,5 +1,6 @@
 package ui;
 
+import bo.ItemHandler;
 import bo.UserHandler;
 import com.mongodb.client.MongoCollection;
 import db.DBManager;
@@ -29,7 +30,6 @@ public class ItemServlet extends HttpServlet {
         //ADD TO SHOPPING CART
         HttpSession session = request.getSession();
         String itemName = request.getParameter("itemName");
-        String quantity = request.getParameter("quantity");
 
         //Lägg till check om varan finns på lager (jämför med quantity)
 
@@ -38,8 +38,19 @@ public class ItemServlet extends HttpServlet {
         if(cartItems == null) {
             cartItems = new ArrayList<>();
         }
-            cartItems.add(new ItemInfo(itemName, quantity));
-            session.setAttribute("items", cartItems);
+        boolean itemExists = false;
+        for(ItemInfo item : cartItems) {
+            if(item.getName().equals(itemName)) {
+                item.incrementQuantity();
+                itemExists = true;
+                break;
+            }
+        }
+
+        if(!itemExists)
+            cartItems.add(new ItemInfo(itemName));
+
+        session.setAttribute("items", cartItems);
 
         response.sendRedirect("items.jsp");
     }

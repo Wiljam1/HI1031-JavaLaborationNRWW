@@ -8,13 +8,13 @@ public class ItemInfo {
     public ItemInfo(String name, String desc) {
         this.name = name;
         this.desc = desc;
-        this.quantity = 0; //Update in the future (get from database?)
+        this.quantity = 1; //Update in the future (get from database?)
     }
 
-    public ItemInfo(String name, int quantity) {
+    public ItemInfo(String name) {
         this.name = name;
         this.desc = "";
-        this.quantity = quantity;
+        this.quantity = 1; //Update in the future (get from database?)
     }
 
     public String getName() {
@@ -27,6 +27,10 @@ public class ItemInfo {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void incrementQuantity() {
+        this.quantity++;
     }
 
     public void setDesc(String desc) {
