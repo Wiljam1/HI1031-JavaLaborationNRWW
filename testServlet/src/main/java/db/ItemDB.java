@@ -22,6 +22,7 @@ public class ItemDB extends bo.Item {
 
         }
         catch (Exception e) {
+            //Robust logging implementation?
             e.printStackTrace();
         }
         return items;
