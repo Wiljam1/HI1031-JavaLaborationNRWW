@@ -12,7 +12,7 @@ public class ItemDB extends bo.Item {
     public static Collection searchItems(String item_group) {
         Collection<Object> items = new ArrayList<>();
         try {
-            MongoCollection<Document> collection = DBManager.getCollection();
+            MongoCollection<Document> collection = DBManager.getCollection("testServlet");
 
             for(Document doc : collection.find()) {
                 String id = doc.getString("id");

@@ -15,25 +15,25 @@ public class DBManager {
     MongoCollection<Document> collection = null;
 
     //Singleton
-    private static DBManager getInstance() {
+    private static DBManager getInstance(String collection) {
         if(instance == null)
-            instance = new DBManager();
+            instance = new DBManager(collection);
         return instance;
     }
 
-    private DBManager() {
+    private DBManager(String collection) {
         try {
             ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/");
             MongoClient mongoClient = MongoClients.create(connectionString);
             MongoDatabase database = mongoClient.getDatabase("JavaLaboration");
-            collection = database.getCollection("testServlet");
+            this.collection = database.getCollection(collection);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static MongoCollection<Document> getCollection() {
-        return getInstance().collection;
+    public static MongoCollection<Document> getCollection(String collection) {
+        return getInstance(collection).collection;
     }
 }
