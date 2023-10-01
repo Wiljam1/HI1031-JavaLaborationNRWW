@@ -2,6 +2,7 @@ package ui;
 
 import com.mongodb.client.MongoCollection;
 import db.DBManager;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -26,7 +27,10 @@ public class LoginServlet extends HttpServlet {
 
         if (DBManager.authenticateUser(username, password)) {
             // Successful login
-            response.sendRedirect("shoppingcart.jsp"); // Redirect to a welcome page
+            request.setAttribute("username", username);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher.forward(request, response);
+            //response.sendRedirect("index.jsp"); // Redirect to a welcome page
         } else {
             // Failed login
             response.sendRedirect("login.jsp"); // Redirect back to the login page

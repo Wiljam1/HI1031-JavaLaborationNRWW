@@ -1,13 +1,7 @@
 <%@ page import="java.util.Date" %>
-<%@ page import="bo.UserHandler" %><%--
-  Created by IntelliJ IDEA.
-  User: Wilja
-  Date: 9/28/2023
-  Time: 7:57 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="bo.UserHandler" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +13,7 @@
     <% String username = (String) request.getAttribute("username");
         String displayUsername = "Not logged in";
         if(username != null)
-            displayUsername = username;
+            displayUsername = UserHandler.getUserInfo("ww").getName();
     %>
     <%= displayUsername%>
 </a>
@@ -39,11 +33,8 @@
 <script type="text/javascript">
     function updateDate() {
         var currentDateElement = document.getElementById("currentDate");
-        var currentDate = new Date();
-        currentDateElement.innerHTML = currentDate;
+        currentDateElement.innerHTML = new Date();
     }
-
-    // Call the updateDate function every second (1000 milliseconds)
     setInterval(updateDate, 1000);
 </script>
 
