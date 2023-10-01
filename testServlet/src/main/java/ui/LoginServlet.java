@@ -25,14 +25,21 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession();
+
 
         //MongoCollection<org.bson.Document> aa = DBManager.getCollection("users");
 
         if (UserHandler.authenticateUser(username, password)) {
             // Successful login
+            HttpSession session = request.getSession();
+            session.invalidate();
+            session = request.getSession();
             session.setAttribute("username", username);
-
+            String displayUsername = "Not logged in";
+            if (username != null) {
+                displayUsername = UserHandler.getUserInfo(username).getName();
+            }
+            session.setAttribute("displayUsername", displayUsername);
             // RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             //dispatcher.forward(request, response);
             response.sendRedirect("index.jsp"); // Redirect to a welcome page

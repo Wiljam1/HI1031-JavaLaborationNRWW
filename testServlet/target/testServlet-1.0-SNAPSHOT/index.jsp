@@ -6,33 +6,58 @@
 <html>
 <head>
     <title>Welcome Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #current-user {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        #currentDate {
+            font-style: italic;
+            margin: 10px 0;
+        }
+
+        #links {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <h1>Welcome to the web-shop</h1>
-<a> Current user:
-    <%
-        // Gör i en servlet?
-        session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        String displayUsername = "Not logged in";
-        if(username != null)
-            displayUsername = UserHandler.getUserInfo(username).getName();
-    %>
-    <%= displayUsername%>
-</a>
-<br>
+<div id="current-user">
+    Current user:
+    <%= session.getAttribute("displayUsername") %>
+</div>
+
 <div id="currentDate">
     <%= new Date() %>
 </div>
-<br><br>
 
-<a href="items.jsp">Click here for items!</a>
+<div id="links">
+    <a href="items.jsp">Click here for items!</a>
+    <br><br>
+    <a href="login.jsp">Click here for login!</a>
+</div>
 
-<br><br>
-
-<a href="login.jsp">Click here for login!</a>
-</body>
-</html>
 <script type="text/javascript">
     function updateDate() {
         var currentDateElement = document.getElementById("currentDate");
@@ -40,4 +65,6 @@
     }
     setInterval(updateDate, 1000);
 </script>
+</body>
+</html>
 
