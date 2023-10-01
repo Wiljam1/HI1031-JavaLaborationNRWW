@@ -7,9 +7,6 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class UserDB extends bo.User{
 
     //Kanske dåligt att den här returnar en User? Kanske bör returna något mer generellt
@@ -35,7 +32,9 @@ public class UserDB extends bo.User{
         return user;
     }
 
-
+    public static Document getUserDocument(String username) {
+        return DBManager.getCollection("users").find(new Document("username", username)).first();
+    }
 
     private UserDB(String id, String username, String name) {
         super(id, username, name);

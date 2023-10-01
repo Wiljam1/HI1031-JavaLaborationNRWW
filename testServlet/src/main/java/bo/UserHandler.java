@@ -1,11 +1,10 @@
 package bo;
 
-import db.DBManager;
+import db.UserDB;
 import org.bson.Document;
 import ui.ItemInfo;
 import ui.UserInfo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class UserHandler {
@@ -20,8 +19,8 @@ public class UserHandler {
     }
 
     public static boolean authenticateUser(String username, String password) {
-        //Kanske borde kalla på något i UserDB
-        Document userDoc = DBManager.getCollection("users").find(new Document("username", username)).first();
+
+        Document userDoc = UserDB.getUserDocument(username);
 
         if (userDoc != null) {
             String DBPassword = userDoc.getString("password");
