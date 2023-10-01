@@ -11,6 +11,8 @@
     <title><Users> shopping cart</title>
 </head>
 <body>
+<a href="index.jsp">Home</a>
+<br><br>
 
 </body>
 </html>

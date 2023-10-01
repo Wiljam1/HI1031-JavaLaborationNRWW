@@ -14,6 +14,8 @@
     <title>Title</title>
 </head>
 <body>
+<a href="index.jsp">Home</a>
+<br><br>
 <h1>Here are the items; </h1>
 <ul>
     <%
@@ -24,5 +26,7 @@
 <% }
     %>
 </ul>
+
+
 </body>
 </html>

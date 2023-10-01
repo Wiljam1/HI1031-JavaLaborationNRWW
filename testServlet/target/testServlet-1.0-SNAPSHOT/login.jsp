@@ -11,6 +11,8 @@
     <title>Login</title>
 </head>
 <body>
+<a href="index.jsp">Home</a>
+<br><br>
 <h2>Login</h2>
 <form action="login" method="post">
     <label for="username">Username:</label>
