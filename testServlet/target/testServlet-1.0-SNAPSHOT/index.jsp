@@ -15,14 +15,22 @@
 </head>
 <body>
 <h1>Welcome to the web-shop</h1>
+<<<<<<< HEAD
 <a> Current user:
     <%= UserHandler.getCurrentUser() %>
 </a>
 <br>
+=======
+
+>>>>>>> d713d03ddac0f3765adad912f111cc9852cc5a5e
 <%= new Date() %>
 <br><br>
 
 <a href="items.jsp">Click here for items!</a>
+
+<br><br>
+
+<a href="login.jsp">Click here for login!</a>
 </body>
 </html>
 
