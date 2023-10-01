@@ -15,14 +15,15 @@
 </head>
 <body>
 <h1>Welcome to the web-shop</h1>
-<<<<<<< HEAD
 <a> Current user:
-    <%= UserHandler.getCurrentUser() %>
+    <% String username = (String) request.getAttribute("username");
+        String displayUsername = "Not logged in";
+        if(username != null)
+            displayUsername = username;
+    %>
+    <%= displayUsername%>
 </a>
 <br>
-=======
-
->>>>>>> d713d03ddac0f3765adad912f111cc9852cc5a5e
 <%= new Date() %>
 <br><br>
 
