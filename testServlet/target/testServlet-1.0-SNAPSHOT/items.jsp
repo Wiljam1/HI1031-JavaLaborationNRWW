@@ -34,20 +34,22 @@
             flex-wrap: wrap;
             justify-content: space-between;
         }
-        #shopping-cart, #items {
-            flex-basis: 48%;
+        #items-container {
+            flex-basis: 68%; /* Adjust the width as needed */
             background-color: #fff;
             padding: 20px;
             border: 1px solid #ccc;
             margin-bottom: 20px;
         }
-        #shopping-cart {
+        #shopping-cart-container {
             flex-basis: 30%;
-            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
         }
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+        #items h2 {
+            text-align: center; /* Center-align the "Available Items" heading */
         }
         ul {
             list-style: none;
@@ -88,7 +90,7 @@
     <a href="index.jsp">Home</a>
 </nav>
 <div class="container">
-    <div id="items">
+    <div id="items-container">
         <h2>Available Items</h2>
         <ul>
             <%
@@ -115,7 +117,7 @@
             %>
         </ul>
     </div>
-    <div id="shopping-cart">
+    <div id="shopping-cart-container">
         <h2>Shopping Cart</h2>
         <ul>
             <%
@@ -136,8 +138,6 @@
         <p>Total Price: $50.00</p>
         <a href="checkout.jsp">Checkout</a>
     </div>
-
-
 </div>
 </body>
 </html>

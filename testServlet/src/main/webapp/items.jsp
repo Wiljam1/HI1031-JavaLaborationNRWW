@@ -34,15 +34,15 @@
             flex-wrap: wrap;
             justify-content: space-between;
         }
-        #shopping-cart {
-            flex-basis: 30%;
+        #items-container {
+            flex-basis: 68%; /* Adjust the width as needed */
             background-color: #fff;
             padding: 20px;
             border: 1px solid #ccc;
             margin-bottom: 20px;
         }
-        #items {
-            flex-basis: 68%; /* Adjust the width as needed */
+        #shopping-cart-container {
+            flex-basis: 30%;
             background-color: #fff;
             padding: 20px;
             border: 1px solid #ccc;
@@ -90,28 +90,7 @@
     <a href="index.jsp">Home</a>
 </nav>
 <div class="container">
-    <div id="shopping-cart">
-        <h2>Shopping Cart</h2>
-        <ul>
-            <%
-                session = request.getSession();
-                String username = (String) session.getAttribute("username");
-                if (username != null) {
-                    Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
-                    if (cartItems != null) {
-                        for (ItemInfo item : cartItems) {
-            %>
-            <li><%= item.getName() %> : <%= item.getQuantity() %></li>
-            <%
-                        }
-                    }
-                }
-            %>
-        </ul>
-        <p>Total Price: $50.00</p>
-        <a href="checkout.jsp">Checkout</a>
-    </div>
-    <div id="items">
+    <div id="items-container">
         <h2>Available Items</h2>
         <ul>
             <%
@@ -137,6 +116,27 @@
                 }
             %>
         </ul>
+    </div>
+    <div id="shopping-cart-container">
+        <h2>Shopping Cart</h2>
+        <ul>
+            <%
+                session = request.getSession();
+                String username = (String) session.getAttribute("username");
+                if (username != null) {
+                    Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+                    if (cartItems != null) {
+                        for (ItemInfo item : cartItems) {
+            %>
+            <li><%= item.getName() %> : <%= item.getQuantity() %></li>
+            <%
+                        }
+                    }
+                }
+            %>
+        </ul>
+        <p>Total Price: $50.00</p>
+        <a href="checkout.jsp">Checkout</a>
     </div>
 </div>
 </body>
