@@ -32,7 +32,8 @@ public class LoginServlet extends HttpServlet {
         if (UserHandler.authenticateUser(username, password)) {
             // Successful login
             session.setAttribute("username", username);
-           // RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+
+            // RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             //dispatcher.forward(request, response);
             response.sendRedirect("index.jsp"); // Redirect to a welcome page
         } else {
