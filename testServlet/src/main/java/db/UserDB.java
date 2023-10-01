@@ -35,6 +35,8 @@ public class UserDB extends bo.User{
         return user;
     }
 
+
+
     private UserDB(String id, String username, String name) {
         super(id, username, name);
     }

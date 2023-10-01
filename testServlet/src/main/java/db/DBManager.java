@@ -32,20 +32,6 @@ public class DBManager {
         }
     }
 
-    public static boolean authenticateUser(String username, String password) {
-        Document userDoc = DBManager.getCollection("users").find(new Document("username", username)).first();
-
-        if (userDoc != null) {
-            String DBPassword = userDoc.getString("password");
-
-            if (password.equals(DBPassword)) {
-                return true; // Passwords match
-            }
-        }
-
-        return false; // User not found or password doesn't match
-    }
-
     public static MongoCollection<Document> getCollection(String collection) {
         return getInstance().database.getCollection(collection);
     }

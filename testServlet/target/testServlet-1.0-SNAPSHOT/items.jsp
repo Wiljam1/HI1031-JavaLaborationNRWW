@@ -19,14 +19,47 @@
 <h1>Here are the items; </h1>
 <ul>
     <%
-        // Retrieve items from the session attribute
+        // Retrieve items using ItemHandler (replace this with your actual logic)
         Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(" ");
-        for (ItemInfo item : items) { %>
-<li><%=item.getDesc()%></li>
-<% }
+        for (ItemInfo item : items) {
+            // Generate a unique link for each item (e.g., "addToCart.jsp?itemId=<%= item.getName() %>")
+    String itemLink = "addToCart.jsp?itemId=" + item.getId(); // Adjust this URL pattern
+    %>
+    <li>
+        <!-- Display item name and description -->
+        <span><%= item.getName() %>: <%= item.getDesc() %></span>
+
+        <!-- Counter with "+" and "-" buttons -->
+        <span>
+            <button onclick="decrementCounter(this)">-</button>
+            <span id="counter">0</span>
+            <button onclick="incrementCounter(this)">+</button>
+        </span>
+
+        <!-- "Add" button as a link -->
+        <a href="items.jsp">Add</a>
+    </li>
+    <%
+        }
     %>
 </ul>
 
 
 </body>
 </html>
+<script type="text/javascript">
+    // JavaScript functions to increment and decrement the counter
+    function incrementCounter(button) {
+        var counterElement = button.parentElement.querySelector('#counter');
+        var currentCount = parseInt(counterElement.innerText);
+        counterElement.innerText = currentCount + 1;
+    }
+
+    function decrementCounter(button) {
+        var counterElement = button.parentElement.querySelector('#counter');
+        var currentCount = parseInt(counterElement.innerText);
+        if (currentCount > 0) {
+            counterElement.innerText = currentCount - 1;
+        }
+    }
+</script>

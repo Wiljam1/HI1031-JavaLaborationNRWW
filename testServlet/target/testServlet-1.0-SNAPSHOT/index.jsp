@@ -10,7 +10,10 @@
 <body>
 <h1>Welcome to the web-shop</h1>
 <a> Current user:
-    <% String username = (String) request.getAttribute("username");
+    <%
+        // Gör i en servlet?
+        session = request.getSession();
+        String username = (String) session.getAttribute("username");
         String displayUsername = "Not logged in";
         if(username != null)
             displayUsername = UserHandler.getUserInfo(username).getName();

@@ -12,23 +12,22 @@ public class ItemDB extends bo.Item {
     public static Collection searchItems(String item_group) {
         Collection<Object> items = new ArrayList<>();
         try {
-            MongoCollection<Document> collection = DBManager.getCollection("testServlet");
+            MongoCollection<Document> collection = DBManager.getCollection("items");
 
             for(Document doc : collection.find()) {
                 String id = doc.getString("id");
-                String desc = doc.getString("desc");
-                items.add(new ItemDB(id, desc));
+                String name = doc.getString("name");
+                String desc = doc.getString("description");
+                items.add(new ItemDB(id, name, desc));
             }
-
         }
         catch (Exception e) {
-            //Robust logging implementation?
             e.printStackTrace();
         }
         return items;
     }
 
-    private ItemDB(String id, String desc) {
-        super(id, desc);
+    private ItemDB(String id, String name, String desc) {
+        super(id, name, desc);
     }
 }

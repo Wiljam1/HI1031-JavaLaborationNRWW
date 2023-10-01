@@ -1,5 +1,7 @@
 package bo;
 
+import db.DBManager;
+import org.bson.Document;
 import ui.ItemInfo;
 import ui.UserInfo;
 
@@ -15,5 +17,20 @@ public class UserHandler {
     public static UserInfo getUserInfo(String username) {
         User theUser = User.searchUser(username);
         return new UserInfo(theUser.getName(), theUser.getCart());
+    }
+
+    public static boolean authenticateUser(String username, String password) {
+        //Kanske borde kalla på något i UserDB
+        Document userDoc = DBManager.getCollection("users").find(new Document("username", username)).first();
+
+        if (userDoc != null) {
+            String DBPassword = userDoc.getString("password");
+
+            if (password.equals(DBPassword)) {
+                return true; // Passwords match
+            }
+        }
+
+        return false; // User not found or password doesn't match
     }
 }
