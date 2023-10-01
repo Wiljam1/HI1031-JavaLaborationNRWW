@@ -16,7 +16,12 @@
 <body>
 <h1>Welcome to the web-shop</h1>
 <a> Current user:
-    <%= UserHandler.getCurrentUser() %>
+    <% String username = (String) request.getAttribute("username");
+        String displayUsername = "Not logged in";
+        if(username != null)
+            displayUsername = username;
+    %>
+    <%= displayUsername%>
 </a>
 <br>
 <%= new Date() %>
