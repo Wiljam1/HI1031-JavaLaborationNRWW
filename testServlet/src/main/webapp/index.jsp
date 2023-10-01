@@ -24,7 +24,9 @@
     <%= displayUsername%>
 </a>
 <br>
-<%= new Date() %>
+<div id="currentDate">
+    <%= new Date() %>
+</div>
 <br><br>
 
 <a href="items.jsp">Click here for items!</a>
@@ -34,4 +36,14 @@
 <a href="login.jsp">Click here for login!</a>
 </body>
 </html>
+<script type="text/javascript">
+    function updateDate() {
+        var currentDateElement = document.getElementById("currentDate");
+        var currentDate = new Date();
+        currentDateElement.innerHTML = currentDate;
+    }
+
+    // Call the updateDate function every second (1000 milliseconds)
+    setInterval(updateDate, 1000);
+</script>
 
