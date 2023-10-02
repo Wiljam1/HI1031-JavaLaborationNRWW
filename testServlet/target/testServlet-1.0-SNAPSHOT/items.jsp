@@ -150,7 +150,6 @@
                 }
             }
         %>
-        %>
         <a href="checkout.jsp">Checkout</a>
     </div>
 </div>
