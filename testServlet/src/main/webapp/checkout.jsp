@@ -87,7 +87,8 @@
         }
     %>
 </ul>
-<p>Total Price: $50.00</p>
+<% Integer finalPrice = (Integer) session.getAttribute("finalPrice"); %>
+<p>Total Price: <%=finalPrice%></p>
 <div class="purchase-button">
     <form action="transaction" method="post">
         <button type="submit">Purchase</button>

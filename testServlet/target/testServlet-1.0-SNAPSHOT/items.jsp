@@ -80,6 +80,22 @@
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
+        a.checkout-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue color */
+            color: #fff; /* Text color */
+            text-decoration: none; /* Remove underlines */
+            border: none; /* Remove borders */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+
+            /* Optional: Add hover effect */
+        }
+        a.checkout-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
     </style>
 </head>
 <body>
@@ -87,7 +103,7 @@
     <h1>Shopping Page</h1>
 </header>
 <nav>
-    <a href="index.jsp">Home</a>
+    <a class="checkout-button" href="index.jsp">Home</a>
 </nav>
 <div class="container">
     <div id="items-container">
@@ -133,6 +149,7 @@
                 if (username != null) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                     if (cartItems != null) {
+                        //TODO: Price kanske kan beräknas i ett business object (logik)
                         int price = 0;
                         for (ItemInfo item : cartItems) {
                             price += item.getPrice() * item.getQuantity();
@@ -142,7 +159,7 @@
                         }
             %>
         </ul>
-        <p>Total Price: <%= price %></p>
+        <p><b>Total Price:</b> <%= price %></p>
         <%
                     //Sparar priset när man går till checkout
                     //TODO: Fixa så den tas emot och används i checkout
@@ -153,7 +170,7 @@
                 // Borde då vara en knapp som är disabled tills grejer ligger i kundkorgen
                 // Sen redirect till checkout där en transaktion sker.
         %>
-        <a href="checkout.jsp">Checkout</a>
+        <a href="checkout.jsp" class="checkout-button">Checkout</a>
     </div>
 </div>
 </body>

@@ -18,12 +18,19 @@
         }
 
         a {
-            color: #007bff;
-            text-decoration: none;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue color */
+            color: #fff; /* Text color */
+            text-decoration: none; /* Remove underlines */
+            border: none; /* Remove borders */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
         }
 
         a:hover {
-            text-decoration: underline;
+            background-color: #0056b3; /* Darker blue on hover */
         }
 
         #current-user {
