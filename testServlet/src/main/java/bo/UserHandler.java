@@ -32,4 +32,9 @@ public class UserHandler {
 
         return false; // User not found or password doesn't match
     }
+
+    public static boolean transaction(String username, Collection<ItemInfo> cart){
+
+        return UserDB.performTransaction(username, cart);
+    }
 }

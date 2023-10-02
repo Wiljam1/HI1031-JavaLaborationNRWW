@@ -1,5 +1,6 @@
 package ui;
 
+import bo.User;
 import bo.UserHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,17 +25,14 @@ public class TransactionServlet extends HttpServlet {
 
         Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
 
-        // Borde göra själva transaktionen här
+
         /*
         Transaction transaction = new Transaction();
         transaction.setDescription(request.getParameter("description"));
         transaction.setAmount(Double.parseDouble(request.getParameter("amount")));
         */
 
-
-        //boolean success = transactionService.createTransaction(transaction);
-
-        boolean success = true;
+        boolean success = UserHandler.transaction(username, cart);;
         //TODO: borde hända något här
         if (success) {
             response.getWriter().write("Transaction successful!");
