@@ -146,23 +146,24 @@
         <h2>Shopping Cart for <%=name%></h2>
         <ul>
             <%
+                //TODO: Hantera fallet då man inte är inloggad men ändå vill kolla på varor (dölj shopping cart)
                 if (username != null) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+                    int price = 0;
                     if (cartItems != null) {
                         //TODO: Price kanske kan beräknas i ett business object (logik)
-                        int price = 0;
                         for (ItemInfo item : cartItems) {
                             price += item.getPrice() * item.getQuantity();
             %>
             <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %></li>
             <%
                         }
+                }
             %>
         </ul>
         <p><b>Total Price:</b> <%= price %></p>
         <%
-                    session.setAttribute("finalPrice", price);
-                }
+                session.setAttribute("finalPrice", price);
             }
         %>
         <a href="checkout.jsp" class="checkout-button">Checkout</a>

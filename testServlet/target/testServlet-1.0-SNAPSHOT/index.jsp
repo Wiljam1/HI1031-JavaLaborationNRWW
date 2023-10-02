@@ -76,7 +76,8 @@
         var currentDateElement = document.getElementById("currentDate");
         currentDateElement.innerHTML = new Date();
     }
-    var set = false;
+
+    let set = false;
     if(!set) {
         setInterval(updateDate, 1);
         set = true;

@@ -148,27 +148,22 @@
             <%
                 if (username != null) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+                    int price = 0;
                     if (cartItems != null) {
                         //TODO: Price kanske kan beräknas i ett business object (logik)
-                        int price = 0;
                         for (ItemInfo item : cartItems) {
                             price += item.getPrice() * item.getQuantity();
             %>
             <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %></li>
             <%
                         }
+                }
             %>
         </ul>
         <p><b>Total Price:</b> <%= price %></p>
         <%
-                    //Sparar priset när man går till checkout
-                    //TODO: Fixa så den tas emot och används i checkout
-                    session.setAttribute("finalPrice", price);
-                }
+                session.setAttribute("finalPrice", price);
             }
-                //TODO: Gör om <a>-checkout-grejen till en form och gör en servlet
-                // Borde då vara en knapp som är disabled tills grejer ligger i kundkorgen
-                // Sen redirect till checkout där en transaktion sker.
         %>
         <a href="checkout.jsp" class="checkout-button">Checkout</a>
     </div>

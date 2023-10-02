@@ -25,15 +25,13 @@ public class ItemServlet extends HttpServlet {
             throws ServletException, IOException {
 
         //ADD TO SHOPPING CART
+        //TODO: Klassens logik borde flyttas till ett Business Object. Detta är en controller class!
         HttpSession session = request.getSession();
         //TODO: Ändra så man kan hämta hela item?
         String itemName = request.getParameter("itemName");
         String itemPrice = request.getParameter("itemPrice");
         int itemAmount = Integer.parseInt(request.getParameter("itemAmount"));
 
-        //Lägg till check om varan finns på lager (jämför med quantity)
-
-        //String username = (String) session.getAttribute("username");
         Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
         if(cartItems == null) {
             cartItems = new ArrayList<>();
@@ -48,7 +46,7 @@ public class ItemServlet extends HttpServlet {
             }
         }
 
-        if(!itemExists) {
+        if(!itemExists && itemAmount > 0) {
             // TODO: Fixa snyggare, parse någon annanstans
             cartItems.add(new ItemInfo(itemName, Integer.parseInt(itemPrice)));
         }
