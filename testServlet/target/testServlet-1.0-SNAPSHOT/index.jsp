@@ -54,7 +54,7 @@
 
 
 <div id="currentDate">
-    <%= new Date() %>
+
 </div>
 
 <div id="links">
@@ -64,11 +64,17 @@
 </div>
 
 <script type="text/javascript">
+    //Ful Javascript för att få en tickande klocka
     function updateDate() {
         var currentDateElement = document.getElementById("currentDate");
         currentDateElement.innerHTML = new Date();
     }
-    setInterval(updateDate, 1000);
+    var set = false;
+    if(!set) {
+        setInterval(updateDate, 1);
+        set = true;
+    } else
+        setInterval(updateDate, 1000);
 </script>
 </body>
 </html>

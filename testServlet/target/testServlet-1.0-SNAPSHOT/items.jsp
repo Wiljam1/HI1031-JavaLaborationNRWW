@@ -149,6 +149,7 @@
                     session.setAttribute("finalPrice", price);
                 }
             }
+                //TODO: Gör om <a>-checkout-grejen till en form och gör en servlet
         %>
         <a href="checkout.jsp">Checkout</a>
     </div>
