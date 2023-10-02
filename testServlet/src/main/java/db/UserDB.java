@@ -1,11 +1,16 @@
 package db;
 
 import bo.User;
+import com.mongodb.MongoException;
+import com.mongodb.client.ClientSession;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import ui.ItemInfo;
+
+import java.util.Collection;
 
 public class UserDB extends bo.User{
 
@@ -31,6 +36,19 @@ public class UserDB extends bo.User{
             e.printStackTrace();
         }
         return user;
+    }
+
+    public static boolean performTransaction(String username, Collection<ItemInfo> cart) {
+        MongoCollection<Document> collection = DBManager.getCollection("JavaLaboration");
+
+        try {
+
+            //collection.insertOne();
+
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public static Document getUserDocument(String username) {
