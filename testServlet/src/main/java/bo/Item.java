@@ -43,7 +43,11 @@ public class Item {
         this.desc = desc;
     }
 
-    public String getAmount(){return this.amount;}
-    public String getPrice(){return this.amount;}
+    public String getAmount() {
+        return this.amount;
+    }
+    public String getPrice() {
+        return this.price;
+    }
     //public void setAmount(){return;}
 }
