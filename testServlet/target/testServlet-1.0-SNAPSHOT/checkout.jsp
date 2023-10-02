@@ -12,36 +12,41 @@
     <title>Shopping Cart</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Arial", sans-serif;
             background-color: #f2f2f2;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
         h1 {
             color: #333;
             margin-top: 20px;
+            font-size: 36px;
         }
 
         ul {
             list-style-type: none;
             padding: 0;
-            margin: 20px;
+            margin: 20px auto;
+            max-width: 800px;
         }
 
         li {
             background-color: #fff;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 18px;
         }
 
         p {
             font-weight: bold;
-            font-size: 18px;
+            font-size: 24px;
             margin: 20px;
         }
 
@@ -52,10 +57,10 @@
         button {
             background-color: #007bff;
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 20px;
             cursor: pointer;
         }
 
