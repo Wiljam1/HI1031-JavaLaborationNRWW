@@ -27,6 +27,7 @@ public class ItemServlet extends HttpServlet {
         //ADD TO SHOPPING CART
         HttpSession session = request.getSession();
         String itemName = request.getParameter("itemName");
+        String itemPrice = request.getParameter("itemPrice");
 
         //Lägg till check om varan finns på lager (jämför med quantity)
 
@@ -45,7 +46,8 @@ public class ItemServlet extends HttpServlet {
         }
 
         if(!itemExists)
-            cartItems.add(new ItemInfo(itemName));
+            cartItems.add(new ItemInfo(itemName, Integer.parseInt(itemPrice)));
+        // TODO: Fixa snyggare, parse någon annanstans
 
         session.setAttribute("items", cartItems);
 

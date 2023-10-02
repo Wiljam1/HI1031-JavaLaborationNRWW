@@ -101,11 +101,14 @@
             %>
             <form action="addItem" method="post">
                 <!-- Hidden input field to store the item's ID -->
+                <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
+                <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
 
                 <div class="item-info">
                     <!-- Display item name and description -->
-                    <span><%= item.getName() %> : <%= item.getDesc() %></span>
+                    <span><%= item.getName() %> : <%= item.getDesc() %>
+                            - Price: <%= item.getPrice() %></span>
                 </div>
 
                 <div class="add-button">
@@ -129,14 +132,18 @@
                     if (cartItems != null) {
                         int price = 0;
                         for (ItemInfo item : cartItems) {
-                            price += item.getName().hashCode() % 12 * item.getQuantity();
+                            // TODO: Fixa så den tar riktiga priset istället för hashcode() % 12
+                            price += item.getPrice() * item.getQuantity();
 
             %>
-            <li><%= item.getName() %> : <%= item.getQuantity() %></li>
+            <li><%= item.getName() %> : <%= item.getQuantity() %> : <%= item.getPrice() %></li>
         </ul>
                     <% } %>
         <p>Total Price: <%= price %></p>
         <%
+                        //Sparar priset när man går till checkout
+                    //TODO: Fixa så den tas emot och används i checkout
+                    session.setAttribute("finalPrice", price);
                 }
             }
         %>
