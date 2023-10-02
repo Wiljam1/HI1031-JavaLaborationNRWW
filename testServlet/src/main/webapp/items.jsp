@@ -107,8 +107,8 @@
 
                 <div class="item-info">
                     <!-- Display item name and description -->
-                    <span><%= item.getName() %> : <%= item.getDesc() %>
-                            - Price: <%= item.getPrice() %></span>
+                    <span><b>Product:</b> <%= item.getName() %> - <b>Description:</b> <%= item.getDesc() %>
+                            - <b>Price:</b> <%= item.getPrice() %></span>
                 </div>
 
                 <div class="add-button">
@@ -122,30 +122,34 @@
         </ul>
     </div>
     <div id="shopping-cart-container">
-        <h2>Shopping Cart</h2>
+        <%
+            session = request.getSession();
+            String username = (String) session.getAttribute("username");
+            String name = (String) session.getAttribute("displayUsername");
+        %>
+        <h2>Shopping Cart for <%=name%></h2>
         <ul>
             <%
-                session = request.getSession();
-                String username = (String) session.getAttribute("username");
                 if (username != null) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                     if (cartItems != null) {
                         int price = 0;
                         for (ItemInfo item : cartItems) {
-                            // TODO: Fixa så den tar riktiga priset istället för hashcode() % 12
                             price += item.getPrice() * item.getQuantity();
-
             %>
-            <li><%= item.getName() %> : <%= item.getQuantity() %> : <%= item.getPrice() %></li>
+            <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %></li>
+            <%
+                        }
+            %>
         </ul>
-                    <% } %>
         <p>Total Price: <%= price %></p>
         <%
-                        //Sparar priset när man går till checkout
+                    //Sparar priset när man går till checkout
                     //TODO: Fixa så den tas emot och används i checkout
                     session.setAttribute("finalPrice", price);
                 }
             }
+        %>
         %>
         <a href="checkout.jsp">Checkout</a>
     </div>
