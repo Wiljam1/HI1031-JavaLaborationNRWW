@@ -97,10 +97,9 @@
                 // TODO: Gör add-knapparna gråa + disabled om man inte är inloggad
                 Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(" ");
                 for (ItemInfo item : items) {
-                    String itemLink = "addToCart.jsp?itemName=" + item.getName();
             %>
             <form action="addItem" method="post">
-                <!-- Hidden input field to store the item's ID -->
+                <!-- Hidden input field to store the item's attributes -->
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
                 <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
