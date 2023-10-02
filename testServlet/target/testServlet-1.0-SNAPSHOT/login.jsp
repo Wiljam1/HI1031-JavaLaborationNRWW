@@ -68,6 +68,7 @@
     </style>
 </head>
 <body>
+<% // TODO: Lägg till registrering av användare %>
 <a href="index.jsp">Home</a>
 <br><br>
 <h2>Login</h2>

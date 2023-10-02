@@ -45,8 +45,13 @@
 <h1>Welcome to the web-shop</h1>
 <div id="current-user">
     Current user:
-    <%= session.getAttribute("displayUsername") %>
+    <%= session.getAttribute("displayUsername")%>
 </div>
+<div id="authorization">
+    Authorization:
+    <%= session.getAttribute("authorization")%>
+</div>
+
 
 <div id="currentDate">
     <%= new Date() %>
