@@ -89,8 +89,12 @@
 </ul>
 <p>Total Price: $50.00</p>
 <div class="purchase-button">
-    <!-- Submit button to add the item to the cart -->
-    <button type="submit">Purchase</button>
+    <form action="transaction" method="post">
+        <button type="submit">Purchase</button>
+    </form>
+
+    <!-- TODO: Something more should happen here like clearing the cart and moving to new page? -->
+
 </div>
 </body>
 </html>
