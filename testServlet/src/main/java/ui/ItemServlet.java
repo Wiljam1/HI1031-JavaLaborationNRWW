@@ -26,8 +26,10 @@ public class ItemServlet extends HttpServlet {
 
         //ADD TO SHOPPING CART
         HttpSession session = request.getSession();
+        //TODO: Ändra så man kan hämta hela item?
         String itemName = request.getParameter("itemName");
         String itemPrice = request.getParameter("itemPrice");
+        int itemAmount = Integer.parseInt(request.getParameter("itemAmount"));
 
         //Lägg till check om varan finns på lager (jämför med quantity)
 
@@ -39,15 +41,17 @@ public class ItemServlet extends HttpServlet {
         boolean itemExists = false;
         for(ItemInfo item : cartItems) {
             if(item.getName().equals(itemName)) {
-                item.incrementQuantity();
+                if(itemAmount > item.getQuantity())
+                    item.incrementQuantity();
                 itemExists = true;
                 break;
             }
         }
 
-        if(!itemExists)
+        if(!itemExists) {
+            // TODO: Fixa snyggare, parse någon annanstans
             cartItems.add(new ItemInfo(itemName, Integer.parseInt(itemPrice)));
-        // TODO: Fixa snyggare, parse någon annanstans
+        }
 
         session.setAttribute("items", cartItems);
 

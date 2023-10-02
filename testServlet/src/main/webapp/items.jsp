@@ -103,11 +103,12 @@
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
                 <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
+                <input type="hidden" name="itemAmount" value="<%= item.getAmount() %>">
 
                 <div class="item-info">
                     <!-- Display item name and description -->
                     <span><b>Product:</b> <%= item.getName() %> - <b>Description:</b> <%= item.getDesc() %>
-                            - <b>Price:</b> <%= item.getPrice() %></span>
+                            - <b>Price:</b> <%= item.getPrice() %> - <b>In stock: <%=item.getAmount()%></b></span>
                 </div>
 
                 <div class="add-button">

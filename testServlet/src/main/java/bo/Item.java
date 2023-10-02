@@ -43,7 +43,7 @@ public class Item {
         this.desc = desc;
     }
 
-    public String getAmount() { 
+    public String getAmount() {
         return this.amount;
     }
     public String getPrice() {
