@@ -15,7 +15,7 @@ public class UserHandler {
 
     public static UserInfo getUserInfo(String username) {
         User theUser = User.searchUser(username);
-        return new UserInfo(theUser.getName(), theUser.getCart());
+        return new UserInfo(theUser.getName(), theUser.getCart(), theUser.getAuthorizationLevel());
     }
 
     public static boolean authenticateUser(String username, String password) {

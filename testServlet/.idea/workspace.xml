@@ -11,9 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/items.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/items.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/db/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/UserDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/UserInfo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

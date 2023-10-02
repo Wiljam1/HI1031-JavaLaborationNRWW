@@ -21,7 +21,8 @@ public class UserDB extends bo.User{
                 String id = doc.getString("id");
                 String username = doc.getString("username");
                 String name = doc.getString("name");
-                user = new UserDB(id, username, name);
+                String authorization = doc.getString("authorization");
+                user = new UserDB(id, username, name, authorization);
             }
 
         }
@@ -36,8 +37,8 @@ public class UserDB extends bo.User{
         return DBManager.getCollection("users").find(new Document("username", username)).first();
     }
 
-    private UserDB(String id, String username, String name) {
-        super(id, username, name);
+    private UserDB(String id, String username, String name, String authorization) {
+        super(id, username, name, authorization);
     }
 
 }

@@ -17,9 +17,6 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    private static final String VALID_USERNAME = "your_username";
-    private static final String VALID_PASSWORD = "your_password";
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,6 +32,8 @@ public class LoginServlet extends HttpServlet {
             session.invalidate();
             session = request.getSession();
             session.setAttribute("username", username);
+            String authorizationLevel = UserHandler.getUserInfo(username).getAuthorizationLevel();
+            session.setAttribute("authorization", authorizationLevel);
             String displayUsername = "Not logged in";
             if (username != null) {
                 displayUsername = UserHandler.getUserInfo(username).getName();

@@ -20,9 +20,6 @@ import java.util.Collection;
 
 @WebServlet("/addItem")
 public class ItemServlet extends HttpServlet {
-    private static final String VALID_USERNAME = "your_username";
-    private static final String VALID_PASSWORD = "your_password";
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

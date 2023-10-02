@@ -1,6 +1,5 @@
 package bo;
 
-import db.ItemDB;
 import db.UserDB;
 import ui.ItemInfo;
 
@@ -11,11 +10,13 @@ public class User {
     private String username;
     private String name;
     private Collection<ItemInfo> cart;
+    private String authorization;
 
-    protected User(String id, String username, String name) {
+    protected User(String id, String username, String name, String authorization) {
         this.id = Integer.parseInt(id);
         this.username = username;
         this.name = name;
+        this.authorization = authorization;
         this.cart = null;
     }
 
@@ -38,4 +39,6 @@ public class User {
     public static User searchUser(String username) {
         return UserDB.searchUser(username);
     }
+
+    public String getAuthorizationLevel() {return authorization;}
 }
