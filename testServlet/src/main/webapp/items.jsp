@@ -94,6 +94,7 @@
         <h2>Available Items</h2>
         <ul>
             <%
+                // TODO: Gör add-knapparna gråa + disabled om man inte är inloggad
                 Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(" ");
                 for (ItemInfo item : items) {
                     String itemLink = "addToCart.jsp?itemName=" + item.getName();
@@ -126,16 +127,23 @@
                 if (username != null) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                     if (cartItems != null) {
+                        int price = 0;
                         for (ItemInfo item : cartItems) {
+                            // TODO: Fixa så den tar riktiga priset istället för hashcode() % 12
+                            price += item.getName().hashCode() % 12 * item.getQuantity();
+
             %>
             <li><%= item.getName() %> : <%= item.getQuantity() %></li>
-            <%
-                        }
-                    }
-                }
-            %>
         </ul>
-        <p>Total Price: $50.00</p>
+                    <% } %>
+        <p>Total Price: <%= price %></p>
+        <%
+                        //Sparar priset när man går till checkout
+                    //TODO: Fixa så den tas emot och används i checkout
+                    session.setAttribute("finalPrice", price);
+                }
+            }
+        %>
         <a href="checkout.jsp">Checkout</a>
     </div>
 </div>
