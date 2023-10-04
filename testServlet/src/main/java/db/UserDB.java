@@ -1,14 +1,21 @@
 package db;
 
+import bo.Order;
 import bo.User;
 import com.mongodb.MongoException;
-import com.mongodb.client.*;
+import com.mongodb.client.ClientSession;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import ui.ItemInfo;
+import ui.OrderInfo;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class UserDB extends bo.User{
 
@@ -43,7 +50,8 @@ public class UserDB extends bo.User{
                     .append("username", username)
                     .append("name", name)
                     .append("password", password)
-                    .append("authorization", authorization.toString());
+                    .append("authorization", authorization.toString())
+                    .append("orders", "");
 
             collection.insertOne(userDoc);
             return true;
@@ -55,9 +63,9 @@ public class UserDB extends bo.User{
         }
     }
 
+    // TODO: Kolla om man kan få bort ItemInfo importeringen här
     public static boolean performTransaction(String username, Collection<ItemInfo> cart) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
-        MongoDatabase database = DBManager.getInstance().getDatabase();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
         try {
@@ -87,12 +95,50 @@ public class UserDB extends bo.User{
         return true;
     }
 
+    // TODO: Missledande namn? hämtar endast anvädarnamnet för en användare
     public static Document getUserDocument(String username) {
         return DBManager.getCollection("users").find(new Document("username", username)).first();
+    }
+
+    public static Collection getOrders(String username) {
+        try {
+            Document userDoc = getUserDocument(username);
+            List<Document> orders = userDoc.getList("orders", Document.class);
+            Collection allOrders = new ArrayList<>();
+
+            for(Document orderDoc : orders) {
+                String orderId = orderDoc.getString("id");
+                String orderDate = orderDoc.getString("date");
+                Collection<ItemInfo> orderItems = new ArrayList<>();
+                List<Document> items = orderDoc.getList("items", Document.class);
+                for(Document itemDoc : items) {
+                    String itemId = itemDoc.getString("id");
+                    String itemAmount = itemDoc.getString("amount");
+
+                    ItemDB item = (ItemDB) ItemDB.searchItem(itemId);   // Skum lösning här
+                    item.setAmount(itemAmount);
+                    //Vad som ska visas i gettern
+                    ItemInfo itemInfo = new ItemInfo(item.getName(), item.getDesc(), item.getAmount(), item.getPrice());
+                    orderItems.add(itemInfo);
+                }
+                String orderCost = orderDoc.getString("totalCost");
+                String orderStaff = orderDoc.getString("assignedStaff");
+                // TODO: Vet inte om man kan ha OrderInfo här i DB.
+                allOrders.add(new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff));
+            }
+            return allOrders;
+        }
+        catch (Exception e) {
+            //Robust logging implementation?
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private UserDB(String username, String name, String authorization) {
         super(username, name, authorization);
     }
+
+
 
 }

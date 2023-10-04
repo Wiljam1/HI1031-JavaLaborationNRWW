@@ -51,12 +51,24 @@
 <body>
 <h1>Welcome to the web-shop</h1>
 <div id="current-user">
-    Current user:
-    <%= session.getAttribute("displayUsername")%>
+    <%
+        // Logik här kanske bör flyttas till Servlet eller något BO
+        String nameString = (String) session.getAttribute("displayUsername");
+        if(nameString == null)
+            nameString = "Not logged in";
+        else
+            nameString = "Current user: " + nameString;
+    %>
+    <%=nameString%>
 </div>
 <div id="authorization">
-    Authorization:
-    <%= session.getAttribute("authorization")%>
+    <% String authString = (String) session.getAttribute("authorization");
+        if(authString == null)
+            authString = "";
+        else
+            authString = "Authorization: " + authString;
+    %>
+    <%=authString%>
 </div>
 
 
@@ -66,6 +78,8 @@
 
 <div id="links">
     <a href="items.jsp">Click here for items!</a>
+    <br><br>
+    <a href="orders.jsp">Click here to see your orders!</a>
     <br><br>
     <a href="login">Click here for login!</a>
 </div>

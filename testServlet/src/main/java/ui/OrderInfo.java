@@ -1,17 +1,15 @@
-package bo;
-
-import ui.ItemInfo;
+package ui;
 
 import java.util.Collection;
 
-public class Order {
+public class OrderInfo {
     private String id;
     private String date;
     private Collection<ItemInfo> items;
     private String totalCost;
     private String assignedStaff;
 
-    protected Order(String id, String date, Collection<ItemInfo> items, String totalCost, String assignedStaff) {
+    public OrderInfo(String id, String date, Collection<ItemInfo> items, String totalCost, String assignedStaff) {
         this.id = id;
         this.date = date;
         this.items = items;

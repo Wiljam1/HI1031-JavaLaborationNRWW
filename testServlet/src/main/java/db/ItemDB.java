@@ -1,5 +1,6 @@
 package db;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
@@ -27,6 +28,29 @@ public class ItemDB extends bo.Item {
             e.printStackTrace();
         }
         return items;
+    }
+
+    public static Object searchItem(String itemId) {
+        Object item = new ArrayList<>();
+        try {
+            MongoCollection<Document> collection = DBManager.getCollection("items");
+
+            Document filter = new Document("id", itemId);
+            FindIterable<Document> result = collection.find(filter);
+
+            for(Document doc : result) {
+                String id = doc.getString("id");
+                String name = doc.getString("name");
+                String desc = doc.getString("description");
+                String amount = doc.getString("amount");
+                String price = doc.getString("price");
+                item = new ItemDB(id, name, desc, amount, price);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
     private ItemDB(String id, String name, String desc, String amount, String price) {

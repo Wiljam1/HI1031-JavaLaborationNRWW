@@ -4,8 +4,10 @@ import db.Authorization;
 import db.UserDB;
 import org.bson.Document;
 import ui.ItemInfo;
+import ui.OrderInfo;
 import ui.UserInfo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class UserHandler {
@@ -41,5 +43,19 @@ public class UserHandler {
     public static boolean transaction(String username, Collection<ItemInfo> cart){
 
         return UserDB.performTransaction(username, cart);
+    }
+
+    public static Collection<OrderInfo> getOrders(String username) {
+        Collection c = User.getOrders(username);
+        if(c == null || c.isEmpty())
+            return null;
+        else {
+            ArrayList<OrderInfo> orders = new ArrayList<>();
+            for (Object o : c) {
+                Order ord = (Order) o;
+                orders.add(new OrderInfo(ord.getId(), ord.getDate(), ord.getItems(), ord.getTotalCost(), ord.getAssignedStaff()));
+            }
+            return orders;
+        }
     }
 }
