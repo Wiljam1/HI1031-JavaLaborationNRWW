@@ -23,7 +23,7 @@ public class DBManager {
 
     private DBManager() {
         try {
-            ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/");
+            ConnectionString connectionString = new ConnectionString("mongodb+srv://User:123@cluster0.8g0bsdj.mongodb.net/");
             MongoClient mongoClient = MongoClients.create(connectionString);
             this.database  = mongoClient.getDatabase("JavaLaboration");
         }
