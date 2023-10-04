@@ -12,10 +12,11 @@ import java.sql.DriverManager;
 
 public class DBManager {
     private static DBManager instance = null;
+    private static MongoClient client;
     MongoDatabase database = null;
 
-    //Singleton
-    private static DBManager getInstance() {
+    //kan inte är singelton längre
+    static DBManager getInstance() {
         if(instance == null)
             instance = new DBManager();
         return instance;
@@ -24,8 +25,9 @@ public class DBManager {
     private DBManager() {
         try {
             ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/");
-            MongoClient mongoClient = MongoClients.create(connectionString);
-            this.database  = mongoClient.getDatabase("JavaLaboration");
+            client = MongoClients.create(connectionString);
+
+            this.database  = client.getDatabase("JavaLaboration");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -34,5 +36,13 @@ public class DBManager {
 
     public static MongoCollection<Document> getCollection(String collection) {
         return getInstance().database.getCollection(collection);
+    }
+
+    public MongoDatabase getDatabase() {
+        return database;
+    }
+
+    public MongoClient getMongoClient() {
+        return client;
     }
 }

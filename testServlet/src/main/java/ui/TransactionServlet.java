@@ -19,7 +19,7 @@ public class TransactionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String username = request.getParameter("username");
+        String username = (String) session.getAttribute("username");
 
 
 

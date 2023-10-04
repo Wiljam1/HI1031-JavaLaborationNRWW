@@ -146,6 +146,7 @@
         <h2>Shopping Cart for <%=name%></h2>
         <ul>
             <%
+                //TODO: Hantera fallet då man inte är inloggad men ändå vill kolla på varor (dölj shopping cart)
                 if (username != null) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                     int price = 0;
