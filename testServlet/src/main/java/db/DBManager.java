@@ -15,7 +15,7 @@ public class DBManager {
     private static MongoClient client;
     MongoDatabase database = null;
 
-    //kan inte är singelton längre
+    //kanske inte är singelton längre
     static DBManager getInstance() {
         if(instance == null)
             instance = new DBManager();
