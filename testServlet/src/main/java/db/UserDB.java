@@ -2,9 +2,7 @@ package db;
 
 import bo.User;
 import com.mongodb.MongoException;
-import com.mongodb.client.ClientSession;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
+import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -58,14 +56,33 @@ public class UserDB extends bo.User{
     }
 
     public static boolean performTransaction(String username, Collection<ItemInfo> cart) {
-        MongoCollection<Document> collection = DBManager.getCollection("JavaLaboration");
-
+        MongoClient mongoClient = DBManager.getInstance().getMongoClient();
+        MongoDatabase database = DBManager.getInstance().getDatabase();
+        ClientSession session = mongoClient.startSession();
+        MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
         try {
+            session.startTransaction();
 
-            //collection.insertOne();
-
+            /*
+            for(Document doc : collection.find()) {
+                String u = doc.getString("username");
+                if (username.equals(u)){
+                    Document order = new Document("order", cart);
+                    doc.("authorization", "admin");
+                    System.out.println("Updated user");
+                }
+            }
+            */
+            Bson filter = Filters.eq("username", username);
+            Document updateDoc = new Document("$set", new Document("authorization", "admin"));
+            collection.updateOne(session,filter,updateDoc);
+            session.commitTransaction();
         } catch (MongoException e) {
             e.printStackTrace();
+            session.abortTransaction();
+            return false;
+        } finally {
+            session.close();
         }
         return true;
     }
