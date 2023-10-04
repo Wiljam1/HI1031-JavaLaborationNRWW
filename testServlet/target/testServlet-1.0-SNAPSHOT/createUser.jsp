@@ -1,14 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Wilja
-  Date: 10/1/2023
-  Time: 10:06 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="db.Authorization" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Create account</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,24 +62,30 @@
     </style>
 </head>
 <body>
-<% // TODO: Lägg till registrering av användare %>
 <a href="index.jsp">Home</a>
 <br><br>
-<h2>Login</h2>
-<form action="login" method="post">
+<h2>Create account</h2>
+<form action="createUser" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br><br>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
 
-    <input type="submit" value="Login">
+    <label for="authorization">Choose Authorization:</label>
+    <select name="authorization" id="authorization">
+        <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>">Admin</option>
+        <option value="<%= Authorization.STAFF.toString().toUpperCase() %>">Staff</option>
+        <option value="<%= Authorization.USER.toString().toUpperCase() %>">User</option>
+    </select>
+    <br><br>
+
+    <input type="submit" value="Create">
 </form>
 <br><br>
-<a href="createUser.jsp">Don't have an account? Create one here!</a>
+<a href="login.jsp">Back to login</a>
 </body>
 </html>
-
-
-
-

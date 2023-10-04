@@ -21,11 +21,10 @@ public class UserDB extends bo.User{
             FindIterable<Document> results = collection.find(filter);
 
             for(Document doc : results) {
-                String id = doc.getString("id");
                 String username = doc.getString("username");
                 String name = doc.getString("name");
                 String authorization = doc.getString("authorization");
-                user = new UserDB(id, username, name, authorization);
+                user = new UserDB(username, name, authorization);
             }
 
         }
@@ -34,6 +33,26 @@ public class UserDB extends bo.User{
             e.printStackTrace();
         }
         return user;
+    }
+
+    public static boolean createUser(String username, String name, String password, Authorization authorization) {
+        try {
+            MongoCollection<Document> collection = DBManager.getCollection("users");
+
+            Document userDoc = new Document()
+                    .append("username", username)
+                    .append("name", name)
+                    .append("password", password)
+                    .append("authorization", authorization.toString());
+
+            collection.insertOne(userDoc);
+            return true;
+        }
+        catch (Exception e) {
+            //Robust logging implementation?
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static boolean performTransaction(String username, Collection<ItemInfo> cart) {
@@ -72,8 +91,8 @@ public class UserDB extends bo.User{
         return DBManager.getCollection("users").find(new Document("username", username)).first();
     }
 
-    private UserDB(String id, String username, String name, String authorization) {
-        super(id, username, name, authorization);
+    private UserDB(String username, String name, String authorization) {
+        super(username, name, authorization);
     }
 
 }

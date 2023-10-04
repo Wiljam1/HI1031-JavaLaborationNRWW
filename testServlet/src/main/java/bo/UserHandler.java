@@ -1,5 +1,6 @@
 package bo;
 
+import db.Authorization;
 import db.UserDB;
 import org.bson.Document;
 import ui.ItemInfo;
@@ -16,6 +17,10 @@ public class UserHandler {
     public static UserInfo getUserInfo(String username) {
         User theUser = User.searchUser(username);
         return new UserInfo(theUser.getName(), theUser.getCart(), theUser.getAuthorizationLevel());
+    }
+
+    public static boolean createUser(String username, String name, String password, Authorization authorization) {
+        return User.createUser(username, name, password, authorization);
     }
 
     public static boolean authenticateUser(String username, String password) {
