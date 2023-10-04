@@ -1,6 +1,7 @@
 package db;
 
 import bo.Order;
+import bo.Item;
 import bo.User;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
@@ -8,6 +9,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import ui.ItemInfo;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class UserDB extends bo.User{
 
     //Kanske dåligt att den här returnar en User? Kanske bör returna något mer generellt
@@ -24,7 +28,7 @@ public class UserDB extends bo.User{
         User user = null;
         try {
             MongoCollection<Document> collection = DBManager.getCollection("users");
-            Bson filter = Filters.eq("username", searchedUsername);
+            Bson filter = eq("username", searchedUsername);
             FindIterable<Document> results = collection.find(filter);
 
             for(Document doc : results) {
@@ -68,23 +72,39 @@ public class UserDB extends bo.User{
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
+
         try {
             session.startTransaction();
 
-            /*
-            for(Document doc : collection.find()) {
-                String u = doc.getString("username");
-                if (username.equals(u)){
-                    Document order = new Document("order", cart);
-                    doc.("authorization", "admin");
-                    System.out.println("Updated user");
-                }
+            Document cartDocument = new Document();
+            Bson filter = eq("username", username);
+            ArrayList<Document> documents = new ArrayList<>();
+
+            for (ItemInfo item: cart) {
+                Document itemDocument = new Document();
+                String desc = item.getDesc();
+                String name = item.getName();
+                String amount = String.valueOf(item.getAmount());
+                String price = String.valueOf(item.getPrice());
+                String quantity = String.valueOf(item.getQuantity());
+                itemDocument.append("id", "0")
+                        .append("name", name)
+                        .append("description", desc)
+                        .append("amount", amount)
+                        .append("price", price)
+                        .append("quantity", quantity);
+                //cartDocument.append("item", itemDocument);
+                documents.add(itemDocument);
             }
-            */
-            Bson filter = Filters.eq("username", username);
-            Document updateDoc = new Document("$set", new Document("authorization", "admin"));
-            collection.updateOne(session,filter,updateDoc);
+            cartDocument.append("items", documents);
+            // ADD WHAT MORE THAT NEEDS TO BE IN THE ORDER
+            //cartDocument.append()
+            //collection.insertOne(session, cartDocument);
+            collection.updateOne(session, filter, Updates.set("orders", cartDocument));
+
             session.commitTransaction();
+            System.out.println("Added cart to user's orders");
+            
         } catch (MongoException e) {
             e.printStackTrace();
             session.abortTransaction();
@@ -138,7 +158,4 @@ public class UserDB extends bo.User{
     private UserDB(String username, String name, String authorization) {
         super(username, name, authorization);
     }
-
-
-
 }
