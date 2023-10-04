@@ -15,17 +15,25 @@ import javax.swing.text.Document;
 import java.io.IOException;
 
 
-@WebServlet("/login")
+@WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
+    // TODO: Få bort .jsp från alla sidor, tutorial under denna
+    //TUTORIAL: Skriv mapping i web.xml-filen ->
+    // Ändra @WebServlet-taggen för servet -> Implementera doGet()
+    // -> Ändra länkar till utan .jsp på slutet.
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Forward the request to the login.jsp page
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+        dispatcher.forward(request, response);
+    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-
-        //MongoCollection<org.bson.Document> aa = DBManager.getCollection("users");
-
+        // TODO: Skriv den under till en privat metod för att göra doPost() metoden snyggare?
         if (UserHandler.authenticateUser(username, password)) {
             // Successful login
             HttpSession session = request.getSession();
@@ -44,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("index.jsp"); // Redirect to a welcome page
         } else {
             // Failed login
-            response.sendRedirect("login.jsp"); // Redirect back to the login page
+            response.sendRedirect("login"); // Redirect back to the login page
         }
     }
 }

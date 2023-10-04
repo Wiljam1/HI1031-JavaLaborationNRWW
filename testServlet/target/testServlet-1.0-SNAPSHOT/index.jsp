@@ -67,7 +67,7 @@
 <div id="links">
     <a href="items.jsp">Click here for items!</a>
     <br><br>
-    <a href="login.jsp">Click here for login!</a>
+    <a href="login">Click here for login!</a>
 </div>
 
 <script type="text/javascript">
