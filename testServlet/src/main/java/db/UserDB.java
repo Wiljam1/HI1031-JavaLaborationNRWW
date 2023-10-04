@@ -103,7 +103,6 @@ public class UserDB extends bo.User{
             collection.updateOne(session, filter, Updates.set("orders", cartDocument));
 
             session.commitTransaction();
-            System.out.println("Added cart to user's orders");
             
         } catch (MongoException e) {
             e.printStackTrace();
@@ -123,27 +122,42 @@ public class UserDB extends bo.User{
     public static Collection getOrders(String username) {
         try {
             Document userDoc = getUserDocument(username);
-            List<Document> orders = userDoc.getList("orders", Document.class);
+            List<Document> ordersList = userDoc.getList("orders", Document.class);
+
+            if (ordersList == null || ordersList.isEmpty())
+                return null; // no orders found
+
             Collection allOrders = new ArrayList<>();
 
-            for(Document orderDoc : orders) {
-                String orderId = orderDoc.getString("id");
-                String orderDate = orderDoc.getString("date");
+            for(Document order : ordersList) {
+                String orderId = order.getString("id");
+                String orderDate = order.getString("date");
                 Collection<ItemInfo> orderItems = new ArrayList<>();
-                List<Document> items = orderDoc.getList("items", Document.class);
-                for(Document itemDoc : items) {
+                List<Document> items = order.getList("items", Document.class);
+                if(items != null)
+                    for(Document itemDoc : items) {
                     String itemId = itemDoc.getString("id");
                     String itemAmount = itemDoc.getString("amount");
 
-                    ItemDB item = (ItemDB) ItemDB.searchItem(itemId);   // Skum lösning här
-                    item.setAmount(itemAmount);
-                    //Vad som ska visas i gettern
-                    ItemInfo itemInfo = new ItemInfo(item.getName(), item.getDesc(), item.getAmount(), item.getPrice());
-                    orderItems.add(itemInfo);
-                }
-                String orderCost = orderDoc.getString("totalCost");
-                String orderStaff = orderDoc.getString("assignedStaff");
+                    ItemDB itemObject = ItemDB.searchItem(itemId);
+
+                    if(itemObject != null) {
+                        itemObject.setAmount(itemAmount);
+                        //Vad som ska visas i gettern
+                        ItemInfo itemInfo = new ItemInfo(itemObject.getName(), itemObject.getDesc(), itemObject.getAmount(), itemObject.getPrice());
+                        System.out.println("Adding item: " + itemInfo.toString());
+                        orderItems.add(itemInfo);
+                    }
+                    else {
+                        System.out.println("Invalid item: " + itemObject);
+                        return null; //invalid item found? Kanske ta bort else satsen senare
+                    }
+
+                    }
+                String orderCost = order.getString("totalCost");
+                String orderStaff = order.getString("assignedStaff");
                 // TODO: Vet inte om man kan ha OrderInfo här i DB.
+                System.out.println("Adding order: " + orderId + "date: " + orderDate + "items: " + orderItems);
                 allOrders.add(new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff));
             }
             return allOrders;

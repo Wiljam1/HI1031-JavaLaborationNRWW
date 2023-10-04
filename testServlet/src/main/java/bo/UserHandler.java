@@ -52,7 +52,7 @@ public class UserHandler {
         else {
             ArrayList<OrderInfo> orders = new ArrayList<>();
             for (Object o : c) {
-                Order ord = (Order) o;
+                OrderInfo ord = (OrderInfo) o;
                 orders.add(new OrderInfo(ord.getId(), ord.getDate(), ord.getItems(), ord.getTotalCost(), ord.getAssignedStaff()));
             }
             return orders;

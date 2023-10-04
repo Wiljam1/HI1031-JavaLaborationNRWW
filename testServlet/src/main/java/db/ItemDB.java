@@ -30,8 +30,8 @@ public class ItemDB extends bo.Item {
         return items;
     }
 
-    public static Object searchItem(String itemId) {
-        Object item = new ArrayList<>();
+    public static ItemDB searchItem(String itemId) {
+        ItemDB item = null;
         try {
             MongoCollection<Document> collection = DBManager.getCollection("items");
 
@@ -52,6 +52,7 @@ public class ItemDB extends bo.Item {
         }
         return item;
     }
+
 
     private ItemDB(String id, String name, String desc, String amount, String price) {
         super(id, name, desc, amount, price);

@@ -55,4 +55,15 @@ public class ItemInfo {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    @Override
+    public String toString() {
+        return "ItemInfo{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", quantity=" + quantity +
+                ", amount=" + amount +
+                ", price=" + price +
+                '}';
+    }
 }
