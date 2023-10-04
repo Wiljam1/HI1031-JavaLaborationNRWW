@@ -15,6 +15,7 @@ public class UserHandler {
     private String username;
     private String name;
     private Collection<ItemInfo> cart;
+    private Collection<OrderInfo> orders;
 
     public static UserInfo getUserInfo(String username) {
         User theUser = User.searchUser(username);
@@ -45,6 +46,12 @@ public class UserHandler {
         return UserDB.performTransaction(username, cart);
     }
 
+    public Collection<OrderInfo> getOrders() {
+        return orders;
+    }
+
+    // TODO: Skriv om så man gör getUserInfo(username).getOrders() istället
+    // Då behöver man lägga till Collection<Order> på alla User-klasser och fixa alla konstruktorer.
     public static Collection<OrderInfo> getOrders(String username) {
         Collection c = User.getOrders(username);
         if(c == null || c.isEmpty())
