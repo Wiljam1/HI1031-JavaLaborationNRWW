@@ -86,6 +86,6 @@
     <input type="submit" value="Create">
 </form>
 <br><br>
-<a href="createUser.jsp">Don't have an account? Create one here!</a>
+<a href="login.jsp">Back to login</a>
 </body>
 </html>
