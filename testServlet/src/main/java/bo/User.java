@@ -1,27 +1,26 @@
 package bo;
 
+import db.Authorization;
 import db.UserDB;
 import ui.ItemInfo;
 
 import java.util.Collection;
 
 public class User {
-    private int id;
     private String username;
     private String name;
     private Collection<ItemInfo> cart;
     private String authorization;
 
-    protected User(String id, String username, String name, String authorization) {
-        this.id = Integer.parseInt(id);
+    protected User(String username, String name, String authorization) {
         this.username = username;
         this.name = name;
         this.authorization = authorization;
         this.cart = null;
     }
 
-    public int getId() {
-        return id;
+    public static boolean createUser(String username, String name, String password, Authorization authorization) {
+        return UserDB.createUser(username, name, password, authorization);
     }
 
     public String getUsername() {
