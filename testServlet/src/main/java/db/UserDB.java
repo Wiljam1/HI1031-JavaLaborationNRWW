@@ -72,7 +72,7 @@ public class UserDB extends bo.User{
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
-
+        MongoCollection<Document> collectionItems = DBManager.getCollection("items");
         try {
             session.startTransaction();
 
@@ -81,13 +81,14 @@ public class UserDB extends bo.User{
             ArrayList<Document> documents = new ArrayList<>();
 
             for (ItemInfo item: cart) {
+
                 Document itemDocument = new Document();
                 String desc = item.getDesc();
                 String name = item.getName();
                 String amount = String.valueOf(item.getAmount());
                 String price = String.valueOf(item.getPrice());
                 String quantity = String.valueOf(item.getQuantity());
-                itemDocument.append("id", "0")
+                itemDocument.append("id", "0")              //still hard coded value
                         .append("name", name)
                         .append("description", desc)
                         .append("amount", amount)
@@ -95,6 +96,22 @@ public class UserDB extends bo.User{
                         .append("quantity", quantity);
                 //cartDocument.append("item", itemDocument);
                 documents.add(itemDocument);
+
+                Bson filterItems = eq("name", name);
+                Document items = collectionItems.find(filterItems).first();
+
+                if (items != null){
+                    int quantityItems = Integer.parseInt(items.getString("amount"));
+                    System.out.println(quantityItems);
+                    quantityItems -= Integer.parseInt(quantity);
+                    if (quantityItems < 0){
+                        session.abortTransaction();
+                    }
+                    items.put("amount", quantityItems);
+                    collectionItems.updateOne(session,filterItems, Updates.set("amount", String.valueOf(quantityItems)));
+
+                }
+
             }
             cartDocument.append("items", documents);
             // ADD WHAT MORE THAT NEEDS TO BE IN THE ORDER
@@ -102,9 +119,13 @@ public class UserDB extends bo.User{
             //collection.insertOne(session, cartDocument);
             collection.updateOne(session, filter, Updates.set("orders", cartDocument));
 
+
+
             session.commitTransaction();
             System.out.println("Added cart to user's orders");
-            
+
+
+
         } catch (MongoException e) {
             e.printStackTrace();
             session.abortTransaction();
