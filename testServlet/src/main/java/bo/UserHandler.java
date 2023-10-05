@@ -37,4 +37,8 @@ public class UserHandler {
     public static boolean transaction(String username, Collection<ItemInfo> cart, String finalPrice){
         return UserDB.performTransaction(username, cart, finalPrice);
     }
+
+    public static void removeOrder(String username, String transacitonId) {
+        UserDB.removeOrderWithTransaction(username, transacitonId);
+    }
 }

@@ -93,12 +93,11 @@
 <p>Total Price: <%=finalPrice%></p>
 <div class="purchase-button">
     <form action="transaction" method="post">
-        <input type="hidden" name="finalPrice" value="<%= finalPrice%>">
+        <input type="hidden" name="finalPrice" value="<%=finalPrice%>">
+        <input type="hidden" name="transaction" value="<%="createOrder"%>">
         <button type="submit">Purchase</button>
     </form>
-
     <!-- TODO: Something more should happen here like clearing the cart and moving to new page? -->
-
 </div>
 </body>
 </html>

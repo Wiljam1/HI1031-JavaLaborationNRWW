@@ -1,5 +1,6 @@
 package db;
 
+import bo.Order;
 import bo.User;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
@@ -226,7 +227,8 @@ public class UserDB extends bo.User{
             String amount = String.valueOf(item.getAmount());
             String price = String.valueOf(item.getPrice());
             String quantity = String.valueOf(item.getQuantity());
-            itemDocument.append("id", "2")              //still hard coded value
+            String id = item.getId();
+            itemDocument.append("id", id)              //still hard coded value
                     .append("name", name)
                     .append("description", desc)
                     .append("amount", amount)
@@ -247,5 +249,39 @@ public class UserDB extends bo.User{
 
     private UserDB(String username, String name, String authorization, Collection orders) {
         super(username, name, authorization, orders);
+    }
+
+    public static void removeOrderWithTransaction(String username, String transacitonId) {
+        MongoClient mongoClient = DBManager.getInstance().getMongoClient();
+        ClientSession session = mongoClient.startSession();
+        MongoCollection<Document> collection = DBManager.getCollection("users");
+        Bson filterUsername = eq("username", username);
+        try {
+            session.startTransaction();
+            ArrayList<Document> orderList = new ArrayList<>();
+            Collection fakeColl = fetchOrders(username);
+            Collection<OrderInfo> coll = new ArrayList<>();
+
+            for(Object o : fakeColl) {
+                OrderInfo orderInfo = (OrderInfo) o;
+                coll.add(orderInfo);
+            }
+
+            for (OrderInfo orderInfo: coll) {
+                if (orderInfo.getId().equals(transacitonId)){
+                }
+                else {
+                     orderList.add(addExistingOrders(orderInfo));
+                }
+            }
+            collection.updateOne(session, filterUsername, Updates.set("orders", orderList));
+
+            session.commitTransaction();
+        } catch (MongoException e) {
+            e.printStackTrace();
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
     }
 }
