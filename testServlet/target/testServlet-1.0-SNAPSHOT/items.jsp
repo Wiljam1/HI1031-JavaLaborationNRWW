@@ -119,9 +119,12 @@
             <form action="addItem" method="post">
                 <!-- Hidden input field to store the item's attributes -->
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
+                <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
-                <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
+                <input type="hidden" name="itemDesc" value="<%= item.getDesc() %>">
+<%--                <input type="hidden" name="itemQuantity" value="<%= item.getQuantity() %>">--%>
                 <input type="hidden" name="itemAmount" value="<%= item.getAmount() %>">
+                <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
 
                 <div class="item-info">
                     <!-- Display item name and description -->
@@ -178,3 +181,11 @@
 </div>
 </body>
 </html>
+<script type="text/javascript">
+    <% Boolean transactionSuccess = (Boolean) request.getAttribute("transactionSuccess"); %>
+    <% String transactionMessage = (String) request.getAttribute("transactionMessage"); %>
+
+    <% if (transactionSuccess != null && !transactionSuccess) { %>
+    alert("<%= transactionMessage %>");
+    <% } %>
+</script>

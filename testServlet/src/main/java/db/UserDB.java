@@ -12,10 +12,12 @@ import org.bson.conversions.Bson;
 import ui.ItemInfo;
 import ui.OrderInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.or;
 
 public class UserDB extends bo.User{
 
@@ -48,9 +50,15 @@ public class UserDB extends bo.User{
     public static Collection fetchOrders(String username) {
         User user = searchUser(username);
         if (user != null) {
-            return user.getOrders();
+            Collection orders = user.getOrders();
+            if(orders != null) {
+                return orders;
+            }
+            else{
+                return new ArrayList();
+            }
         } else {
-            return Collections.emptyList();
+            return new ArrayList();
         }
     }
 
@@ -69,19 +77,14 @@ public class UserDB extends bo.User{
                 if(items != null)
                     for(Document itemDoc : items) {
                         String itemId = itemDoc.getString("id");
+                        String itemName = itemDoc.getString("name");
+                        String itemDesc = itemDoc.getString("description");
+                        String itemQuantity = itemDoc.getString("quantity");
                         String itemAmount = itemDoc.getString("amount");
+                        String itemPrice = itemDoc.getString("price");
 
-                        ItemDB itemObject = ItemDB.searchItem(itemId);
-
-                        if(itemObject != null) { //tror inte if-satsen behövs
-                            itemObject.setAmount(itemAmount);
-                            ItemInfo itemInfo = new ItemInfo(itemObject.getName(), itemObject.getDesc(), itemObject.getAmount(), itemObject.getPrice());
+                        ItemInfo itemInfo = new ItemInfo(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice);
                             orderItems.add(itemInfo);
-                        }
-                        else {
-                            System.out.println("Invalid item: " + itemObject);
-                            return null; //invalid item found? Kanske ta bort else satsen senare
-                        }
 
                     }
                 String orderCost = order.getString("totalCost");
@@ -132,12 +135,12 @@ public class UserDB extends bo.User{
         try {
             session.startTransaction();
 
-            // Byt plats på detta
             ArrayList<Document> orderList = new ArrayList<>();
             Bson filterUsername = eq("username", username);
             Date date = new Date();
             Document order = new Document();
 
+            // TODO: Byt plats på detta
             //handles old orders
             Collection fakeColl = fetchOrders(username);
             Collection<OrderInfo> coll = new ArrayList<>();
@@ -148,16 +151,14 @@ public class UserDB extends bo.User{
             }
 
             int largestId = 0;
-            if (coll != null){
-                for (OrderInfo orderInfo: coll){
-                    orderList.add(addExistingOrders(orderInfo));
-                    int id = Integer.parseInt(orderInfo.getId());
-                    if (id > largestId){
-                        largestId = id;
-                    }
+            for (OrderInfo orderInfo : coll) {
+                orderList.add(addExistingOrders(orderInfo));
+                int id = Integer.parseInt(orderInfo.getId());
+                if (id > largestId) {
+                    largestId = id;
                 }
-                largestId++;
             }
+            largestId++;
             order.append("id", String.valueOf(largestId))
                     .append("date", date.toString())
                     .append("totalCost", finalPrice)
@@ -171,7 +172,7 @@ public class UserDB extends bo.User{
                 String amount = String.valueOf(item.getAmount());
                 String price = String.valueOf(item.getPrice());
                 String quantity = String.valueOf(item.getQuantity());
-                itemDocument.append("id", "2")              //still hard coded value
+                itemDocument.append("id", item.getId())              //still hard coded value
                         .append("name", name)
                         .append("description", desc)
                         .append("amount", amount)

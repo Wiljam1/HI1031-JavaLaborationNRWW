@@ -11,8 +11,21 @@
   <component name="ChangeListManager">
     <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/ItemHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/ItemHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/db/ItemDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/ItemDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/db/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/UserDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ItemInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ItemInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/items.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/orders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/orders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bo/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/UserHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/UserDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/UserHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/orders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/orders.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

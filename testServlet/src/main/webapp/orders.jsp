@@ -120,7 +120,9 @@
             if(userInfo != null) {
                 username = userInfo.getUsername();
                 name = userInfo.getName();
-                orders = UserHandler.getUserInfo(username).getOrders(); //Update orders (could cause error when fetching null?)
+                orders = UserHandler.getUserInfo(username).getOrders(); //Update orders
+                if(orders == null)
+                    orders = Collections.emptyList();
             }
             // TODO: Fixa så sidan blir finare när man inte är inloggad (null-case)
         %>
@@ -141,7 +143,7 @@
                     <b>Product:</b> <%=item.getName()%> -
                     <b>Description:</b> <%=item.getDesc()%> -
                     <b>Price per unit:</b> <%=item.getPrice()%> -
-                    <b>Quantity:</b> <%=item.getAmount()%>
+                    <b>Quantity:</b> <%=item.getQuantity()%>
                 </li>
                 <% } %>
             </ul>
@@ -180,3 +182,11 @@
 </div>
 </body>
 </html>
+<script type="text/javascript">
+    <% Boolean transactionSuccess = (Boolean) request.getAttribute("transactionSuccess"); %>
+    <% String transactionMessage = (String) request.getAttribute("transactionMessage"); %>
+
+    <% if (transactionSuccess != null && transactionSuccess) { %>
+    alert("<%= transactionMessage %>");
+    <% } %>
+</script>

@@ -19,9 +19,10 @@ public class ItemDB extends bo.Item {
                 String id = doc.getString("id");
                 String name = doc.getString("name");
                 String desc = doc.getString("description");
+                String quantity = doc.getString("quantity");
                 String amount = doc.getString("amount");
                 String price = doc.getString("price");
-                items.add(new ItemDB(id, name, desc, amount, price));
+                items.add(new ItemDB(id, name, desc, quantity, amount, price));
             }
         }
         catch (Exception e) {
@@ -42,9 +43,10 @@ public class ItemDB extends bo.Item {
                 String id = doc.getString("id");
                 String name = doc.getString("name");
                 String desc = doc.getString("description");
+                String quantity = doc.getString("quantity");
                 String amount = doc.getString("amount");
                 String price = doc.getString("price");
-                item = new ItemDB(id, name, desc, amount, price);
+                item = new ItemDB(id, name, desc, quantity, amount, price);
             }
         }
         catch (Exception e) {
@@ -53,7 +55,7 @@ public class ItemDB extends bo.Item {
         return item;
     }
 
-    private ItemDB(String id, String name, String desc, String amount, String price) {
-        super(id, name, desc, amount, price);
+    private ItemDB(String id, String name, String desc, String quantity, String amount, String price) {
+        super(id, name, desc, quantity, amount, price);
     }
 }

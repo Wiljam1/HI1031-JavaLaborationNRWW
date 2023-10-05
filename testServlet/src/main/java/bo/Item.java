@@ -8,6 +8,8 @@ public class Item {
     private String id;
     private String name;
     private String desc;
+
+    private String quantity;
     private String amount;
     private String price;
 
@@ -15,10 +17,11 @@ public class Item {
         return ItemDB.searchItems(group);
     }
 
-    protected Item(String id, String name, String desc, String amount, String price) {
+    protected Item(String id, String name, String desc, String quantity, String amount, String price) {
         this.id = id;
         this.name = name;
         this.desc = desc;
+        this.quantity = quantity;
         this.amount = amount;
         this.price = price;
     }
@@ -52,5 +55,9 @@ public class Item {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getQuantity() {
+        return quantity;
     }
 }

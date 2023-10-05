@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @WebServlet("/transaction")
@@ -32,11 +33,18 @@ public class TransactionServlet extends HttpServlet {
         */
 
         boolean success = UserHandler.transaction(username, cart, finalPrice);
-        //TODO: borde hända något här
+        //Empty cart
+        session.setAttribute("items", new ArrayList<ItemInfo>());
+
         if (success) {
-            response.getWriter().write("Transaction successful!");
+            request.setAttribute("transactionSuccess", true);
+            request.setAttribute("transactionMessage", "Transaction successful!");
+            request.getRequestDispatcher("orders.jsp").forward(request, response);
         } else {
-            response.getWriter().write("Transaction failed!");
+            request.setAttribute("transactionSuccess", false);
+            request.setAttribute("transactionMessage", "Transaction failed!");
+            request.getRequestDispatcher("items.jsp").forward(request, response);
         }
+
     }
 }

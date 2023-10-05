@@ -1,31 +1,23 @@
 package ui;
 
 public class ItemInfo {
+    private String id;
     private String name;
     private String desc;
     private int quantity;
     private int amount;
     private int price;
-
-    public ItemInfo(String name, String desc) {
+    public ItemInfo(String id, String name, String desc, String quantity, String amount, String price) {
+        this.id = id;
         this.name = name;
         this.desc = desc;
-        this.quantity = 1; //Update in the future (get from database?)
-    }
-
-    public ItemInfo(String name, int price) {
-        this.name = name;
-        this.desc = "";
-        this.quantity = 1; //Update in the future (get from database?)
-        this.amount = 0;
-        this.price = price;
-    }
-    public ItemInfo(String name, String desc, String amount, String price) {
-        this.name = name;
-        this.desc = desc;
-        this.quantity = 1; //Update in the future (get from database?)
+        this.quantity = Integer.parseInt(quantity);
         this.amount = Integer.parseInt(amount);
         this.price = Integer.parseInt(price);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
