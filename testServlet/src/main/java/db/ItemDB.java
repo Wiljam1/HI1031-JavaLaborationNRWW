@@ -1,9 +1,13 @@
 package db;
 
+import com.mongodb.client.ClientSession;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -57,5 +61,75 @@ public class ItemDB extends bo.Item {
 
     private ItemDB(String id, String name, String desc, String quantity, String amount, String price) {
         super(id, name, desc, quantity, amount, price);
+    }
+
+    public static boolean createItem(String name, String description, String amount, String price) {
+        MongoClient mongoClient = DBManager.getInstance().getMongoClient();
+        ClientSession session = mongoClient.startSession();
+        try {
+            session.startTransaction();
+            MongoCollection<Document> collection = DBManager.getCollection("items");
+            int largestId = 0;
+            for (Document doc: collection.find()){
+                int id = Integer.parseInt(doc.getString("id"));
+                if (id > largestId){
+                    largestId = id;
+                }
+            }
+            largestId++;
+            Document itemDoc = new Document()
+                    .append("id", String.valueOf(largestId))
+                    .append("name", name)
+                    .append("description", description)
+                    .append("amount", amount)
+                    .append("price", price);
+
+            collection.insertOne(itemDoc);
+            session.commitTransaction();
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            session.abortTransaction();
+            return false;
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+
+    public static boolean editItem(String id, String name, String description, String amount, String price) {
+        MongoClient mongoClient = DBManager.getInstance().getMongoClient();
+        ClientSession session = mongoClient.startSession();
+        try {
+            session.startTransaction();
+            MongoCollection<Document> collection = DBManager.getCollection("items");
+            ItemDB item = searchItem(id);
+            Bson oldItem = new Document()
+                    .append("id", item.getId())
+                    .append("name", item.getName())
+                    .append("description", item.getDesc())
+                    .append("amount", item.getAmount())
+                    .append("price", item.getPrice());
+
+            Bson newItem = new Document()
+                    .append("id", id)
+                    .append("name", name)
+                    .append("description", description)
+                    .append("amount", amount)
+                    .append("price", price);
+
+            collection.updateOne(oldItem,newItem);
+            session.commitTransaction();
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            session.abortTransaction();
+            return false;
+        } finally {
+            session.close();
+        }
+        return true;
     }
 }
