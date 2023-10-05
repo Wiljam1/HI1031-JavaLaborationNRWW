@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>My orders</title>
+    <title>All orders</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -104,7 +104,7 @@
 </head>
 <body>
 <header>
-    <h1>My orders</h1>
+    <h1>All orders</h1>
 </header>
 <nav>
     <a class="checkout-button" href="index.jsp">Home</a>
@@ -115,6 +115,7 @@
             session = request.getSession();
             UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
             String username = "null";
+            //TODO: Check if admin
             String name = "null";
             Collection<OrderInfo> orders = Collections.emptyList();
             if(userInfo != null) {
@@ -124,60 +125,33 @@
                 if(orders == null)
                     orders = Collections.emptyList();
             }
-            // TODO: Fixa så sidan blir finare när man inte är inloggad (null-case)
         %>
         <h2><%=name%>'s orders</h2>
         <ul>
             <%
                 for (OrderInfo order : orders) {
-        %>
-        <li>
-            <h3>Order ID: <%=order.getId()%></h3>
-            <p>Date: <%=order.getDate()%></p>
-            <p>Total Cost: <%=order.getTotalCost()%></p>
-            <p>Assigned Staff: <%=order.getAssignedStaff()%></p>
+            %>
+            <li>
+                <h3>Order ID: <%=order.getId()%></h3>
+                <p>Date: <%=order.getDate()%></p>
+                <p>Total Cost: <%=order.getTotalCost()%></p>
+                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>
 
-            <ul>
-                <% for (ItemInfo item : order.getItems()) { %>
-                <li>
-                    <b>Product:</b> <%=item.getName()%> -
-                    <b>Description:</b> <%=item.getDesc()%> -
-                    <b>Price per unit:</b> <%=item.getPrice()%> -
-                    <b>Quantity:</b> <%=item.getQuantity()%>
-                </li>
-                <% } %>
-            </ul>
-        </li>
-        <%
-            }
-            %>
-        </ul>
-    </div>
-    <div id="shopping-cart-container">
-        <h2>Shopping Cart for <%=name%></h2>
-        <ul>
+                <ul>
+                    <% for (ItemInfo item : order.getItems()) { %>
+                    <li>
+                        <b>Product:</b> <%=item.getName()%> -
+                        <b>Description:</b> <%=item.getDesc()%> -
+                        <b>Price per unit:</b> <%=item.getPrice()%> -
+                        <b>Quantity:</b> <%=item.getQuantity()%>
+                    </li>
+                    <% } %>
+                </ul>
+            </li>
             <%
-                //TODO: Hantera fallet då man inte är inloggad men ändå vill kolla på varor (dölj shopping cart)
-                if (username != null) {
-                    Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
-                    int price = 0;
-                    if (cartItems != null) {
-                        //TODO: Price kanske kan beräknas i ett business object (logik)
-                        for (ItemInfo item : cartItems) {
-                            price += item.getPrice() * item.getQuantity();
-            %>
-            <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %></li>
-            <%
-                    }
                 }
             %>
         </ul>
-        <p><b>Total Price:</b> <%= price %></p>
-        <%
-                session.setAttribute("finalPrice", price);
-            }
-        %>
-        <a href="checkout.jsp" class="checkout-button">Checkout</a>
     </div>
 </div>
 </body>

@@ -83,7 +83,9 @@
 <div id="links">
     <a href="items.jsp">Click here for items!</a>
     <br><br>
-    <a href="orders.jsp">Click here to see your orders!</a>
+    <a href="userOrders.jsp">Click here to see your orders!</a>
+    <br><br>
+    <a href="allOrders.jsp">Click here to see all orders!</a>
     <br><br>
     <a href="login">Click here for login!</a>
 </div>

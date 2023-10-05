@@ -39,7 +39,7 @@ public class TransactionServlet extends HttpServlet {
         if (success) {
             request.setAttribute("transactionSuccess", true);
             request.setAttribute("transactionMessage", "Transaction successful!");
-            request.getRequestDispatcher("orders.jsp").forward(request, response);
+            request.getRequestDispatcher("userOrders.jsp").forward(request, response);
         } else {
             request.setAttribute("transactionSuccess", false);
             request.setAttribute("transactionMessage", "Transaction failed!");
