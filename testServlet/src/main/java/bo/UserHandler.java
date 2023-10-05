@@ -41,9 +41,9 @@ public class UserHandler {
         return false; // User not found or password doesn't match
     }
 
-    public static boolean transaction(String username, Collection<ItemInfo> cart){
+    public static boolean transaction(String username, Collection<ItemInfo> cart, String finalPrice){
 
-        return UserDB.performTransaction(username, cart);
+        return UserDB.performTransaction(username, cart, finalPrice);
     }
 
     public Collection<OrderInfo> getOrders() {

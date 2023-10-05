@@ -49,8 +49,4 @@ public class Item {
     public String getPrice() {
         return this.price;
     }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
 }

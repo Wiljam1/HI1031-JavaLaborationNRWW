@@ -20,7 +20,7 @@ public class TransactionServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
-
+        String finalPrice = request.getParameter("finalPrice");
 
 
         Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
@@ -32,7 +32,7 @@ public class TransactionServlet extends HttpServlet {
         transaction.setAmount(Double.parseDouble(request.getParameter("amount")));
         */
 
-        boolean success = UserHandler.transaction(username, cart);;
+        boolean success = UserHandler.transaction(username, cart, finalPrice);
         //TODO: borde hända något här
         if (success) {
             response.getWriter().write("Transaction successful!");

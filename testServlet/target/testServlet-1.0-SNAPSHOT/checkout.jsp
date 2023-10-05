@@ -91,6 +91,7 @@
 <p>Total Price: <%=finalPrice%></p>
 <div class="purchase-button">
     <form action="transaction" method="post">
+        <input type="hidden" name="finalPrice" value="<%= finalPrice%>">
         <button type="submit">Purchase</button>
     </form>
 
