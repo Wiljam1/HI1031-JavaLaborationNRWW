@@ -94,9 +94,7 @@
 <div class="purchase-button">
     <form action="transaction" method="post">
         <input type="hidden" name="finalPrice" value="<%=finalPrice%>">
-        <input type="hidden" name="transaction" value="<%="deleteOrder"%>">
-        <input type="hidden" name="transactionId" value="<%="5"%>">
-        <input type="hidden" name="username" value="<%="nr"%>">
+        <input type="hidden" name="transaction" value="<%="createOrder"%>">
         <button type="submit">Purchase</button>
     </form>
     <!-- TODO: Something more should happen here like clearing the cart and moving to new page? -->

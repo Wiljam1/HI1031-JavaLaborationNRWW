@@ -47,6 +47,8 @@ public class UserHandler {
             users.add(new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorization(), u.getOrders()));
         }
         return users;
+
+    }
     public static void removeOrder(String username, String transaction) {
         UserDB.removeOrderWithTransaction(username, transaction);
     }
