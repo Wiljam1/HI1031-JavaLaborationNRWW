@@ -13,11 +13,24 @@
 <head>
     <title>All orders</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        /* Reset some default styles */
+        body, h1, h2, h3, p, ul, li {
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
         }
 
         header {
@@ -27,82 +40,53 @@
             text-align: center;
         }
 
-        nav {
-            background-color: #444;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
+        header h1 {
+            font-size: 24px;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        nav {
+            background-color: #444;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            background-color: #555;
         }
 
         #items-container {
-            flex-basis: 68%;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
             margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 5px 0;
-            border: 1px solid #ccc; /* Add a border around each li */
-            padding: 10px; /* Add padding for spacing */
-        }
-
-        #items h2 {
-            text-align: center;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 5px 0;
+        h3 {
+            font-size: 18px;
         }
 
         form {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: inline-block;
         }
-
-        .item-info {
-            flex-basis: 70%;
-        }
-
-        .add-button {
-            flex-basis: auto;
-            text-align: right;
-            margin-left: auto;
-        }
-
-        button[type="submit"] {
-            background-color: #ff0008;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #b3003f;
-        }
-
         a.checkout-button {
             display: inline-block;
             padding: 10px 20px;
@@ -113,10 +97,54 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-        }
 
+        }
         a.checkout-button:hover {
             background-color: #0056b3;
+        }
+        .add-button {
+            text-align: right;
+            margin-top: 10px;
+            margin-left: 1000%;
+        }
+
+        .add-button button {
+            background-color: #fa2626;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .add-button button:hover {
+            background-color: #a61b1b;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        ul ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        ul ul li {
+            margin-bottom: 2px;
+        }
+
+        b {
+            font-weight: bold;
+        }
+
+        #items-container {
+            margin-top: 20px;
+            border: 3px solid #4cb4ff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -141,7 +169,6 @@
         <%
             //display users orders
             String name = user.getName();
-
         %>
         <h2><%=name%>'s orders</h2>
         <ul>

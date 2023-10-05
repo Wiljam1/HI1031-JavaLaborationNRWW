@@ -68,25 +68,28 @@
     </style>
 </head>
 <body>
-<a href="index.jsp">Home</a>
+<nav>
+    <a href="index.jsp">Home</a>
+</nav>
+<a href="items.jsp">Back to items</a>
 <br><br>
 <h2>Add item </h2>
 <form action="addItem" method="post">
     <input type="hidden" name="action" value="addNewItem">
 
-    <label for="name">name:</label>
+    <label for="name">Name:</label>
     <input type="text" id="name" name="itemName" required><br><br>
 
-    <label for="description">description:</label>
+    <label for="description">Description:</label>
     <input type="text" id="description" name="itemDesc" required><br><br>
 
-    <label for="amount">amount:</label>
+    <label for="amount">Amount:</label>
     <input type="text" id="amount" name="itemAmount" required><br><br>
 
-    <label for="price">price:</label>
+    <label for="price">Price:</label>
     <input type="text" id="price" name="itemPrice" required><br><br>
 
-    <input type="submit" value="addNewItem">
+    <input type="submit" value="Submit">
 </form>
 </body>
 </html>

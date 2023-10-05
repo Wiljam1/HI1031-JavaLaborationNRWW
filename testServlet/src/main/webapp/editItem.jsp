@@ -68,7 +68,10 @@
     </style>
 </head>
 <body>
-<a href="index.jsp">Home</a>
+<nav>
+    <a href="index.jsp">Home</a>
+</nav>
+<a href="items.jsp">Back to items</a>
 <br><br>
 <h2>Edit item </h2>
 <%
