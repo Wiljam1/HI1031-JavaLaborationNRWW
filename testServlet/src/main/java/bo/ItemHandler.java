@@ -19,5 +19,8 @@ public class ItemHandler {
         return items;
     }
 
+    public static boolean createItem(String name, String description, String amount, String price) {
+        return Item.createItem(name, description, amount, price);
+    }
 
 }

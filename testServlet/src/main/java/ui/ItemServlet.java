@@ -25,37 +25,52 @@ public class ItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //ADD TO SHOPPING CART
-        //TODO: Klassens logik borde flyttas till ett Business Object. Detta är en controller class!
         HttpSession session = request.getSession();
+        String action = request.getParameter("action");
 
+        //Item parameters
         String itemId = request.getParameter("itemId");
         String itemName = request.getParameter("itemName");
         String itemDesc = request.getParameter("itemDesc");
-        int itemAmount = Integer.parseInt(request.getParameter("itemAmount"));
+        String itemAmount = request.getParameter("itemAmount");
         String itemPrice = request.getParameter("itemPrice");
 
-        Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
-        if(cartItems == null) {
-            cartItems = new ArrayList<>();
-        }
-        boolean itemExists = false;
-        for(ItemInfo item : cartItems) {
-            if(item.getName().equals(itemName)) {
-                if(itemAmount > item.getQuantity())
-                    item.incrementQuantity();
-                itemExists = true;
+        switch (action) {
+            case "add":
+                ItemHandler.createItem(itemName, itemDesc, itemAmount, itemPrice);
                 break;
-            }
-        }
+            case "edit":
+                
+                break;
+            default:
+                //TODO: Flytta till metod
+                //ADD TO SHOPPING CART
+                //TODO: Klassens logik borde flyttas till ett Business Object. Detta är en controller class!
 
-        if(!itemExists && itemAmount > 0) {
-            // TODO: Fixa snyggare, parse någon annanstans
-            String amount = String.valueOf(itemAmount);
-            cartItems.add(new ItemInfo(itemId, itemName, itemDesc, "1", amount, itemPrice));
-        }
+                int amount = Integer.parseInt(itemAmount);
 
-        session.setAttribute("items", cartItems);
-        response.sendRedirect("items.jsp");
+                Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+                if(cartItems == null) {
+                    cartItems = new ArrayList<>();
+                }
+                boolean itemExists = false;
+                for(ItemInfo item : cartItems) {
+                    if(item.getName().equals(itemName)) {
+                        if(amount > item.getQuantity())
+                            item.incrementQuantity();
+                        itemExists = true;
+                        break;
+                    }
+                }
+
+                if(!itemExists && amount > 0) {
+                    // TODO: Fixa snyggare, parse någon annanstans
+                    itemAmount = String.valueOf(itemAmount);
+                    cartItems.add(new ItemInfo(itemId, itemName, itemDesc, "1", itemAmount, itemPrice));
+                }
+
+                session.setAttribute("items", cartItems);
+                response.sendRedirect("items.jsp");
+        }
     }
 }

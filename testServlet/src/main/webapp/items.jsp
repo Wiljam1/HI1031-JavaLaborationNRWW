@@ -93,10 +93,24 @@
             cursor: pointer;
             transition: background-color 0.3s ease; /* Smooth transition on hover */
 
-            /* Optional: Add hover effect */
         }
         a.checkout-button:hover {
             background-color: #0056b3; /* Darker blue on hover */
+        }
+        a.new-item-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3c8a29; /* Blue color */
+            color: #fff; /* Text color */
+            text-decoration: none; /* Remove underlines */
+            border: none; /* Remove borders */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+
+        }
+        a.new-item-button:hover {
+            background-color: #59e13f; /* Darker blue on hover */
         }
     </style>
 </head>
@@ -106,6 +120,17 @@
 </header>
 <nav>
     <a class="checkout-button" href="index.jsp">Home</a>
+    <%
+        session = request.getSession();
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        // Kanske borde flytta denna logik till en servlet
+        String authLevel = userInfo.getAuthorizationLevel();
+        if(authLevel.equals("admin")) {
+    %>
+    <a class="new-item-button" href="addItem.jsp">Add new item</a>
+    <%
+        }
+    %>
 </nav>
 <div class="container">
     <div id="items-container">
@@ -118,6 +143,7 @@
             %>
             <form action="addItem" method="post">
                 <!-- Hidden input field to store the item's attributes -->
+                <input type="hidden" name="action" value="add">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
@@ -125,6 +151,7 @@
 <%--                <input type="hidden" name="itemQuantity" value="<%= item.getQuantity() %>">--%>
                 <input type="hidden" name="itemAmount" value="<%= item.getAmount() %>">
                 <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
+
 
                 <div class="item-info">
                     <!-- Display item name and description -->
@@ -134,7 +161,8 @@
 
                 <div class="add-button">
                     <!-- Submit button to add the item to the cart -->
-                    <button type="submit">Add</button>
+                    <button type="submit" value="add">Add</button>
+                    <button type="submit" value="edit">Edit</button>
                 </div>
             </form>
             <%
@@ -144,8 +172,6 @@
     </div>
     <div id="shopping-cart-container">
         <%
-            session = request.getSession();
-            UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
             String username = "null"; //TODO: Handle null case (Not logged in / hide shopping cart when not logged in)
             String name = "null";
             if(userInfo != null) {

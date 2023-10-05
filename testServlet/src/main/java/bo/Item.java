@@ -60,4 +60,9 @@ public class Item {
     public String getQuantity() {
         return quantity;
     }
+
+    public static boolean createItem(String name, String description, String amount, String price) {
+        return ItemDB.createItem(name, description, amount, price);
+    }
+
 }
