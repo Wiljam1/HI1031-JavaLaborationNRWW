@@ -12,10 +12,7 @@ import org.bson.conversions.Bson;
 import ui.ItemInfo;
 import ui.OrderInfo;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.or;
@@ -105,7 +102,11 @@ public class UserDB extends bo.User{
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
         try {
             MongoCollection<Document> collection = DBManager.getCollection("users");
-
+            for (Document doc : collection.find()){
+                if (doc.get("username", username).equals(username)){
+                    return false;
+                }
+            }
             Document userDoc = new Document()
                     .append("username", username)
                     .append("name", name)
@@ -123,22 +124,36 @@ public class UserDB extends bo.User{
         }
     }
     // TODO: Kolla om man kan få bort ItemInfo importeringen här
-
-    public static boolean performTransaction(String username, Collection<ItemInfo> cart) {
+    public static boolean performTransaction(String username, Collection<ItemInfo> cart, String finalPrice) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
         MongoCollection<Document> collectionItems = DBManager.getCollection("items");
+
         try {
             session.startTransaction();
 
             ArrayList<Document> orderList = new ArrayList<>();
             Bson filterUsername = eq("username", username);
-            Document documents = new Document();
-            //hard coded value still
-            documents.append("id", "1")
-                    .append("date", "<date>")
-                    .append("totalCost", "1000")
+            Date date = new Date();
+            Document order = new Document();
+
+            //handles old orders
+            Collection<OrderInfo> coll = getOrders(username);
+            int largestId = 0;
+            if (coll != null){
+                for (OrderInfo orderInfo: coll){
+                    orderList.add(addExistingOrders(orderInfo));
+                    int id = Integer.parseInt(orderInfo.getId());
+                    if (id > largestId){
+                        largestId = id;
+                    }
+                }
+                largestId++;
+            }
+            order.append("id", String.valueOf(largestId))
+                    .append("date", date.toString())
+                    .append("totalCost", finalPrice)
                     .append("assignedStaff", "ingen");
             ArrayList<Document> itemsList = new ArrayList<>();
             for (ItemInfo item: cart) {
@@ -173,11 +188,10 @@ public class UserDB extends bo.User{
                 }
                 //
             }
-            documents.append("items", itemsList);
-            orderList.add(documents);
+            order.append("items", itemsList);
+            orderList.add(order);
             collection.updateOne(session, filterUsername, Updates.set("orders", orderList));
             session.commitTransaction();
-
         } catch (MongoException e) {
             e.printStackTrace();
             session.abortTransaction();
@@ -187,6 +201,36 @@ public class UserDB extends bo.User{
         }
         return true;
     }
+
+    public static Document addExistingOrders(OrderInfo cart){
+        Document order = new Document();
+        ArrayList<Document> itemsList = new ArrayList<>();
+
+        order.append("id", cart.getId())
+                .append("date", cart.getDate())
+                .append("totalCost", cart.getTotalCost())
+                .append("assignedStaff", cart.getAssignedStaff());
+
+        for (ItemInfo item: cart.getItems()){
+            Document itemDocument = new Document();
+            String desc = item.getDesc();
+            String name = item.getName();
+            String amount = String.valueOf(item.getAmount());
+            String price = String.valueOf(item.getPrice());
+            String quantity = String.valueOf(item.getQuantity());
+            itemDocument.append("id", "2")              //still hard coded value
+                    .append("name", name)
+                    .append("description", desc)
+                    .append("amount", amount)
+                    .append("price", price)
+                    .append("quantity", quantity);
+            itemsList.add(itemDocument);
+        }
+
+        order.append("items", itemsList);
+        return order;
+    }
+
     // TODO: Missledande namn? hämtar endast anvädarnamnet för en användare
 
     public static Document getUserDocument(String username) {
