@@ -1,5 +1,6 @@
 <%@ page import="ui.ItemInfo" %>
-<%@ page import="java.util.Collection" %><%--
+<%@ page import="java.util.Collection" %>
+<%@ page import="ui.UserInfo" %><%--
   Created by IntelliJ IDEA.
   User: Niklas
   Date: 2023-10-02
@@ -74,7 +75,8 @@
 <ul>
     <%
         session = request.getSession();
-        String username = (String) session.getAttribute("username");
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        String username = userInfo.getUsername();
         if (username != null) {
             Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
             if (cartItems != null) {

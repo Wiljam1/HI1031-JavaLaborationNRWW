@@ -3,7 +3,6 @@ package bo;
 import db.Authorization;
 import db.UserDB;
 import ui.ItemInfo;
-import ui.OrderInfo;
 
 import java.util.Collection;
 
@@ -12,7 +11,7 @@ public class User {
     private String name;
     private Collection<ItemInfo> cart;
     private String authorization;
-    private Collection<OrderInfo> orders;
+    private Collection orders;
 
     protected User(String username, String name, String authorization) {
         this.username = username;
@@ -22,7 +21,7 @@ public class User {
         this.orders = null; //Kanske borde hämta existerande ordrar från databasen?
     }
 
-    protected User(String username, String name, String authorization, Collection<OrderInfo> orders) {
+    protected User(String username, String name, String authorization, Collection orders) {
         this.username = username;
         this.name = name;
         this.authorization = authorization;
@@ -34,8 +33,12 @@ public class User {
         return UserDB.createUser(username, name, password, authorization);
     }
 
-    public static Collection getOrders(String username) {
-        return UserDB.getOrders(username);
+    public Collection getOrders() {
+        return orders;
+    }
+
+    public static Collection fetchOrders(String username) {
+        return UserDB.fetchOrders(username);
     }
 
     public String getUsername() {
@@ -54,5 +57,11 @@ public class User {
         return UserDB.searchUser(username);
     }
 
-    public String getAuthorizationLevel() {return authorization;}
+    public String getAuthorizationLevel() { return authorization ;}
+
+    public String getAuthorization() {
+        return authorization;
+    }
+
+
 }

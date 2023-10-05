@@ -1,14 +1,11 @@
 package db;
 
-import bo.Order;
-import bo.Item;
 import bo.User;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -17,9 +14,11 @@ import ui.OrderInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.or;
 
 public class UserDB extends bo.User{
 
@@ -29,13 +28,16 @@ public class UserDB extends bo.User{
         try {
             MongoCollection<Document> collection = DBManager.getCollection("users");
             Bson filter = eq("username", searchedUsername);
-            FindIterable<Document> results = collection.find(filter);
+            FindIterable<Document> results = collection.find(filter); //Kanske kan göras om med getUserDocument
 
             for(Document doc : results) {
                 String username = doc.getString("username");
                 String name = doc.getString("name");
                 String authorization = doc.getString("authorization");
-                user = new UserDB(username, name, authorization);
+                List<Document> ordersList = doc.getList("orders", Document.class);
+                Collection allOrders = processOrderDocuments(ordersList);
+
+                user = new UserDB(username, name, authorization, allOrders);
             }
 
         }
@@ -44,6 +46,60 @@ public class UserDB extends bo.User{
             e.printStackTrace();
         }
         return user;
+    }
+
+    public static Collection fetchOrders(String username) {
+        User user = searchUser(username);
+        if (user != null) {
+            return user.getOrders();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private static Collection processOrderDocuments(List<Document> ordersList) {
+        try {
+            if (ordersList == null || ordersList.isEmpty())
+                return null; // no orders found
+
+            Collection allOrders = new ArrayList<>();
+
+            for(Document order : ordersList) {
+                String orderId = order.getString("id");
+                String orderDate = order.getString("date");
+                Collection<ItemInfo> orderItems = new ArrayList<>();
+                List<Document> items = order.getList("items", Document.class);
+                if(items != null)
+                    for(Document itemDoc : items) {
+                        String itemId = itemDoc.getString("id");
+                        String itemAmount = itemDoc.getString("amount");
+
+                        ItemDB itemObject = ItemDB.searchItem(itemId);
+
+                        if(itemObject != null) { //tror inte if-satsen behövs
+                            itemObject.setAmount(itemAmount);
+                            //Vad som ska visas i gettern
+                            ItemInfo itemInfo = new ItemInfo(itemObject.getName(), itemObject.getDesc(), itemObject.getAmount(), itemObject.getPrice());
+                            orderItems.add(itemInfo);
+                        }
+                        else {
+                            System.out.println("Invalid item: " + itemObject);
+                            return null; //invalid item found? Kanske ta bort else satsen senare
+                        }
+
+                    }
+                String orderCost = order.getString("totalCost");
+                String orderStaff = order.getString("assignedStaff");
+                // TODO: Vet inte om man kan ha OrderInfo här i DB.
+                allOrders.add(new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff));
+            }
+            return allOrders;
+        }
+        catch (Exception e) {
+            //Robust logging implementation?
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
@@ -66,8 +122,8 @@ public class UserDB extends bo.User{
             return false;
         }
     }
-
     // TODO: Kolla om man kan få bort ItemInfo importeringen här
+
     public static boolean performTransaction(String username, Collection<ItemInfo> cart) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
@@ -121,7 +177,7 @@ public class UserDB extends bo.User{
             orderList.add(documents);
             collection.updateOne(session, filterUsername, Updates.set("orders", orderList));
             session.commitTransaction();
-            
+
         } catch (MongoException e) {
             e.printStackTrace();
             session.abortTransaction();
@@ -131,63 +187,13 @@ public class UserDB extends bo.User{
         }
         return true;
     }
-
     // TODO: Missledande namn? hämtar endast anvädarnamnet för en användare
+
     public static Document getUserDocument(String username) {
         return DBManager.getCollection("users").find(new Document("username", username)).first();
     }
 
-    public static Collection getOrders(String username) {
-        try {
-            Document userDoc = getUserDocument(username);
-            List<Document> ordersList = userDoc.getList("orders", Document.class);
-
-            if (ordersList == null || ordersList.isEmpty())
-                return null; // no orders found
-
-            Collection allOrders = new ArrayList<>();
-
-            for(Document order : ordersList) {
-                String orderId = order.getString("id");
-                String orderDate = order.getString("date");
-                Collection<ItemInfo> orderItems = new ArrayList<>();
-                List<Document> items = order.getList("items", Document.class);
-                if(items != null)
-                    for(Document itemDoc : items) {
-                    String itemId = itemDoc.getString("id");
-                    String itemAmount = itemDoc.getString("amount");
-
-                    ItemDB itemObject = ItemDB.searchItem(itemId);
-
-                    if(itemObject != null) {
-                        itemObject.setAmount(itemAmount);
-                        //Vad som ska visas i gettern
-                        ItemInfo itemInfo = new ItemInfo(itemObject.getName(), itemObject.getDesc(), itemObject.getAmount(), itemObject.getPrice());
-                        System.out.println("Adding item: " + itemInfo.toString());
-                        orderItems.add(itemInfo);
-                    }
-                    else {
-                        System.out.println("Invalid item: " + itemObject);
-                        return null; //invalid item found? Kanske ta bort else satsen senare
-                    }
-
-                    }
-                String orderCost = order.getString("totalCost");
-                String orderStaff = order.getString("assignedStaff");
-                // TODO: Vet inte om man kan ha OrderInfo här i DB.
-                System.out.println("Adding order: " + orderId + "date: " + orderDate + "items: " + orderItems);
-                allOrders.add(new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff));
-            }
-            return allOrders;
-        }
-        catch (Exception e) {
-            //Robust logging implementation?
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private UserDB(String username, String name, String authorization) {
-        super(username, name, authorization);
+    private UserDB(String username, String name, String authorization, Collection orders) {
+        super(username, name, authorization, orders);
     }
 }

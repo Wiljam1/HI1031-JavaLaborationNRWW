@@ -3,6 +3,8 @@
 <%@ page import="bo.ItemHandler" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="bo.UserHandler" %>
+<%@ page import="ui.UserInfo" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -140,14 +142,19 @@
     <div id="shopping-cart-container">
         <%
             session = request.getSession();
-            String username = (String) session.getAttribute("username");
-            String name = (String) session.getAttribute("displayUsername");
+            UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+            String username = "null"; //TODO: Handle null case (Not logged in / hide shopping cart when not logged in)
+            String name = "null";
+            if(userInfo != null) {
+                username = userInfo.getUsername();
+                name = userInfo.getName();
+            }
         %>
         <h2>Shopping Cart for <%=name%></h2>
         <ul>
             <%
                 //TODO: Hantera fallet då man inte är inloggad men ändå vill kolla på varor (dölj shopping cart)
-                if (username != null) {
+                if (!Objects.equals(username, "null")) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                     int price = 0;
                     if (cartItems != null) {

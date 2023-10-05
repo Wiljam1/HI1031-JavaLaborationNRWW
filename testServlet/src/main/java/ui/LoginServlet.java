@@ -39,12 +39,9 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.invalidate();
             session = request.getSession();
-            session.setAttribute("username", username);
-            String authorizationLevel = UserHandler.getUserInfo(username).getAuthorizationLevel();
-            session.setAttribute("authorization", authorizationLevel);
-            String displayUsername;
-            displayUsername = UserHandler.getUserInfo(username).getName();
-            session.setAttribute("displayUsername", displayUsername);
+
+            UserInfo userInfo = UserHandler.getUserInfo(username);
+            session.setAttribute("userInfo", userInfo);
 
             response.sendRedirect("index.jsp"); // Redirect to a welcome page
         } else {

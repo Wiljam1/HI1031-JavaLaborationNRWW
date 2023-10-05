@@ -19,12 +19,10 @@ public class TransactionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-
-
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        String username = userInfo.getUsername();
 
         Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
-
 
         /*
         Transaction transaction = new Transaction();

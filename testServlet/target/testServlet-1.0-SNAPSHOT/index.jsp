@@ -1,5 +1,6 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="bo.UserHandler" %>
+<%@ page import="ui.UserInfo" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,21 +53,24 @@
 <h1>Welcome to the web-shop</h1>
 <div id="current-user">
     <%
-        // Logik här kanske bör flyttas till Servlet eller något BO
-        String nameString = (String) session.getAttribute("displayUsername");
-        if(nameString == null)
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        String nameString;
+        if (userInfo == null) {
             nameString = "Not logged in";
-        else
-            nameString = "Current user: " + nameString;
+        } else {
+            nameString = "Current user: " + userInfo.getName();
+        }
     %>
     <%=nameString%>
 </div>
 <div id="authorization">
-    <% String authString = (String) session.getAttribute("authorization");
-        if(authString == null)
+    <%
+        String authString;
+        if (userInfo == null) {
             authString = "";
-        else
-            authString = "Authorization: " + authString;
+        } else {
+            authString = "Authorization: " + userInfo.getAuthorizationLevel();
+        }
     %>
     <%=authString%>
 </div>

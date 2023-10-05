@@ -3,15 +3,18 @@ package ui;
 import java.util.Collection;
 
 public class UserInfo {
+    private String username;
     private String name;
     private Collection<ItemInfo> cart;
     private String authorization;
     private Collection<OrderInfo> orders;
 
-    public UserInfo(String name, Collection<ItemInfo> cart, String authorization) {
+    public UserInfo(String username, String name, Collection<ItemInfo> cart, String authorization, Collection<OrderInfo> orders) {
+        this.username = username;
         this.name = name;
         this.cart = cart;
         this.authorization = authorization;
+        this.orders = orders;
     }
 
     public String getName() {
@@ -32,5 +35,9 @@ public class UserInfo {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }

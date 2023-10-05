@@ -4,22 +4,15 @@ import db.Authorization;
 import db.UserDB;
 import org.bson.Document;
 import ui.ItemInfo;
-import ui.OrderInfo;
 import ui.UserInfo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class UserHandler {
-    private int id;
-    private String username;
-    private String name;
-    private Collection<ItemInfo> cart;
-    private Collection<OrderInfo> orders;
 
     public static UserInfo getUserInfo(String username) {
-        User theUser = User.searchUser(username);
-        return new UserInfo(theUser.getName(), theUser.getCart(), theUser.getAuthorizationLevel());
+        User u = User.searchUser(username);
+        return new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorizationLevel(), u.fetchOrders(username));
     }
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
@@ -44,25 +37,5 @@ public class UserHandler {
     public static boolean transaction(String username, Collection<ItemInfo> cart){
 
         return UserDB.performTransaction(username, cart);
-    }
-
-    public Collection<OrderInfo> getOrders() {
-        return orders;
-    }
-
-    // TODO: Skriv om så man gör getUserInfo(username).getOrders() istället
-    // Då behöver man lägga till Collection<Order> på alla User-klasser och fixa alla konstruktorer.
-    public static Collection<OrderInfo> getOrders(String username) {
-        Collection c = User.getOrders(username);
-        if(c == null || c.isEmpty())
-            return null;
-        else {
-            ArrayList<OrderInfo> orders = new ArrayList<>();
-            for (Object o : c) {
-                OrderInfo ord = (OrderInfo) o;
-                orders.add(new OrderInfo(ord.getId(), ord.getDate(), ord.getItems(), ord.getTotalCost(), ord.getAssignedStaff()));
-            }
-            return orders;
-        }
     }
 }

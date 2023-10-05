@@ -5,6 +5,8 @@
 <%@ page import="bo.UserHandler" %>
 <%@ page import="bo.Order" %>
 <%@ page import="ui.OrderInfo" %>
+<%@ page import="ui.UserInfo" %>
+<%@ page import="java.util.Collections" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -111,40 +113,41 @@
     <div id="items-container">
         <%
             session = request.getSession();
-            String username = (String) session.getAttribute("username");
-            String name = (String) session.getAttribute("displayUsername");
-            Collection<OrderInfo> orders = UserHandler.getOrders(username);
+            UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+            String username = "null";
+            String name = "null";
+            Collection<OrderInfo> orders = Collections.emptyList();
+            if(userInfo != null) {
+                username = userInfo.getUsername();
+                name = userInfo.getName();
+                orders = UserHandler.getUserInfo(username).getOrders(); //Update orders (could cause error when fetching null?)
+            }
+            // TODO: Fixa så sidan blir finare när man inte är inloggad (null-case)
         %>
         <h2><%=name%>'s orders</h2>
         <ul>
             <%
-                if (orders != null) {
-                    for (OrderInfo order : orders) {
-            %>
-            <li>
-                <h3>Order ID: <%= order.getId() %></h3>
-                <p>Date: <%= order.getDate() %></p>
-                <p>Total Cost: <%= order.getTotalCost() %></p>
-                <p>Assigned Staff: <%= order.getAssignedStaff() %></p>
+                for (OrderInfo order : orders) {
+        %>
+        <li>
+            <h3>Order ID: <%=order.getId()%></h3>
+            <p>Date: <%=order.getDate()%></p>
+            <p>Total Cost: <%=order.getTotalCost()%></p>
+            <p>Assigned Staff: <%=order.getAssignedStaff()%></p>
 
-                <ul>
-                    <% for (ItemInfo item : order.getItems()) { %>
-                    <li>
-                        <b>Product:</b> <%= item.getName() %> -
-                        <b>Description:</b> <%= item.getDesc() %> -
-                        <b>Price per unit:</b> <%= item.getPrice() %> -
-                        <b>Quantity:</b> <%= item.getAmount() %>
-                    </li>
-                    <% } %>
-                </ul>
-            </li>
-            <%
-                }
-            } else {
-            %>
-            <li>No orders found for <%= name %></li>
-            <%
-                }
+            <ul>
+                <% for (ItemInfo item : order.getItems()) { %>
+                <li>
+                    <b>Product:</b> <%=item.getName()%> -
+                    <b>Description:</b> <%=item.getDesc()%> -
+                    <b>Price per unit:</b> <%=item.getPrice()%> -
+                    <b>Quantity:</b> <%=item.getAmount()%>
+                </li>
+                <% } %>
+            </ul>
+        </li>
+        <%
+            }
             %>
         </ul>
     </div>
