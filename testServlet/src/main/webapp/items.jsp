@@ -44,11 +44,14 @@
             margin-bottom: 20px;
         }
         #shopping-cart-container {
-            flex-basis: 30%;
+            flex-basis: 40%;
             background-color: #fff;
             padding: 20px;
             border: 1px solid #ccc;
             margin-bottom: 20px;
+        }
+        #shopping-cart-container ul li {
+            margin-bottom: 10px;
         }
         #items h2 {
             text-align: center; /* Center-align the "Available Items" heading */
@@ -112,12 +115,30 @@
         a.new-item-button:hover {
             background-color: #59e13f; /* Darker blue on hover */
         }
-        button[type="submit"][value="edit"] {
+        button[type="submit"][value="sendToEdit"] {
             background-color: orange;
             color: white;
         }
-        button[type="submit"][value="edit"]:hover {
+
+        button[type="submit"][value="sendToEdit"]:hover {
             background-color: darkorange;
+        }
+        form.remove-button {
+            display: inline;
+            float: right;
+            margin-left: -70px;
+        }
+
+        form.remove-button button[type="submit"] {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        form.remove-button button[type="submit"]:hover {
+            background-color: #c9302c;
         }
     </style>
 </head>
@@ -209,7 +230,13 @@
                         for (ItemInfo item : cartItems) {
                             price += item.getPrice() * item.getQuantity();
             %>
-            <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %></li>
+            <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %> - <b>Cost:</b> <%=item.getPrice()*item.getQuantity()%>
+                <form class="remove-button" action="addItem" method="post">
+                    <input type="hidden" name="action" value="removeFromCart">
+                    <input type="hidden" name="itemIdToRemove" value="<%= item.getId() %>">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
             <%
                         }
                 }

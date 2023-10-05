@@ -58,4 +58,8 @@ public class ItemInfo {
                 ", price=" + price +
                 '}';
     }
+
+    public void decrementQuantity() {
+        this.quantity--;
+    }
 }

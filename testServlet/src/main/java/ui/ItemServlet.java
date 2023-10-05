@@ -17,6 +17,7 @@ import javax.swing.text.Document;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 
 @WebServlet("/addItem")
@@ -84,6 +85,27 @@ public class ItemServlet extends HttpServlet {
                 session.setAttribute("items", cartItems);
                 response.sendRedirect("items.jsp");
                 break;
+            case "removeFromCart":
+                String itemIdToRemove = request.getParameter("itemIdToRemove");
+                Collection<ItemInfo> cartItemsToRemove = (Collection<ItemInfo>) session.getAttribute("items");
+                if (cartItemsToRemove != null) {
+                    Iterator<ItemInfo> iterator = cartItemsToRemove.iterator();
+                    while (iterator.hasNext()) {
+                        ItemInfo item = iterator.next();
+                        if (item.getId().equals(itemIdToRemove)) {
+                            if (item.getQuantity() > 1) {
+                                item.decrementQuantity();
+                            } else {
+                                iterator.remove();
+                            }
+                            break;
+                        }
+                    }
+                    session.setAttribute("items", cartItemsToRemove);
+                }
+                response.sendRedirect("items.jsp");
+                break;
+
             default:
                 System.out.println("error in itemservlet switch input action: " + action);
         }
