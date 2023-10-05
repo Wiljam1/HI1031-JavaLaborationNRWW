@@ -66,10 +66,12 @@
 <div id="authorization">
     <%
         String authString;
+        String authLevel = "";
         if (userInfo == null) {
             authString = "";
         } else {
-            authString = "Authorization: " + userInfo.getAuthorizationLevel();
+            authLevel = userInfo.getAuthorizationLevel();
+            authString = "Authorization: " + authLevel;
         }
     %>
     <%=authString%>
@@ -81,13 +83,24 @@
 </div>
 
 <div id="links">
-    <a href="items.jsp">Click here for items!</a>
+    <a href="items.jsp">Browse items</a>
     <br><br>
-    <a href="userOrders.jsp">Click here to see your orders!</a>
+    <a href="login">Login</a>
+    <%
+        if(userInfo != null) {
+    %>
     <br><br>
-    <a href="allOrders">Click here to see all orders!</a>
+    <a href="userOrders.jsp">Your orders</a>
+    <%
+        }
+        // TODO: Move logic to a servlet?
+        if("admin".equals(authLevel) || "staff".equals(authLevel)) {
+    %>
     <br><br>
-    <a href="login">Click here for login!</a>
+    <a href="allOrders">All orders</a>
+    <%
+        }
+    %>
 </div>
 
 <script type="text/javascript">

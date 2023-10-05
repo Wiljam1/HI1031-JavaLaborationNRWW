@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/AllOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/AllOrdersServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/allOrders.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allOrders.jsp" afterDir="false" />
