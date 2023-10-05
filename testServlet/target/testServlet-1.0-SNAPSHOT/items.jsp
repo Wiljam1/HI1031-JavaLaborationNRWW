@@ -112,6 +112,13 @@
         a.new-item-button:hover {
             background-color: #59e13f; /* Darker blue on hover */
         }
+        button[type="submit"][value="edit"] {
+            background-color: orange;
+            color: white;
+        }
+        button[type="submit"][value="edit"]:hover {
+            background-color: darkorange;
+        }
     </style>
 </head>
 <body>
@@ -145,7 +152,6 @@
             %>
             <form action="addItem" method="post">
                 <!-- Hidden input field to store the item's attributes -->
-                <input type="hidden" name="action" value="addToCart">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
@@ -166,12 +172,12 @@
                     <%
                         if(userInfo != null) {
                     %>
-                    <button type="submit" value="addToCart">Add to cart</button>
+                    <button type="submit" name="action" value="addToCart">Add to Cart</button>
                     <%
                         String authLevel = userInfo.getAuthorizationLevel();
                             if(authLevel.equals("admin")) {
                     %>
-                    <button type="submit" value="edit">Edit</button>
+                    <button type="submit" name="action" value="sendToEdit">Edit</button>
                     <%
                             }
                         }
@@ -229,4 +235,7 @@
     <% if (transactionSuccess != null && !transactionSuccess) { %>
     alert("<%= transactionMessage %>");
     <% } %>
+    function setAction(actionValue) {
+        document.getElementById("action")[0].value = actionValue;
+    }
 </script>

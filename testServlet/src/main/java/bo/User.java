@@ -3,7 +3,9 @@ package bo;
 import db.Authorization;
 import db.UserDB;
 import ui.ItemInfo;
+import ui.OrderInfo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class User {
@@ -26,7 +28,7 @@ public class User {
         this.name = name;
         this.authorization = authorization;
         this.cart = null;
-        this.orders = orders; //Kanske borde hämta existerande ordrar från databasen?
+        this.orders = orders;
     }
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {

@@ -4,6 +4,8 @@ import com.mongodb.client.ClientSession;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -105,25 +107,20 @@ public class ItemDB extends bo.Item {
             session.startTransaction();
             MongoCollection<Document> collection = DBManager.getCollection("items");
             ItemDB item = searchItem(id);
-            Bson oldItem = new Document()
-                    .append("id", item.getId())
-                    .append("name", item.getName())
-                    .append("description", item.getDesc())
-                    .append("amount", item.getAmount())
-                    .append("price", item.getPrice());
 
-            Bson newItem = new Document()
-                    .append("id", id)
-                    .append("name", name)
-                    .append("description", description)
-                    .append("amount", amount)
-                    .append("price", price);
+            Bson updateQuery = Updates.combine(
+                    Updates.set("name", name),
+                    Updates.set("description", description),
+                    Updates.set("amount", amount),
+                    Updates.set("price", price)
+            );
 
-            collection.updateOne(oldItem,newItem);
+            Bson filter = Filters.eq("id", item.getId());
+
+            collection.updateOne(filter, updateQuery);
+
             session.commitTransaction();
-
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             session.abortTransaction();
             return false;
@@ -132,4 +129,5 @@ public class ItemDB extends bo.Item {
         }
         return true;
     }
+
 }

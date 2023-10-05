@@ -65,4 +65,8 @@ public class Item {
         return ItemDB.createItem(name, description, amount, price);
     }
 
+    public static boolean editItem(String id, String name, String description, String amount, String price) {
+        return ItemDB.editItem(id, name, description, amount, price);
+    }
+
 }

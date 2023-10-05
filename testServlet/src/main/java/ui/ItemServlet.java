@@ -41,8 +41,18 @@ public class ItemServlet extends HttpServlet {
                 ItemHandler.createItem(itemName, itemDesc, itemAmount, itemPrice);
                 response.sendRedirect("items.jsp");
                 break;
-            case "edit":
-                
+            case "sendToEdit":
+                //Send parameters
+                request.setAttribute("itemId", itemId);
+                request.setAttribute("itemName", itemName);
+                request.setAttribute("itemDesc", itemDesc);
+                request.setAttribute("itemAmount", itemAmount);
+                request.setAttribute("itemPrice", itemPrice);
+                request.getRequestDispatcher("editItem.jsp").forward(request, response);
+                break;
+            case "editItem":
+                ItemHandler.editItem(itemId, itemName, itemDesc, itemAmount, itemPrice);
+                response.sendRedirect("items.jsp");
                 break;
             case "addToCart":
                 //TODO: Flytta till metod
@@ -75,7 +85,7 @@ public class ItemServlet extends HttpServlet {
                 response.sendRedirect("items.jsp");
                 break;
             default:
-                System.out.println("error in itemservlet switch input (action)");
+                System.out.println("error in itemservlet switch input action: " + action);
         }
     }
 }

@@ -23,4 +23,8 @@ public class ItemHandler {
         return Item.createItem(name, description, amount, price);
     }
 
+    public static boolean editItem(String id, String name, String description, String amount, String price) {
+        return Item.editItem(id, name, description, amount, price);
+    }
+
 }
