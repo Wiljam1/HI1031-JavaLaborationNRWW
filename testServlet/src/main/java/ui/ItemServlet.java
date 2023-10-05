@@ -27,6 +27,7 @@ public class ItemServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
+        //request.setAttribute("action", "null");
 
         //Item parameters
         String itemId = request.getParameter("itemId");
@@ -36,13 +37,14 @@ public class ItemServlet extends HttpServlet {
         String itemPrice = request.getParameter("itemPrice");
 
         switch (action) {
-            case "add":
+            case "addNewItem":
                 ItemHandler.createItem(itemName, itemDesc, itemAmount, itemPrice);
+                response.sendRedirect("items.jsp");
                 break;
             case "edit":
                 
                 break;
-            default:
+            case "addToCart":
                 //TODO: Flytta till metod
                 //ADD TO SHOPPING CART
                 //TODO: Klassens logik borde flyttas till ett Business Object. Detta är en controller class!
@@ -71,6 +73,9 @@ public class ItemServlet extends HttpServlet {
 
                 session.setAttribute("items", cartItems);
                 response.sendRedirect("items.jsp");
+                break;
+            default:
+                System.out.println("error in itemservlet switch input (action)");
         }
     }
 }

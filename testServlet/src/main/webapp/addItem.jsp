@@ -71,20 +71,22 @@
 <a href="index.jsp">Home</a>
 <br><br>
 <h2>Add item </h2>
-<form action="login" method="post">
+<form action="addItem" method="post">
+    <input type="hidden" name="action" value="addNewItem">
+
     <label for="name">name:</label>
-    <input type="text" id="name" name="name" required><br><br>
+    <input type="text" id="name" name="itemName" required><br><br>
 
     <label for="description">description:</label>
-    <input type="text" id="description" name="description" required><br><br>
+    <input type="text" id="description" name="itemDesc" required><br><br>
 
     <label for="amount">amount:</label>
-    <input type="text" id="amount" name="amount" required><br><br>
+    <input type="text" id="amount" name="itemAmount" required><br><br>
 
     <label for="price">price:</label>
-    <input type="text" id="price" name="price" required><br><br>
+    <input type="text" id="price" name="itemPrice" required><br><br>
 
-    <input type="submit" value="Add Item">
+    <input type="submit" value="addNewItem">
 </form>
 </body>
 </html>

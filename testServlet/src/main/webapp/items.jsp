@@ -124,11 +124,13 @@
         session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         // Kanske borde flytta denna logik till en servlet
-        String authLevel = userInfo.getAuthorizationLevel();
-        if(authLevel.equals("admin")) {
+        if(userInfo != null) {
+            String authLevel = userInfo.getAuthorizationLevel();
+            if(authLevel.equals("admin")) {
     %>
     <a class="new-item-button" href="addItem.jsp">Add new item</a>
     <%
+            }
         }
     %>
 </nav>
@@ -143,7 +145,7 @@
             %>
             <form action="addItem" method="post">
                 <!-- Hidden input field to store the item's attributes -->
-                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="action" value="addToCart">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
@@ -161,8 +163,19 @@
 
                 <div class="add-button">
                     <!-- Submit button to add the item to the cart -->
-                    <button type="submit" value="add">Add</button>
+                    <%
+                        if(userInfo != null) {
+                    %>
+                    <button type="submit" value="addToCart">Add to cart</button>
+                    <%
+                        String authLevel = userInfo.getAuthorizationLevel();
+                            if(authLevel.equals("admin")) {
+                    %>
                     <button type="submit" value="edit">Edit</button>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
             </form>
             <%
@@ -170,19 +183,18 @@
             %>
         </ul>
     </div>
-    <div id="shopping-cart-container">
         <%
-            String username = "null"; //TODO: Handle null case (Not logged in / hide shopping cart when not logged in)
-            String name = "null";
+            //TODO: Flytta logik till en servlet/Business object
+            String username;
+            String name;
             if(userInfo != null) {
                 username = userInfo.getUsername();
                 name = userInfo.getName();
-            }
         %>
+    <div id="shopping-cart-container">
         <h2>Shopping Cart for <%=name%></h2>
         <ul>
             <%
-                //TODO: Hantera fallet då man inte är inloggad men ändå vill kolla på varor (dölj shopping cart)
                 if (!Objects.equals(username, "null")) {
                     Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                     int price = 0;
@@ -204,6 +216,9 @@
         %>
         <a href="checkout.jsp" class="checkout-button">Checkout</a>
     </div>
+    <%
+        }
+    %>
 </div>
 </body>
 </html>
