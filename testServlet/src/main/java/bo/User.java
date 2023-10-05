@@ -57,6 +57,10 @@ public class User {
         return UserDB.searchUser(username);
     }
 
+    public static Collection getAllUsers() {
+        return UserDB.getAllUsers();
+    }
+
     public String getAuthorizationLevel() { return authorization ;}
 
     public String getAuthorization() {

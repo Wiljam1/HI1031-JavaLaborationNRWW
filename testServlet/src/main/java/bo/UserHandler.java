@@ -6,6 +6,7 @@ import org.bson.Document;
 import ui.ItemInfo;
 import ui.UserInfo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class UserHandler {
@@ -36,5 +37,15 @@ public class UserHandler {
 
     public static boolean transaction(String username, Collection<ItemInfo> cart, String finalPrice){
         return UserDB.performTransaction(username, cart, finalPrice);
+    }
+
+    public static Collection<UserInfo> getAllUsers() {
+        Collection c = User.getAllUsers();
+        ArrayList<UserInfo> users = new ArrayList<>();
+        for (Object o : c) {
+            User u = (User) o;
+            users.add(new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorization(), u.getOrders()));
+        }
+        return users;
     }
 }

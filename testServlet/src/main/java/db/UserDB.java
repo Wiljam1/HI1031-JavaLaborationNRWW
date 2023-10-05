@@ -47,6 +47,28 @@ public class UserDB extends bo.User{
         return user;
     }
 
+    public static Collection getAllUsers() {
+        Collection<Object> users = new ArrayList<>();
+        try {
+            MongoCollection<Document> collection = DBManager.getCollection("users");
+
+            for(Document doc : collection.find()) {
+                String username = doc.getString("username");
+                String name = doc.getString("name");
+                String authorization = doc.getString("authorization");
+                List<Document> ordersList = doc.getList("orders", Document.class);
+                Collection allOrders = processOrderDocuments(ordersList);
+
+                users.add(new UserDB(username, name, authorization, allOrders));
+            }
+        }
+        catch (Exception e) {
+            //Robust logging implementation?
+            e.printStackTrace();
+        }
+        return users;
+    }
+
     public static Collection fetchOrders(String username) {
         User user = searchUser(username);
         if (user != null) {
@@ -114,7 +136,7 @@ public class UserDB extends bo.User{
                     .append("name", name)
                     .append("password", password)
                     .append("authorization", authorization.toString())
-                    .append("orders", "");
+                    .append("orders", new ArrayList<>());
 
             collection.insertOne(userDoc);
             return true;

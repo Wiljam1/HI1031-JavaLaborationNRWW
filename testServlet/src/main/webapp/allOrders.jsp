@@ -7,6 +7,7 @@
 <%@ page import="ui.OrderInfo" %>
 <%@ page import="ui.UserInfo" %>
 <%@ page import="java.util.Collections" %>
+<%@ page import="db.Authorization" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,7 +32,7 @@
             text-align: center;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             display: flex;
@@ -110,21 +111,20 @@
     <a class="checkout-button" href="index.jsp">Home</a>
 </nav>
 <div class="container">
+    <%
+        session = request.getSession();
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        Collection<UserInfo> users = UserHandler.getAllUsers();
+        for(UserInfo user : users) {
+            //Check if user has orders
+            Collection<OrderInfo> orders = user.getOrders();
+            if(orders != null) {
+    %>
     <div id="items-container">
         <%
-            session = request.getSession();
-            UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-            String username = "null";
-            //TODO: Check if admin
-            String name = "null";
-            Collection<OrderInfo> orders = Collections.emptyList();
-            if(userInfo != null) {
-                username = userInfo.getUsername();
-                name = userInfo.getName();
-                orders = UserHandler.getUserInfo(username).getOrders(); //Update orders
-                if(orders == null)
-                    orders = Collections.emptyList();
-            }
+            //display users orders
+            String name = user.getName();
+
         %>
         <h2><%=name%>'s orders</h2>
         <ul>
@@ -149,10 +149,14 @@
                 </ul>
             </li>
             <%
-                }
+                        }
+                    }
             %>
         </ul>
     </div>
+    <%
+        }
+    %>
 </div>
 </body>
 </html>

@@ -9,7 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="" />
+    <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/db/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/UserDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/allOrders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bo/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/UserHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/UserDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/UserHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allOrders.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jsp File" />
         <option value="Enum" />
+        <option value="Jsp File" />
         <option value="Class" />
       </list>
     </option>
