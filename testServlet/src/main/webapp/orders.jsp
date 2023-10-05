@@ -132,8 +132,8 @@
                     <li>
                         <b>Product:</b> <%= item.getName() %> -
                         <b>Description:</b> <%= item.getDesc() %> -
-                        <b>Price:</b> <%= item.getPrice() %> -
-                        <b>In stock:</b> <%= item.getAmount() %>
+                        <b>Price per unit:</b> <%= item.getPrice() %> -
+                        <b>Quantity:</b> <%= item.getAmount() %>
                     </li>
                     <% } %>
                 </ul>
