@@ -53,7 +53,6 @@ public class ItemDB extends bo.Item {
         return item;
     }
 
-
     private ItemDB(String id, String name, String desc, String amount, String price) {
         super(id, name, desc, amount, price);
     }

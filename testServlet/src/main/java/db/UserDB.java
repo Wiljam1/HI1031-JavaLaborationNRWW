@@ -75,7 +75,6 @@ public class UserDB extends bo.User{
 
                         if(itemObject != null) { //tror inte if-satsen behövs
                             itemObject.setAmount(itemAmount);
-                            //Vad som ska visas i gettern
                             ItemInfo itemInfo = new ItemInfo(itemObject.getName(), itemObject.getDesc(), itemObject.getAmount(), itemObject.getPrice());
                             orderItems.add(itemInfo);
                         }
@@ -133,13 +132,21 @@ public class UserDB extends bo.User{
         try {
             session.startTransaction();
 
+            // Byt plats på detta
             ArrayList<Document> orderList = new ArrayList<>();
             Bson filterUsername = eq("username", username);
             Date date = new Date();
             Document order = new Document();
 
             //handles old orders
-            Collection<OrderInfo> coll = getOrders(username);
+            Collection fakeColl = fetchOrders(username);
+            Collection<OrderInfo> coll = new ArrayList<>();
+
+            for(Object o : fakeColl) {
+                OrderInfo orderInfo = (OrderInfo) o;
+                coll.add(orderInfo);
+            }
+
             int largestId = 0;
             if (coll != null){
                 for (OrderInfo orderInfo: coll){
