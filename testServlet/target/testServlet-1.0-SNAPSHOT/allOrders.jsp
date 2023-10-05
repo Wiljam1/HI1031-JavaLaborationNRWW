@@ -76,14 +76,14 @@
             text-align: right;
         }
         button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
+            background-color: #ff0008;
+            color: #000000;
             border: none;
             padding: 5px 10px;
             cursor: pointer;
         }
         button[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #b3003f;
         }
         a.checkout-button {
             display: inline-block;
@@ -133,6 +133,17 @@
             %>
             <li>
                 <h3>Order ID: <%=order.getId()%></h3>
+                <form action="transaction" method="post">
+                    <!-- Hidden input field to store the item's attributes -->
+                    <input type="hidden" name="transaction" value="<%="deleteOrder"%>">
+                    <input type="hidden" name="transactionId" value="<%=order.getId()%>">
+                    <input type="hidden" name="username" value="<%=user.getUsername()%>">
+
+                    <div class="add-button">
+                        <!-- Submit button to add the item to the cart -->
+                        <button type="submit">Delete</button>
+                    </div>
+                </form>
                 <p>Date: <%=order.getDate()%></p>
                 <p>Total Cost: <%=order.getTotalCost()%></p>
                 <p>Assigned Staff: <%=order.getAssignedStaff()%></p>

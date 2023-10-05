@@ -47,13 +47,7 @@ public class TransactionServlet extends HttpServlet {
                 String transactionId = request.getParameter("transactionId");
                 UserHandler.removeOrder(username, transactionId);
 
-                //code for the jsp
-                /*
-                <input type="hidden" name="transaction" value="<%="deleteOrder"%>">
-                <input type="hidden" name="transactionId" value="<%="ADD TRANSACTION ID"%>">
-                <input type="hidden" name="username" value="<%="ADD USERNAME"%>">
-                 */
-                
+                response.sendRedirect("allOrders.jsp");
                 break;
         }
     }

@@ -85,7 +85,7 @@
     <br><br>
     <a href="userOrders.jsp">Click here to see your orders!</a>
     <br><br>
-    <a href="allOrders.jsp">Click here to see all orders!</a>
+    <a href="allOrders">Click here to see all orders!</a>
     <br><br>
     <a href="login">Click here for login!</a>
 </div>

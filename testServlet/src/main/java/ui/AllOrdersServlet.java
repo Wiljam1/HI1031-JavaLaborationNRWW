@@ -10,11 +10,12 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/allOrders.jsp")
+@WebServlet("/allOrders")
 public class AllOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        System.out.println("trying to access allOrders.jsp");
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
