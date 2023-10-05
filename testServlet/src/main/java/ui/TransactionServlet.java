@@ -18,33 +18,43 @@ public class TransactionServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String transactionAction = request.getParameter("transaction");
+        switch (transactionAction){
+            case "createOrder" :
+                HttpSession session = request.getSession();
+                UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+                String username = userInfo.getUsername();
+                String finalPrice = request.getParameter("finalPrice");
 
-        HttpSession session = request.getSession();
-        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-        String username = userInfo.getUsername();
-        String finalPrice = request.getParameter("finalPrice");
+                Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
 
-        Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
+                boolean success = UserHandler.transaction(username, cart, finalPrice);
+                //Empty cart
+                session.setAttribute("items", new ArrayList<ItemInfo>());
 
-        /*
-        Transaction transaction = new Transaction();
-        transaction.setDescription(request.getParameter("description"));
-        transaction.setAmount(Double.parseDouble(request.getParameter("amount")));
-        */
+                if (success) {
+                    request.setAttribute("transactionSuccess", true);
+                    request.setAttribute("transactionMessage", "Transaction successful!");
+                    request.getRequestDispatcher("userOrders.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("transactionSuccess", false);
+                    request.setAttribute("transactionMessage", "Transaction failed!");
+                    request.getRequestDispatcher("items.jsp").forward(request, response);
+                }
+                break;
+            case "deleteOrder":
+                username = request.getParameter("username");
+                String transactionId = request.getParameter("transactionId");
+                UserHandler.removeOrder(username, transactionId);
 
-        boolean success = UserHandler.transaction(username, cart, finalPrice);
-        //Empty cart
-        session.setAttribute("items", new ArrayList<ItemInfo>());
-
-        if (success) {
-            request.setAttribute("transactionSuccess", true);
-            request.setAttribute("transactionMessage", "Transaction successful!");
-            request.getRequestDispatcher("userOrders.jsp").forward(request, response);
-        } else {
-            request.setAttribute("transactionSuccess", false);
-            request.setAttribute("transactionMessage", "Transaction failed!");
-            request.getRequestDispatcher("items.jsp").forward(request, response);
+                //code for the jsp
+                /*
+                <input type="hidden" name="transaction" value="<%="deleteOrder"%>">
+                <input type="hidden" name="transactionId" value="<%="ADD TRANSACTION ID"%>">
+                <input type="hidden" name="username" value="<%="ADD USERNAME"%>">
+                 */
+                
+                break;
         }
-
     }
 }
