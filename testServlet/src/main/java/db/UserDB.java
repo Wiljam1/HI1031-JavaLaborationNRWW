@@ -76,10 +76,15 @@ public class UserDB extends bo.User{
         try {
             session.startTransaction();
 
-            Document cartDocument = new Document();
-            Bson filter = eq("username", username);
-            ArrayList<Document> documents = new ArrayList<>();
-
+            ArrayList<Document> orderList = new ArrayList<>();
+            Bson filterUsername = eq("username", username);
+            Document documents = new Document();
+            //hard coded value still
+            documents.append("id", "1")
+                    .append("date", "<date>")
+                    .append("totalCost", "1000")
+                    .append("assignedStaff", "ingen");
+            ArrayList<Document> itemsList = new ArrayList<>();
             for (ItemInfo item: cart) {
 
                 Document itemDocument = new Document();
@@ -88,18 +93,18 @@ public class UserDB extends bo.User{
                 String amount = String.valueOf(item.getAmount());
                 String price = String.valueOf(item.getPrice());
                 String quantity = String.valueOf(item.getQuantity());
-                itemDocument.append("id", "0")              //still hard coded value
+                itemDocument.append("id", "2")              //still hard coded value
                         .append("name", name)
                         .append("description", desc)
                         .append("amount", amount)
                         .append("price", price)
                         .append("quantity", quantity);
-                //cartDocument.append("item", itemDocument);
-                documents.add(itemDocument);
+                itemsList.add(itemDocument);
 
+                //For changing item amount in database
+                //could be own method
                 Bson filterItems = eq("name", name);
                 Document items = collectionItems.find(filterItems).first();
-
                 if (items != null){
                     int quantityItems = Integer.parseInt(items.getString("amount"));
                     System.out.println(quantityItems);
@@ -109,18 +114,12 @@ public class UserDB extends bo.User{
                     }
                     items.put("amount", quantityItems);
                     collectionItems.updateOne(session,filterItems, Updates.set("amount", String.valueOf(quantityItems)));
-
                 }
-
+                //
             }
-            cartDocument.append("items", documents);
-            // ADD WHAT MORE THAT NEEDS TO BE IN THE ORDER
-            //cartDocument.append()
-            //collection.insertOne(session, cartDocument);
-            collection.updateOne(session, filter, Updates.set("orders", cartDocument));
-
-
-
+            documents.append("items", itemsList);
+            orderList.add(documents);
+            collection.updateOne(session, filterUsername, Updates.set("orders", orderList));
             session.commitTransaction();
             
         } catch (MongoException e) {
