@@ -70,18 +70,22 @@
 <body>
 <a href="index.jsp">Home</a>
 <br><br>
-<h2>Add item (NOT IMPLEMENTED)</h2>
+<h2>Add item </h2>
 <form action="login" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
+    <label for="name">name:</label>
+    <input type="text" id="name" name="name" required><br><br>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
+    <label for="description">description:</label>
+    <input type="text" id="description" name="description" required><br><br>
 
-    <input type="submit" value="Login">
+    <label for="amount">amount:</label>
+    <input type="text" id="amount" name="amount" required><br><br>
+
+    <label for="price">price:</label>
+    <input type="text" id="price" name="price" required><br><br>
+
+    <input type="submit" value="Add Item">
 </form>
-<br><br>
-<a href="createUser.jsp">Don't have an account? Create one here!</a>
 </body>
 </html>
 
