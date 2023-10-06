@@ -5,6 +5,7 @@
 <%@ page import="bo.UserHandler" %>
 <%@ page import="ui.UserInfo" %>
 <%@ page import="java.util.Objects" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -140,6 +141,37 @@
         form.remove-button button[type="submit"]:hover {
             background-color: #c9302c;
         }
+        #filter-container {
+            float: right; /* Float the filter-container to the right */
+            width: 15%; /* Adjust the width as needed */
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin: 10px 10px 10px -300px;
+        }
+
+        #filter-container h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #filter-container form {
+            margin-top: 10px;
+        }
+
+        #filter-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #filter-container select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
     </style>
 </head>
 <body>
@@ -162,12 +194,35 @@
         }
     %>
 </nav>
+<div id="filter-container">
+    <h3>Filter</h3>
+    <form action="addItem" method="post">
+        <input type="hidden" name="action" value="setFilter">
+
+        <label for="category">Choose category:</label>
+        <select name="selectedCategory" id="category">
+            <%
+                //for-loop här där en samling av alla kategorier hämtas
+                Collection<String> categories = new ArrayList<>();
+                categories.add("chips");
+                categories.add("soda");
+                for (String category : categories) {
+
+            %>
+            <option value="<%=category%>"><%=category%></option>
+            <%
+                }
+            %>
+        </select>
+    </form>
+</div>
 <div class="container">
     <div id="items-container">
         <h2>Available Items</h2>
         <ul>
             <%
                 // TODO: Gör add-knapparna gråa + disabled om man inte är inloggad
+                //Lägg till filter här
                 Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(" ");
                 for (ItemInfo item : items) {
             %>
