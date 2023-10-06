@@ -13,10 +13,37 @@ import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class ItemDB extends bo.Item {
 
-    //Tar just nu alla items i collection
+
     public static Collection searchItems(String item_group) {
+        Collection<Object> items = new ArrayList<>();
+        try {
+            MongoCollection<Document> collection = DBManager.getCollection("items");
+
+            Bson filterCategory = eq("category", item_group);
+
+            for(Document doc : collection.find(filterCategory)) {
+                String id = doc.getString("id");
+                String name = doc.getString("name");
+                String desc = doc.getString("description");
+                String quantity = doc.getString("quantity");
+                String amount = doc.getString("amount");
+                String price = doc.getString("price");
+                String category = doc.getString("category");
+                items.add(new ItemDB(id, name, desc, quantity, amount, price, category));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+
+    //Tar just nu alla items i collection
+    public static Collection searchItems() {
         Collection<Object> items = new ArrayList<>();
         try {
             MongoCollection<Document> collection = DBManager.getCollection("items");
@@ -119,7 +146,7 @@ public class ItemDB extends bo.Item {
                     Updates.set("category", itemCategory)
             );
 
-            Bson filter = Filters.eq("id", item.getId());
+            Bson filter = eq("id", item.getId());
 
             collection.updateOne(filter, updateQuery);
 

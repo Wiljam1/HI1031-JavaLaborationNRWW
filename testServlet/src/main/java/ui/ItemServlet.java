@@ -107,7 +107,11 @@ public class ItemServlet extends HttpServlet {
                 }
                 response.sendRedirect("items.jsp");
                 break;
-
+            case "setFilter":
+                String filter = request.getParameter("selectedCategory");
+                request.setAttribute("filter", filter);
+                request.getRequestDispatcher("items.jsp").forward(request, response);
+                break;
             default:
                 System.out.println("error in itemservlet switch input action: " + action);
         }
