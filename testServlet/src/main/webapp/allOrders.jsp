@@ -190,7 +190,7 @@
                 </form></h3>
                 <p>Date: <%=order.getDate()%></p>
                 <p>Total Cost: <%=order.getTotalCost()%></p>
-<%--                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>--%>
+                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>
 
                 <ul>
                     <% for (ItemInfo item : order.getItems()) { %>

@@ -37,7 +37,7 @@
             justify-content: space-between;
         }
         #items-container {
-            flex-basis: 68%; /* Adjust the width as needed */
+            flex-basis: 85%; /* Adjust the width as needed */
             background-color: #fff;
             padding: 20px;
             border: 1px solid #ccc;
@@ -69,7 +69,7 @@
             align-items: center;
         }
         .item-info {
-            flex-basis: 70%;
+            flex-basis: 80%;
         }
         .add-button {
             flex-basis: 20%;
@@ -172,7 +172,6 @@
                 for (ItemInfo item : items) {
             %>
             <form action="addItem" method="post">
-                <!-- Hidden input field to store the item's attributes -->
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
@@ -184,13 +183,18 @@
 
 
                 <div class="item-info">
-                    <!-- Display item name and description -->
-                    <span><b>Product:</b> <%= item.getName() %> - <b>Description:</b> <%= item.getDesc() %>
-                            - <b>Price:</b> <%= item.getPrice() %> - <b>In stock: <%=item.getAmount()%></b></span>
+                    <table>
+                        <tr class="info-row">
+                            <td><b>Product:</b></td><td><%= item.getName() %></td>
+                            <td><b>Description:</b></td><td><%= item.getDesc() %></td>
+                            <td><b>Price:</b></td><td><%= item.getPrice() %></td>
+                            <td><b>In stock:</b></td><td><%= item.getAmount() %></td>
+                            <td><b>Category:</b></td><td><%= item.getCategory() %></td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="add-button">
-                    <!-- Submit button to add the item to the cart -->
                     <%
                         if(userInfo != null) {
                     %>
