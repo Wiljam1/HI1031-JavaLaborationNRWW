@@ -43,11 +43,11 @@ public class LoginServlet extends HttpServlet {
             UserInfo userInfo = UserHandler.getUserInfo(username);
             session.setAttribute("userInfo", userInfo);
 
-            response.sendRedirect("index.jsp"); // Redirect to a welcome page
+            response.sendRedirect("index.jsp");
         } else {
             // Failed login TODO: skapa Alert()
             request.removeAttribute("password");
-            response.sendRedirect("login"); // Redirect back to the login page
+            response.sendRedirect("login");
         }
     }
 }

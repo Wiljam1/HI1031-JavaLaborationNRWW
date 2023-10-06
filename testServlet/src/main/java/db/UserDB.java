@@ -36,10 +36,8 @@ public class UserDB extends bo.User{
                 String authorization = doc.getString("authorization");
                 List<Document> ordersList = doc.getList("orders", Document.class);
                 Collection allOrders = processOrderDocuments(ordersList);
-
                 user = new UserDB(username, name, authorization, allOrders);
             }
-
         }
         catch (Exception e) {
             //Robust logging implementation?
@@ -88,7 +86,7 @@ public class UserDB extends bo.User{
     private static Collection processOrderDocuments(List<Document> ordersList) {
         try {
             if (ordersList == null || ordersList.isEmpty())
-                return null; // no orders found
+                return null;
 
             Collection allOrders = new ArrayList<>();
 
@@ -189,7 +187,6 @@ public class UserDB extends bo.User{
                     .append("assignedStaff", "ingen");
             ArrayList<Document> itemsList = new ArrayList<>();
             for (ItemInfo item: cart) {
-
                 Document itemDocument = new Document();
                 String desc = item.getDesc();
                 String name = item.getName();
@@ -197,7 +194,7 @@ public class UserDB extends bo.User{
                 String price = String.valueOf(item.getPrice());
                 String quantity = String.valueOf(item.getQuantity());
                 String category = item.getCategory();
-                itemDocument.append("id", item.getId())              //still hard coded value
+                itemDocument.append("id", item.getId())
                         .append("name", name)
                         .append("description", desc)
                         .append("amount", amount)
@@ -220,7 +217,6 @@ public class UserDB extends bo.User{
                     items.put("amount", quantityItems);
                     collectionItems.updateOne(session,filterItems, Updates.set("amount", String.valueOf(quantityItems)));
                 }
-                //
             }
             order.append("items", itemsList);
             orderList.add(order);

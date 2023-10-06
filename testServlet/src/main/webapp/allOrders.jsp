@@ -1,13 +1,8 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="ui.ItemInfo" %>
-<%@ page import="bo.ItemHandler" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="bo.UserHandler" %>
-<%@ page import="bo.Order" %>
 <%@ page import="ui.OrderInfo" %>
 <%@ page import="ui.UserInfo" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="db.Authorization" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -157,8 +152,6 @@
 </nav>
 <div class="container">
     <%
-        session = request.getSession();
-        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         Collection<UserInfo> users = UserHandler.getAllUsers();
         for(UserInfo user : users) {
             //Check if user has orders
