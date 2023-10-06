@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-
 //TODO: Döp om till något mer passande
 @WebServlet("/addItem")
 public class ItemServlet extends HttpServlet {
