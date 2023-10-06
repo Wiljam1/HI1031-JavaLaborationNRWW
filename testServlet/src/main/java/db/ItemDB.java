@@ -12,6 +12,7 @@ import org.bson.conversions.Bson;
 import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class ItemDB extends bo.Item {
 
@@ -133,5 +134,12 @@ public class ItemDB extends bo.Item {
         }
         return true;
     }
-
+    public static HashSet<String> getCategories(){
+        HashSet<String> categories = new HashSet<>();
+        MongoCollection<Document> collection = DBManager.getCollection("items");
+        for (Document doc: collection.find()){
+            categories.add(doc.getString("category"));
+        }
+        return categories;
+    }
 }

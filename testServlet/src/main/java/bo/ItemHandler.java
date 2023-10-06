@@ -1,10 +1,15 @@
 package bo;
 
 
+import com.mongodb.client.MongoCollection;
+import db.DBManager;
+import db.ItemDB;
+import org.bson.Document;
 import ui.ItemInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class ItemHandler {
 
@@ -26,4 +31,7 @@ public class ItemHandler {
         return Item.editItem(id, name, description, amount, price, itemCategory);
     }
 
+    public static HashSet<String> getCategories(){
+        return ItemDB.getCategories();
+    }
 }
