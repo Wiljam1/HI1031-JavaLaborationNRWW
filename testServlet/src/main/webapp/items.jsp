@@ -1,11 +1,8 @@
-<%@ page import="java.util.Collection" %>
 <%@ page import="ui.ItemInfo" %>
 <%@ page import="bo.ItemHandler" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="bo.UserHandler" %>
 <%@ page import="ui.UserInfo" %>
-<%@ page import="java.util.Objects" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -203,10 +200,8 @@
         <select name="selectedCategory" id="category">
             <%
                 //for-loop här där en samling av alla kategorier hämtas
-                Collection<String> categories = new ArrayList<>();
-                categories.add("none");
-                categories.add("chips");
-                categories.add("soda");
+                HashSet<String> categories = ItemHandler.getCategories();
+
                 for (String category : categories) {
 
             %>
@@ -215,6 +210,7 @@
                 }
             %>
         </select>
+        <button type="submit" name="action" value="setFilter">Submit filter</button>
     </form>
 </div>
 <div class="container">
@@ -222,11 +218,12 @@
         <h2>Available Items</h2>
         <ul>
             <%
-                // TODO: Gör add-knapparna gråa + disabled om man inte är inloggad
-                //Lägg till filter här
+                //if "none" implementeras
+                //else används filtret
                 String filter = (String) request.getAttribute("filter");
                 Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(filter);
                 for (ItemInfo item : items) {
+                    System.out.println("Item:" + item.getName() + " fetched");
             %>
             <form action="addItem" method="post">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>

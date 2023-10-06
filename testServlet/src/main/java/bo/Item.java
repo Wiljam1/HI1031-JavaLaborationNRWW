@@ -17,6 +17,10 @@ public class Item {
         return ItemDB.searchItems(group);
     }
 
+    public static Collection searchItems() {
+        return ItemDB.searchItems();
+    }
+
     protected Item(String id, String name, String desc, String quantity, String amount, String price, String category) {
         this.id = id;
         this.name = name;
