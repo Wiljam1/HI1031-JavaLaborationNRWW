@@ -180,6 +180,7 @@
 <%--                <input type="hidden" name="itemQuantity" value="<%= item.getQuantity() %>">--%>
                 <input type="hidden" name="itemAmount" value="<%= item.getAmount() %>">
                 <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
+                <input type="hidden" name="itemCategory" value="<%= item.getCategory() %>">
 
 
                 <div class="item-info">

@@ -90,7 +90,7 @@
     <input type="text" id="price" name="itemPrice" required><br><br>
 
     <label for="category">Choose category:</label>
-    <select name="category" id="category">
+    <select name="itemCategory" id="category">
         <option value="<%= Category.SODA.toString().toUpperCase() %>">Soda</option>
         <option value="<%= Category.CHIPS.toString().toUpperCase() %>">Chips</option>
     </select>

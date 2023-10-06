@@ -36,7 +36,7 @@ public class ItemServlet extends HttpServlet {
         String itemDesc = request.getParameter("itemDesc");
         String itemAmount = request.getParameter("itemAmount");
         String itemPrice = request.getParameter("itemPrice");
-        String itemCategory = request.getParameter("category");
+        String itemCategory = request.getParameter("itemCategory");
 
         switch (action) {
             case "addNewItem":

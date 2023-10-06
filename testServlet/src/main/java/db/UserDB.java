@@ -196,12 +196,14 @@ public class UserDB extends bo.User{
                 String amount = String.valueOf(item.getAmount());
                 String price = String.valueOf(item.getPrice());
                 String quantity = String.valueOf(item.getQuantity());
+                String category = item.getCategory();
                 itemDocument.append("id", item.getId())              //still hard coded value
                         .append("name", name)
                         .append("description", desc)
                         .append("amount", amount)
                         .append("price", price)
-                        .append("quantity", quantity);
+                        .append("quantity", quantity)
+                        .append("category", category);
                 itemsList.add(itemDocument);
 
                 //For changing item amount in database
@@ -251,12 +253,14 @@ public class UserDB extends bo.User{
             String price = String.valueOf(item.getPrice());
             String quantity = String.valueOf(item.getQuantity());
             String id = item.getId();
+            String category = item.getCategory();
             itemDocument.append("id", id)              //still hard coded value
                     .append("name", name)
                     .append("description", desc)
                     .append("amount", amount)
                     .append("price", price)
-                    .append("quantity", quantity);
+                    .append("quantity", quantity)
+                    .append("category", category);
             itemsList.add(itemDocument);
         }
 
