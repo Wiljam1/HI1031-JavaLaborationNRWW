@@ -1,6 +1,5 @@
 package db;
 
-import bo.Order;
 import bo.User;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
@@ -10,8 +9,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import ui.ItemInfo;
-import ui.OrderInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +32,7 @@ public class UserDB extends bo.User{
                 String name = doc.getString("name");
                 String authorization = doc.getString("authorization");
                 List<Document> ordersList = doc.getList("orders", Document.class);
-                Collection allOrders = processOrderDocuments(ordersList);
+                Collection<OrderDB> allOrders = processOrderDocuments(ordersList);
                 user = new UserDB(username, name, authorization, allOrders);
             }
         }
@@ -83,17 +80,17 @@ public class UserDB extends bo.User{
         }
     }
 
-    private static Collection processOrderDocuments(List<Document> ordersList) {
+    private static Collection<OrderDB> processOrderDocuments(List<Document> ordersList) {
         try {
             if (ordersList == null || ordersList.isEmpty())
                 return null;
 
-            Collection allOrders = new ArrayList<>();
+            Collection<OrderDB> allOrders = new ArrayList<>();
 
             for(Document order : ordersList) {
                 String orderId = order.getString("id");
                 String orderDate = order.getString("date");
-                Collection<ItemInfo> orderItems = new ArrayList<>();
+                Collection<ItemDB> orderItems = new ArrayList<>();
                 List<Document> items = order.getList("items", Document.class);
                 if(items != null)
                     for(Document itemDoc : items) {
@@ -105,14 +102,13 @@ public class UserDB extends bo.User{
                         String itemPrice = itemDoc.getString("price");
                         String category = itemDoc.getString("category");
 
-                        ItemInfo itemInfo = new ItemInfo(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice, category);
-                            orderItems.add(itemInfo);
-
+                        ItemDB item = ItemDB.createItem(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice, category);
+                        orderItems.add(item);
                     }
                 String orderCost = order.getString("totalCost");
                 String orderStaff = order.getString("assignedStaff");
-                // TODO: Vet inte om man kan ha OrderInfo här i DB.
-                allOrders.add(new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff));
+                OrderDB createdOrder = OrderDB.createOrder(orderId, orderDate, orderItems, orderCost, orderStaff);
+                allOrders.add(createdOrder);
             }
             return allOrders;
         }
@@ -147,8 +143,7 @@ public class UserDB extends bo.User{
             return false;
         }
     }
-    // TODO: Kolla om man kan få bort ItemInfo importeringen här
-    public static boolean performTransaction(String username, Collection<ItemInfo> cart, String finalPrice) {
+    public static boolean performTransaction(String username, Collection<ItemDB> cart, String finalPrice) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
@@ -164,18 +159,19 @@ public class UserDB extends bo.User{
 
             // TODO: Byt plats på detta
             //handles old orders
-            Collection fakeColl = fetchOrders(username);
-            Collection<OrderInfo> coll = new ArrayList<>();
+            Collection generalOrders = fetchOrders(username);
+            Collection<OrderDB> existingOrders = new ArrayList<>();
 
-            for(Object o : fakeColl) {
-                OrderInfo orderInfo = (OrderInfo) o;
-                coll.add(orderInfo);
+            //fix type for each order (could cause problems)
+            for(Object o : generalOrders) {
+                OrderDB orderDB = (OrderDB) o;
+                existingOrders.add(orderDB);
             }
 
             int largestId = 0;
-            for (OrderInfo orderInfo : coll) {
-                orderList.add(addExistingOrders(orderInfo));
-                int id = Integer.parseInt(orderInfo.getId());
+            for (OrderDB orderDB : existingOrders) {
+                orderList.add(addExistingOrders(orderDB));
+                int id = Integer.parseInt(orderDB.getId());
                 if (id > largestId) {
                     largestId = id;
                 }
@@ -186,7 +182,7 @@ public class UserDB extends bo.User{
                     .append("totalCost", finalPrice)
                     .append("assignedStaff", "ingen");
             ArrayList<Document> itemsList = new ArrayList<>();
-            for (ItemInfo item: cart) {
+            for (ItemDB item: cart) {
                 Document itemDocument = new Document();
                 String desc = item.getDesc();
                 String name = item.getName();
@@ -209,7 +205,6 @@ public class UserDB extends bo.User{
                 Document items = collectionItems.find(filterItems).first();
                 if (items != null){
                     int quantityItems = Integer.parseInt(items.getString("amount"));
-                    System.out.println(quantityItems);
                     quantityItems -= Integer.parseInt(quantity);
                     if (quantityItems < 0){
                         session.abortTransaction();
@@ -232,7 +227,7 @@ public class UserDB extends bo.User{
         return true;
     }
 
-    public static Document addExistingOrders(OrderInfo cart){
+    public static Document addExistingOrders(OrderDB cart){
         Document order = new Document();
         ArrayList<Document> itemsList = new ArrayList<>();
 
@@ -241,30 +236,25 @@ public class UserDB extends bo.User{
                 .append("totalCost", cart.getTotalCost())
                 .append("assignedStaff", cart.getAssignedStaff());
 
-        for (ItemInfo item: cart.getItems()){
-            Document itemDocument = new Document();
-            String desc = item.getDesc();
-            String name = item.getName();
-            String amount = String.valueOf(item.getAmount());
-            String price = String.valueOf(item.getPrice());
-            String quantity = String.valueOf(item.getQuantity());
-            String id = item.getId();
-            String category = item.getCategory();
-            itemDocument.append("id", id)              //still hard coded value
-                    .append("name", name)
-                    .append("description", desc)
-                    .append("amount", amount)
-                    .append("price", price)
-                    .append("quantity", quantity)
-                    .append("category", category);
-            itemsList.add(itemDocument);
-        }
+        for (Object item: cart.getItems()){
+            if (item instanceof ItemDB) {
+                // hokuspokus
+                Document itemDocument = new Document();
+                itemDocument.append("id", ((ItemDB) item).getId())
+                        .append("name", ((ItemDB) item).getName())
+                        .append("description", ((ItemDB) item).getDesc())
+                        .append("amount", ((ItemDB) item).getAmount())
+                        .append("price", ((ItemDB) item).getPrice())
+                        .append("quantity", ((ItemDB) item).getQuantity())
+                        .append("category", ((ItemDB) item).getCategory());
 
+                itemsList.add(itemDocument);
+            }
+        }
         order.append("items", itemsList);
         return order;
     }
 
-    // TODO: Missledande namn? hämtar endast anvädarnamnet för en användare
     public static Document getUserDocument(String username) {
         return DBManager.getCollection("users").find(new Document("username", username)).first();
     }
@@ -273,7 +263,7 @@ public class UserDB extends bo.User{
         super(username, name, authorization, orders);
     }
 
-    public static void removeOrderWithTransaction(String username, String transacitonId) {
+    public static void removeOrderWithTransaction(String username, String transactionId) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users");
@@ -281,19 +271,19 @@ public class UserDB extends bo.User{
         try {
             session.startTransaction();
             ArrayList<Document> orderList = new ArrayList<>();
-            Collection fakeColl = fetchOrders(username);
-            Collection<OrderInfo> coll = new ArrayList<>();
+            Collection generalOrders = fetchOrders(username);
+            Collection<OrderDB> existingOrders = new ArrayList<>();
 
-            for(Object o : fakeColl) {
-                OrderInfo orderInfo = (OrderInfo) o;
-                coll.add(orderInfo);
+            for(Object o : generalOrders) {
+                OrderDB orderDB = (OrderDB) o;
+                existingOrders.add(orderDB);
             }
 
-            for (OrderInfo orderInfo: coll) {
-                if (orderInfo.getId().equals(transacitonId)){
+            for (OrderDB orderDB: existingOrders) {
+                if (orderDB.getId().equals(transactionId)){
                 }
                 else {
-                     orderList.add(addExistingOrders(orderInfo));
+                     orderList.add(addExistingOrders(orderDB));
                 }
             }
             collection.updateOne(session, filterUsername, Updates.set("orders", orderList));

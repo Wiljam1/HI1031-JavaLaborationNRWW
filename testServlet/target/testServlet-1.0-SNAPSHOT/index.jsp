@@ -1,5 +1,3 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="bo.UserHandler" %>
 <%@ page import="ui.UserInfo" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -104,9 +102,9 @@
 </div>
 
 <script type="text/javascript">
-    //Ful Javascript för att få en tickande klocka
+    //ugly Javascript for clock
     function updateDate() {
-        var currentDateElement = document.getElementById("currentDate");
+        let currentDateElement = document.getElementById("currentDate");
         currentDateElement.innerHTML = new Date();
     }
 

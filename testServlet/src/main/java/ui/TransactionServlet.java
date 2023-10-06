@@ -1,6 +1,5 @@
 package ui;
 
-import bo.User;
 import bo.UserHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

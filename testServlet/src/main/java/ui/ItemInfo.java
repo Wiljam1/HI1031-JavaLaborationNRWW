@@ -1,5 +1,7 @@
 package ui;
 
+import bo.Item;
+
 public class ItemInfo {
     private String id;
     private String name;

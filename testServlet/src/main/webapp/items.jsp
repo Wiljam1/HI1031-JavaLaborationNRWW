@@ -229,7 +229,6 @@
                     items = ItemHandler.getItemsWithGroup(filter);
 
                 for (ItemInfo item : items) {
-                    System.out.println("Item:" + item.getName() + " fetched");
             %>
             <form action="addItem" method="post">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>

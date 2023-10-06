@@ -97,7 +97,6 @@
         <input type="hidden" name="transaction" value="<%="createOrder"%>">
         <button type="submit">Purchase</button>
     </form>
-    <!-- TODO: Something more should happen here like clearing the cart and moving to new page? -->
 </div>
 </body>
 </html>

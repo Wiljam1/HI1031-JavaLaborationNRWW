@@ -7,16 +7,21 @@ import java.util.Collection;
 public class Order {
     private String id;
     private String date;
-    private Collection<ItemInfo> items;
+    private Collection items;
     private String totalCost;
     private String assignedStaff;
 
-    protected Order(String id, String date, Collection<ItemInfo> items, String totalCost, String assignedStaff) {
+    protected Order(String id, String date, Collection items, String totalCost, String assignedStaff) {
         this.id = id;
         this.date = date;
         this.items = items;
         this.totalCost = totalCost;
         this.assignedStaff = assignedStaff;
+    }
+
+    // Factory
+    protected static Order createOrder(String orderId, String orderDate, Collection orderItems, String orderCost, String orderStaff) {
+        return new Order(orderId, orderDate, orderItems, orderCost, orderStaff);
     }
 
     public String getId() {
@@ -27,7 +32,7 @@ public class Order {
         return date;
     }
 
-    public Collection<ItemInfo> getItems() {
+    public Collection getItems() {
         return items;
     }
 

@@ -1,9 +1,6 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="ui.ItemInfo" %>
-<%@ page import="bo.ItemHandler" %>
-<%@ page import="java.util.Iterator" %>
 <%@ page import="bo.UserHandler" %>
-<%@ page import="bo.Order" %>
 <%@ page import="ui.OrderInfo" %>
 <%@ page import="ui.UserInfo" %>
 <%@ page import="java.util.Collections" %>
@@ -124,7 +121,6 @@
                 if(orders == null)
                     orders = Collections.emptyList();
             }
-            // TODO: Fixa så sidan blir finare när man inte är inloggad (null-case)
         %>
         <h2><%=name%>'s orders</h2>
         <ul>

@@ -93,6 +93,15 @@ public class ItemDB extends bo.Item {
         super(id, name, desc, quantity, amount, price, category);
     }
 
+    //Public factory (dåligt kanske)
+    public static ItemDB createItemDB(String id, String name, String desc, String quantity, String amount, String price, String category) {
+        return new ItemDB(id, name, desc, quantity, amount, price, category);
+    }
+    //protected factory (bra typ)
+    protected static ItemDB createItem(String id, String name, String desc, String quantity, String amount, String price, String category) {
+        return new ItemDB(id, name, desc, quantity, amount, price, category);
+    }
+
     public static boolean createItem(String name, String description, String amount, String price, String itemCategory) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();

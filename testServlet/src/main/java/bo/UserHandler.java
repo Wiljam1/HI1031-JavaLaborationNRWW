@@ -4,6 +4,7 @@ import db.Authorization;
 import db.UserDB;
 import org.bson.Document;
 import ui.ItemInfo;
+import ui.OrderInfo;
 import ui.UserInfo;
 
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ public class UserHandler {
 
     public static UserInfo getUserInfo(String username) {
         User u = User.searchUser(username);
-        return new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorizationLevel(), u.fetchOrders(username));
+        Collection<OrderInfo> orders = User.convertToOrderInfo(u.getOrders());
+        return new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorizationLevel(), orders);
     }
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
@@ -36,7 +38,7 @@ public class UserHandler {
     }
 
     public static boolean transaction(String username, Collection<ItemInfo> cart, String finalPrice){
-        return UserDB.performTransaction(username, cart, finalPrice);
+        return User.initTransaction(username, cart, finalPrice);
     }
 
     public static Collection<UserInfo> getAllUsers() {
@@ -44,11 +46,14 @@ public class UserHandler {
         ArrayList<UserInfo> users = new ArrayList<>();
         for (Object o : c) {
             User u = (User) o;
-            users.add(new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorization(), u.getOrders()));
+            Collection<OrderInfo> orders = User.convertToOrderInfo(u.getOrders());
+            users.add(new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorization(), orders));
         }
         return users;
-
     }
+
+
+
     public static void removeOrder(String username, String transaction) {
         UserDB.removeOrderWithTransaction(username, transaction);
     }
