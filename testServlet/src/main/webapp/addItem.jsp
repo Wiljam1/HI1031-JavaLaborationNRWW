@@ -1,4 +1,4 @@
-<%@ page import="db.Category" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Wilja
   Date: 10/1/2023

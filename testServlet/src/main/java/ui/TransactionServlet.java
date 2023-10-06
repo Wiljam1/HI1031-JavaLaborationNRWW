@@ -27,9 +27,7 @@ public class TransactionServlet extends HttpServlet {
                 String finalPrice = request.getParameter("finalPrice");
 
                 Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
-
                 boolean success = UserHandler.transaction(username, cart, finalPrice);
-                //Empty cart
                 session.setAttribute("items", new ArrayList<ItemInfo>());
 
                 if (success) {

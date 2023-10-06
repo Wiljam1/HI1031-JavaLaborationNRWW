@@ -4,12 +4,10 @@ import com.mongodb.client.ClientSession;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -119,7 +117,6 @@ public class ItemDB extends bo.Item {
 
             collection.insertOne(itemDoc);
             session.commitTransaction();
-
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +145,6 @@ public class ItemDB extends bo.Item {
             );
 
             Bson filter = eq("id", item.getId());
-
             collection.updateOne(filter, updateQuery);
 
             session.commitTransaction();
