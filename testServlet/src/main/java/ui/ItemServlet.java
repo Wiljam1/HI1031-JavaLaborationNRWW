@@ -36,7 +36,7 @@ public class ItemServlet extends HttpServlet {
         String itemDesc = request.getParameter("itemDesc");
         String itemAmount = request.getParameter("itemAmount");
         String itemPrice = request.getParameter("itemPrice");
-        String itemCategory = request.getParameter("category");
+        String itemCategory = request.getParameter("itemCategory");
 
         switch (action) {
             case "addNewItem":
@@ -50,6 +50,7 @@ public class ItemServlet extends HttpServlet {
                 request.setAttribute("itemDesc", itemDesc);
                 request.setAttribute("itemAmount", itemAmount);
                 request.setAttribute("itemPrice", itemPrice);
+                request.setAttribute("itemCategory", itemCategory);
                 request.getRequestDispatcher("editItem.jsp").forward(request, response);
                 break;
             case "editItem":

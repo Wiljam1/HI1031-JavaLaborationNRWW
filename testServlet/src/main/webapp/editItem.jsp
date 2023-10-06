@@ -80,6 +80,7 @@
     String itemDesc = (String) request.getAttribute("itemDesc");
     String itemAmount = (String) request.getAttribute("itemAmount");
     String itemPrice = (String) request.getAttribute("itemPrice");
+    String itemCategory = (String) request.getAttribute("itemCategory");
 %>
 <form action="addItem" method="post">
     <input type="hidden" name="action" value="editItem">
@@ -97,10 +98,8 @@
     <label for="price">Price:</label>
     <input type="text" id="price" name="itemPrice" required value="<%=itemPrice%>"><br><br>
 
-    <select name="category" id="category">
-        <option value="<%= Category.SODA.toString().toUpperCase() %>">Soda</option>
-        <option value="<%= Category.CHIPS.toString().toUpperCase() %>">Chips</option>
-    </select>
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="itemCategory" required value="<%=itemCategory%>"><br><br>
 
     <input type="submit" value="Submit edit">
 </form>

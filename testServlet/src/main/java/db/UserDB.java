@@ -265,7 +265,6 @@ public class UserDB extends bo.User{
     }
 
     // TODO: Missledande namn? hämtar endast anvädarnamnet för en användare
-
     public static Document getUserDocument(String username) {
         return DBManager.getCollection("users").find(new Document("username", username)).first();
     }
