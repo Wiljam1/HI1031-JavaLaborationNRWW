@@ -4,16 +4,18 @@ public class ItemInfo {
     private String id;
     private String name;
     private String desc;
+    private String category;
     private int quantity;
     private int amount;
     private int price;
-    public ItemInfo(String id, String name, String desc, String quantity, String amount, String price) {
+    public ItemInfo(String id, String name, String desc, String quantity, String amount, String price, String category) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.quantity = Integer.parseInt(quantity);
         this.amount = Integer.parseInt(amount);
         this.price = Integer.parseInt(price);
+        this.category = category;
     }
 
     public String getId() {
@@ -39,6 +41,7 @@ public class ItemInfo {
     public int getQuantity() {
         return quantity;
     }
+    public String getCategory(){return this.category;}
 
     public void incrementQuantity() {
         this.quantity++;

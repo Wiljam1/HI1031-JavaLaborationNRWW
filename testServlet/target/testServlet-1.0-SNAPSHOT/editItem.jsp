@@ -1,4 +1,4 @@
-<%--
+<%@ page import="db.Category" %><%--
   Created by IntelliJ IDEA.
   User: Wilja
   Date: 10/1/2023
@@ -96,6 +96,11 @@
 
     <label for="price">Price:</label>
     <input type="text" id="price" name="itemPrice" required value="<%=itemPrice%>"><br><br>
+
+    <select name="category" id="category">
+        <option value="<%= Category.SODA.toString().toUpperCase() %>">Soda</option>
+        <option value="<%= Category.CHIPS.toString().toUpperCase() %>">Chips</option>
+    </select>
 
     <input type="submit" value="Submit edit">
 </form>

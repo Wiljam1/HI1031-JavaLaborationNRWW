@@ -105,8 +105,9 @@ public class UserDB extends bo.User{
                         String itemQuantity = itemDoc.getString("quantity");
                         String itemAmount = itemDoc.getString("amount");
                         String itemPrice = itemDoc.getString("price");
+                        String category = itemDoc.getString("category");
 
-                        ItemInfo itemInfo = new ItemInfo(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice);
+                        ItemInfo itemInfo = new ItemInfo(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice, category);
                             orderItems.add(itemInfo);
 
                     }

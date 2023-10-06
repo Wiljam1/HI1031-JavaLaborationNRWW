@@ -28,7 +28,8 @@ public class ItemDB extends bo.Item {
                 String quantity = doc.getString("quantity");
                 String amount = doc.getString("amount");
                 String price = doc.getString("price");
-                items.add(new ItemDB(id, name, desc, quantity, amount, price));
+                String category = doc.getString("category");
+                items.add(new ItemDB(id, name, desc, quantity, amount, price, category));
             }
         }
         catch (Exception e) {
@@ -52,7 +53,8 @@ public class ItemDB extends bo.Item {
                 String quantity = doc.getString("quantity");
                 String amount = doc.getString("amount");
                 String price = doc.getString("price");
-                item = new ItemDB(id, name, desc, quantity, amount, price);
+                String category = doc.getString("category");
+                item = new ItemDB(id, name, desc, quantity, amount, price, category);
             }
         }
         catch (Exception e) {
@@ -61,11 +63,11 @@ public class ItemDB extends bo.Item {
         return item;
     }
 
-    private ItemDB(String id, String name, String desc, String quantity, String amount, String price) {
-        super(id, name, desc, quantity, amount, price);
+    private ItemDB(String id, String name, String desc, String quantity, String amount, String price, String category) {
+        super(id, name, desc, quantity, amount, price, category);
     }
 
-    public static boolean createItem(String name, String description, String amount, String price) {
+    public static boolean createItem(String name, String description, String amount, String price, String itemCategory) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         try {
@@ -84,7 +86,8 @@ public class ItemDB extends bo.Item {
                     .append("name", name)
                     .append("description", description)
                     .append("amount", amount)
-                    .append("price", price);
+                    .append("price", price)
+                    .append("category", itemCategory);
 
             collection.insertOne(itemDoc);
             session.commitTransaction();
@@ -100,7 +103,7 @@ public class ItemDB extends bo.Item {
         return true;
     }
 
-    public static boolean editItem(String id, String name, String description, String amount, String price) {
+    public static boolean editItem(String id, String name, String description, String amount, String price, String itemCategory) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         try {
@@ -112,7 +115,8 @@ public class ItemDB extends bo.Item {
                     Updates.set("name", name),
                     Updates.set("description", description),
                     Updates.set("amount", amount),
-                    Updates.set("price", price)
+                    Updates.set("price", price),
+                    Updates.set("category", itemCategory)
             );
 
             Bson filter = Filters.eq("id", item.getId());

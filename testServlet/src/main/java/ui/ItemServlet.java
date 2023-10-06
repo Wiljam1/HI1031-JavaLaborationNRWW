@@ -36,10 +36,11 @@ public class ItemServlet extends HttpServlet {
         String itemDesc = request.getParameter("itemDesc");
         String itemAmount = request.getParameter("itemAmount");
         String itemPrice = request.getParameter("itemPrice");
+        String itemCategory = request.getParameter("category");
 
         switch (action) {
             case "addNewItem":
-                ItemHandler.createItem(itemName, itemDesc, itemAmount, itemPrice);
+                ItemHandler.createItem(itemName, itemDesc, itemAmount, itemPrice, itemCategory);
                 response.sendRedirect("items.jsp");
                 break;
             case "sendToEdit":
@@ -52,7 +53,7 @@ public class ItemServlet extends HttpServlet {
                 request.getRequestDispatcher("editItem.jsp").forward(request, response);
                 break;
             case "editItem":
-                ItemHandler.editItem(itemId, itemName, itemDesc, itemAmount, itemPrice);
+                ItemHandler.editItem(itemId, itemName, itemDesc, itemAmount, itemPrice, itemCategory);
                 response.sendRedirect("items.jsp");
                 break;
             case "addToCart":
@@ -79,7 +80,7 @@ public class ItemServlet extends HttpServlet {
                 if(!itemExists && amount > 0) {
                     // TODO: Fixa snyggare, parse någon annanstans
                     itemAmount = String.valueOf(itemAmount);
-                    cartItems.add(new ItemInfo(itemId, itemName, itemDesc, "1", itemAmount, itemPrice));
+                    cartItems.add(new ItemInfo(itemId, itemName, itemDesc, "1", itemAmount, itemPrice, itemCategory));
                 }
 
                 session.setAttribute("items", cartItems);
