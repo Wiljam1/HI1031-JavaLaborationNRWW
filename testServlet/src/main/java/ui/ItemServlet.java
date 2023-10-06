@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 
+//TODO: Döp om till något mer passande
 @WebServlet("/addItem")
 public class ItemServlet extends HttpServlet {
 
@@ -45,13 +46,13 @@ public class ItemServlet extends HttpServlet {
                 break;
             case "sendToEdit":
                 //Send parameters
-                request.setAttribute("itemId", itemId);
-                request.setAttribute("itemName", itemName);
-                request.setAttribute("itemDesc", itemDesc);
-                request.setAttribute("itemAmount", itemAmount);
-                request.setAttribute("itemPrice", itemPrice);
-                request.setAttribute("itemCategory", itemCategory);
-                request.getRequestDispatcher("editItem.jsp").forward(request, response);
+                session.setAttribute("itemId", itemId);
+                session.setAttribute("itemName", itemName);
+                session.setAttribute("itemDesc", itemDesc);
+                session.setAttribute("itemAmount", itemAmount);
+                session.setAttribute("itemPrice", itemPrice);
+                session.setAttribute("itemCategory", itemCategory);
+                response.sendRedirect("items.jsp");
                 break;
             case "editItem":
                 ItemHandler.editItem(itemId, itemName, itemDesc, itemAmount, itemPrice, itemCategory);
@@ -80,7 +81,6 @@ public class ItemServlet extends HttpServlet {
 
                 if(!itemExists && amount > 0) {
                     // TODO: Fixa snyggare, parse någon annanstans
-                    itemAmount = String.valueOf(itemAmount);
                     cartItems.add(new ItemInfo(itemId, itemName, itemDesc, "1", itemAmount, itemPrice, itemCategory));
                 }
 
@@ -109,8 +109,8 @@ public class ItemServlet extends HttpServlet {
                 break;
             case "setFilter":
                 String filter = request.getParameter("selectedCategory");
-                request.setAttribute("filter", filter);
-                request.getRequestDispatcher("items.jsp").forward(request, response);
+                session.setAttribute("filter", filter);
+                response.sendRedirect("items.jsp");
                 break;
             default:
                 System.out.println("error in itemservlet switch input action: " + action);

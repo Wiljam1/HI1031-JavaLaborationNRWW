@@ -199,18 +199,21 @@
         <label for="category">Choose category:</label>
         <select name="selectedCategory" id="category">
             <%
-                //for-loop här där en samling av alla kategorier hämtas
-                HashSet<String> categories = ItemHandler.getCategories();
+                String filter = (String) session.getAttribute("filter");
+                Collection<String> categories = new ArrayList<>();
+                categories.add("All items");
+                categories.addAll(ItemHandler.getCategories());
 
                 for (String category : categories) {
-
+                    boolean isSelected = (filter == null && "All items".equals(category)) ||
+                            (filter != null && filter.equals(category));
             %>
-            <option value="<%=category%>"><%=category%></option>
+            <option value="<%=category%>" <%= isSelected ? "selected" : "" %>><%=category%></option>
             <%
                 }
             %>
         </select>
-        <button type="submit" name="action" value="setFilter">Submit filter</button>
+        <button class="checkout-button" type="submit" name="action" value="setFilter">Submit filter</button>
     </form>
 </div>
 <div class="container">
@@ -218,10 +221,13 @@
         <h2>Available Items</h2>
         <ul>
             <%
-                //if "none" implementeras
-                //else används filtret
-                String filter = (String) request.getAttribute("filter");
-                Collection<ItemInfo> items = ItemHandler.getItemsWithGroup(filter);
+                //Flytta logik till servlet?
+
+                Collection<ItemInfo> items = ItemHandler.getItemsWithGroup();
+
+                if(filter != null && !filter.equals("All items")) //hardcoded
+                    items = ItemHandler.getItemsWithGroup(filter);
+
                 for (ItemInfo item : items) {
                     System.out.println("Item:" + item.getName() + " fetched");
             %>
