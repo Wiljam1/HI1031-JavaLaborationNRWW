@@ -121,7 +121,6 @@
                 if(orders == null)
                     orders = Collections.emptyList();
             }
-            // TODO: Fixa så sidan blir finare när man inte är inloggad (null-case)
         %>
         <h2><%=name%>'s orders</h2>
         <ul>

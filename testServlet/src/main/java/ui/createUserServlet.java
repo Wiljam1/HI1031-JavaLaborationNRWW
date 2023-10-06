@@ -22,13 +22,13 @@ public class createUserServlet extends HttpServlet {
         String authParameter = request.getParameter("authorization");
         Authorization authorization = Authorization.valueOf(authParameter);
 
-        // TODO: implement check of validity of user inputs (ingen skadlig kod)
+        // TODO: implement check of validity of user inputs (ingen skadlig/för lång kod)
         if(true) {
             // Valid user to create
             UserHandler.createUser(username, name, password, authorization);
             response.sendRedirect("login.jsp");
         } else {
-            // Failed to create user TODO: Implementera felmeddelande (som visas i Alert)
+            // Failed to create user
             response.sendRedirect("createUser.jsp");
         }
     }

@@ -27,7 +27,6 @@ public class UserInfo {
 
     public String getAuthorizationLevel() { return authorization; }
 
-    // TODO: Implementera så denna kan användas med UserInfo-konstruktorn
     public Collection<OrderInfo> getOrders() {
         return orders;
     }
