@@ -78,7 +78,7 @@
 <div id="currentDate">
 </div>
 <div id="links">
-    <a href="items.jsp">Browse items</a>
+    <a href="${pageContext.request.contextPath}/items">Browse items</a>
     <br><br>
     <a href="login">Login</a>
     <%

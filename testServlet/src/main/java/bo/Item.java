@@ -38,43 +38,6 @@ public class Item {
         return new Item(id, name, desc, quantity, amount, price, category);
     }
 
-    // Ser både View och Model (men vi är i en controller klass? eller aa ett business object)
-    public static Collection<ItemInfo> convertItemsToItemInfo(Collection<ItemDB> itemDBCollection) {
-        Collection<ItemInfo> itemInfoCollection = new ArrayList<>();
-
-        for (ItemDB itemDB : itemDBCollection) {
-            String itemId = itemDB.getId();
-            String itemName = itemDB.getName();
-            String itemDesc = itemDB.getDesc();
-            String itemQuantity = itemDB.getQuantity();
-            String itemAmount = itemDB.getAmount();
-            String itemPrice = itemDB.getPrice();
-            String category = itemDB.getCategory();
-
-            ItemInfo itemInfo = new ItemInfo(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice, category);
-            itemInfoCollection.add(itemInfo);
-        }
-        return itemInfoCollection;
-    }
-
-    public static Collection<ItemDB> convertItemInfosToItem(Collection<ItemInfo> itemInfoCollection) {
-        Collection<ItemDB> itemDBCollection = new ArrayList<>();
-
-        for (ItemInfo item : itemInfoCollection) {
-            String itemId = item.getId();
-            String itemName = item.getName();
-            String itemDesc = item.getDesc();
-            String itemQuantity = String.valueOf(item.getQuantity());
-            String itemAmount = String.valueOf(item.getAmount());
-            String itemPrice = String.valueOf(item.getPrice());
-            String category = item.getCategory();
-            
-            ItemDB itemDB = ItemDB.createItemDB(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice, category);
-            itemDBCollection.add(itemDB);
-        }
-        return itemDBCollection;
-    }
-
     public String getName() {
         return name;
     }

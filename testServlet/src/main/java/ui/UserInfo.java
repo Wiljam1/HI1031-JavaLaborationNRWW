@@ -5,7 +5,7 @@ import java.util.Collection;
 public class UserInfo {
     private String username;
     private String name;
-    private Collection<ItemInfo> cart; //TODO: ska vara ItemInfo
+    private Collection<ItemInfo> cart;
     private String authorization;
     private Collection<OrderInfo> orders;
 

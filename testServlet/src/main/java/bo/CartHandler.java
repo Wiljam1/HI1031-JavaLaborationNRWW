@@ -8,7 +8,6 @@ import java.util.Iterator;
 
 public class CartHandler {
 
-
     public static Collection<ItemInfo> addToCart(String itemId, String itemName, String itemDesc, String itemAmount, String itemPrice, String itemCategory, Collection<ItemInfo> cartItems){
 
         int amount = Integer.parseInt(itemAmount);
@@ -46,5 +45,13 @@ public class CartHandler {
             }
         }
         return cart;
+    }
+
+    public static int calculatePrice(Collection<ItemInfo> cart) {
+        int price = 0;
+        for(ItemInfo item : cart) {
+            price += item.getPrice() * item.getQuantity();
+        }
+        return price;
     }
 }

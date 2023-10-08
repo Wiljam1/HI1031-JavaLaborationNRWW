@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 
             response.sendRedirect("index.jsp");
         } else {
-            // Failed login TODO: skapa Alert()
+            // Failed login
             request.removeAttribute("password");
             response.sendRedirect("login");
         }

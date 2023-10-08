@@ -153,13 +153,13 @@
     <%
         Collection<UserInfo> users = UserHandler.getAllUsers();
         for(UserInfo user : users) {
-            //Check if user has orders
+
             Collection<OrderInfo> orders = user.getOrders();
             if(orders != null) {
     %>
     <div id="items-container">
         <%
-            //display users orders
+
             String name = user.getName();
         %>
         <h2><%=name%>'s orders</h2>
@@ -180,7 +180,7 @@
                 </form></h3>
                 <p>Date: <%=order.getDate()%></p>
                 <p>Total Cost: <%=order.getTotalCost()%></p>
-                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>
+<%--                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>--%>
 
                 <ul>
                     <% for (ItemInfo item : order.getItems()) { %>

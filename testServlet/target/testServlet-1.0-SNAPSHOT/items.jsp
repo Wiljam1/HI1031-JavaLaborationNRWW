@@ -3,6 +3,8 @@
 <%@ page import="bo.UserHandler" %>
 <%@ page import="ui.UserInfo" %>
 <%@ page import="java.util.*" %>
+<%@ page import="db.Authorization" %>
+<%@ page import="bo.CartHandler" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -181,15 +183,13 @@
     <a class="checkout-button" href="index.jsp">Home</a>
     <%
         session = request.getSession();
-        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-        // Kanske borde flytta denna logik till en servlet
-        if(userInfo != null) {
-            String authLevel = userInfo.getAuthorizationLevel();
-            if(authLevel.equals("admin")) {
+        //UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        String authLevel = (String) session.getAttribute("authLevel");
+
+        if(authLevel != null && authLevel.equals(Authorization.ADMIN.toString())) {
     %>
     <a class="new-item-button" href="addItem.jsp">Add new item</a>
     <%
-            }
         }
     %>
 </nav>
@@ -223,17 +223,14 @@
         <h2>Available Items</h2>
         <ul>
             <%
-                //Flytta logik till servlet?
-
                 Collection<ItemInfo> items = ItemHandler.getItemsWithGroup();
 
-                if(filter != null && !filter.equals("All items")) //hardcoded
+                if(filter != null && !filter.equals("All items"))
                     items = ItemHandler.getItemsWithGroup(filter);
 
                 for (ItemInfo item : items) {
             %>
             <form action="items" method="post">
-                <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
                 <input type="hidden" name="itemDesc" value="<%= item.getDesc() %>">
@@ -257,12 +254,11 @@
 
                 <div class="add-button">
                     <%
-                        if(userInfo != null) {
+                        if(authLevel != null && !authLevel.equals(Authorization.UNAUTHORIZED.toString())) {
                     %>
                     <button type="submit" name="action" value="addToCart">Add to Cart</button>
                     <%
-                        String authLevel = userInfo.getAuthorizationLevel();
-                            if(authLevel.equals("admin")) {
+                            if(authLevel.equals(Authorization.ADMIN.toString())) {
                     %>
                     <button type="submit" name="action" value="sendToEdit">Edit</button>
                     <%
@@ -278,23 +274,19 @@
     </div>
         <%
             //TODO: Flytta logik till en servlet/Business object
-            String username;
-            String name;
-            if(userInfo != null) {
-                username = userInfo.getUsername();
-                name = userInfo.getName();
+            String name = (String) session.getAttribute("name");
+            if(name != null) {
         %>
     <div id="shopping-cart-container">
         <h2>Shopping Cart for <%=name%></h2>
         <ul>
             <%
-                if (!Objects.equals(username, "null")) {
-                    Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
-                    int price = 0;
-                    if (cartItems != null) {
-                        //TODO: Price kanske kan beräknas i ett business object (logik)
-                        for (ItemInfo item : cartItems) {
-                            price += item.getPrice() * item.getQuantity();
+                {
+                Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+                int price = 0;
+                if (cartItems != null) {
+                    //TODO: Price kanske kan beräknas i ett business object (logik)
+                    for (ItemInfo item : cartItems) {
             %>
             <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %> - <b>Cost:</b> <%=item.getPrice()*item.getQuantity()%>
                 <form class="remove-button" action="items" method="post">
@@ -305,12 +297,13 @@
             </li>
             <%
                         }
+                    price = CartHandler.calculatePrice(cartItems);
                 }
             %>
         </ul>
         <p><b>Total Price:</b> <%= price %></p>
         <%
-                session.setAttribute("finalPrice", price);
+            session.setAttribute("finalPrice", price);
             }
             Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
             if (cartItems != null){
@@ -321,8 +314,6 @@
                 }
             }
         %>
-
-
     </div>
     <%
         }
@@ -331,6 +322,7 @@
 </body>
 </html>
 <script type="text/javascript">
+    // Alert for if transaction fails
     <% Boolean transactionSuccess = (Boolean) request.getAttribute("transactionSuccess"); %>
     <% String transactionMessage = (String) request.getAttribute("transactionMessage"); %>
 
