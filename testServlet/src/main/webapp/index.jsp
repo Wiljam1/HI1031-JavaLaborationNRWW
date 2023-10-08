@@ -19,17 +19,17 @@
         a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff; /* Blue color */
-            color: #fff; /* Text color */
-            text-decoration: none; /* Remove underlines */
-            border: none; /* Remove borders */
-            border-radius: 5px; /* Rounded corners */
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            transition: background-color 0.3s ease;
         }
 
         a:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
         }
 
         #current-user {
@@ -52,6 +52,7 @@
 <div id="current-user">
     <%
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        // nameString be set in doGet() in IndexServlet but couldn't get mappings to work on server startup.
         String nameString;
         if (userInfo == null) {
             nameString = "Not logged in";
@@ -74,12 +75,8 @@
     %>
     <%=authString%>
 </div>
-
-
 <div id="currentDate">
-
 </div>
-
 <div id="links">
     <a href="items.jsp">Browse items</a>
     <br><br>
@@ -91,7 +88,6 @@
     <a href="userOrders.jsp">Your orders</a>
     <%
         }
-        // TODO: Move logic to a servlet?
         if("admin".equals(authLevel) || "staff".equals(authLevel)) {
     %>
     <br><br>
@@ -102,7 +98,7 @@
 </div>
 
 <script type="text/javascript">
-    //ugly Javascript for clock
+    //Unnecessary Javascript for clock
     function updateDate() {
         let currentDateElement = document.getElementById("currentDate");
         currentDateElement.innerHTML = new Date();

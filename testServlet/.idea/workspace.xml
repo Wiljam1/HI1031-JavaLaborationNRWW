@@ -10,42 +10,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/db/OrderDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bo/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bo/ItemHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/ItemHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bo/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bo/UserHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/db/ItemDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/ItemDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/db/UserDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/UserDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ItemInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ItemInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/AllOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/AllOrdersServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/UserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/createUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/addItem.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/addItem.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/allOrders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/createUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/createUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/editItem.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/editItem.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/items.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bo/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bo/ItemHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/ItemHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/userOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/userOrders.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bo/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bo/UserHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db/ItemDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/ItemDB.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/UserDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ui/ItemInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/ItemInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ui/UserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ui/UserInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/ItemHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/ItemHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/UserHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/bo/UserHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/ItemDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/ItemDB.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/ui/ItemInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/ui/ItemInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/ui/UserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/ui/UserInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/addItem.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/addItem.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allOrders.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/createUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/createUser.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/editItem.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/editItem.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/items.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/items.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/userOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/userOrders.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -309,6 +298,7 @@
       <workItem from="1696168957677" duration="1250000" />
       <workItem from="1696402528204" duration="18333000" />
       <workItem from="1696580964700" duration="9265000" />
+      <workItem from="1696762552108" duration="7618000" />
     </task>
     <servers />
   </component>

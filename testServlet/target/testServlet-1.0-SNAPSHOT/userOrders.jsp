@@ -81,7 +81,7 @@
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
-        a.checkout-button {
+        a.home-button {
             display: inline-block;
             padding: 10px 20px;
             background-color: #007bff; /* Blue color */
@@ -94,7 +94,7 @@
 
             /* Optional: Add hover effect */
         }
-        a.checkout-button:hover {
+        a.home-button:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
     </style>

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Wilja
-  Date: 10/1/2023
-  Time: 10:06 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -74,7 +67,7 @@
 <a href="items.jsp">Back to items</a>
 <br><br>
 <h2>Add item </h2>
-<form action="addItem" method="post">
+<form action="items" method="post">
     <input type="hidden" name="action" value="addNewItem">
 
     <label for="name">Name:</label>

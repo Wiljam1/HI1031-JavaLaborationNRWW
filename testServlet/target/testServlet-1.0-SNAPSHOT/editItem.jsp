@@ -75,7 +75,7 @@
     String itemPrice = (String) request.getAttribute("itemPrice");
     String itemCategory = (String) request.getAttribute("itemCategory");
 %>
-<form action="addItem" method="post">
+<form action="items" method="post">
     <input type="hidden" name="action" value="editItem">
     <input type="hidden" name="itemId" value="<%=itemId%>">
 

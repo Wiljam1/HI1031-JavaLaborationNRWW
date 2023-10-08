@@ -65,7 +65,7 @@
 <a href="index.jsp">Home</a>
 <br><br>
 <h2>Create account</h2>
-<form action="createUser" method="post">
+<form action="user" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br><br>
 

@@ -14,15 +14,11 @@ import java.util.Collection;
 import java.util.Iterator;
 
 //TODO: Döp om till något mer passande
-@WebServlet("/addItem")
+@WebServlet("/items")
 public class ItemServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        String action = request.getParameter("action");
-        //request.setAttribute("action", "null");
 
         //Item parameters
         String itemId = request.getParameter("itemId");
@@ -31,6 +27,9 @@ public class ItemServlet extends HttpServlet {
         String itemAmount = request.getParameter("itemAmount");
         String itemPrice = request.getParameter("itemPrice");
         String itemCategory = request.getParameter("itemCategory");
+
+        HttpSession session = request.getSession();
+        String action = request.getParameter("action");
 
         switch (action) {
             case "addNewItem":

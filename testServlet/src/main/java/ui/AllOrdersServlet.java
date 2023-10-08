@@ -15,7 +15,6 @@ public class AllOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("trying to access allOrders.jsp");
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
@@ -26,12 +25,10 @@ public class AllOrdersServlet extends HttpServlet {
             if(isAuthorized)
                 request.getRequestDispatcher("/allOrders.jsp").forward(request, response);
             else {
-                System.out.println("not allowed to visit allOrders.jsp");
                 response.sendRedirect("index.jsp");
             }
         }
         else {
-            System.out.println("Not logged in, can't check auth level");
             response.sendRedirect("login");
         }
     }

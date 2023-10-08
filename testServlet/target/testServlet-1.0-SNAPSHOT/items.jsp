@@ -35,7 +35,7 @@
             justify-content: space-between;
         }
         #items-container {
-            flex-basis: 85%; /* Adjust the width as needed */
+            flex-basis: 85%;
             background-color: #fff;
             padding: 20px;
             border: 1px solid #ccc;
@@ -52,7 +52,7 @@
             margin-bottom: 10px;
         }
         #items h2 {
-            text-align: center; /* Center-align the "Available Items" heading */
+            text-align: center;
         }
         ul {
             list-style: none;
@@ -83,35 +83,37 @@
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
+
         a.checkout-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff; /* Blue color */
-            color: #fff; /* Text color */
-            text-decoration: none; /* Remove underlines */
-            border: none; /* Remove borders */
-            border-radius: 5px; /* Rounded corners */
+            background-color: #2c80fd;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            transition: background-color 0.3s ease;
 
         }
         a.checkout-button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #6b9dff;
         }
+
         a.new-item-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #3c8a29; /* Blue color */
-            color: #fff; /* Text color */
-            text-decoration: none; /* Remove underlines */
-            border: none; /* Remove borders */
-            border-radius: 5px; /* Rounded corners */
+            background-color: #3c8a29;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            transition: background-color 0.3s ease;
 
         }
         a.new-item-button:hover {
-            background-color: #59e13f; /* Darker blue on hover */
+            background-color: #59e13f;
         }
         button[type="submit"][value="sendToEdit"] {
             background-color: orange;
@@ -139,8 +141,8 @@
             background-color: #c9302c;
         }
         #filter-container {
-            float: right; /* Float the filter-container to the right */
-            width: 15%; /* Adjust the width as needed */
+            float: right;
+            width: 15%;
             background-color: #ffffff;
             border: 1px solid #ddd;
             padding: 10px;
@@ -193,7 +195,7 @@
 </nav>
 <div id="filter-container">
     <h3>Filter</h3>
-    <form action="addItem" method="post">
+    <form action="items" method="post">
         <input type="hidden" name="action" value="setFilter">
 
         <label for="category">Choose category:</label>
@@ -229,9 +231,8 @@
                     items = ItemHandler.getItemsWithGroup(filter);
 
                 for (ItemInfo item : items) {
-                    System.out.println("Item:" + item.getName() + " fetched");
             %>
-            <form action="addItem" method="post">
+            <form action="items" method="post">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
@@ -296,7 +297,7 @@
                             price += item.getPrice() * item.getQuantity();
             %>
             <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %> - <b>Cost:</b> <%=item.getPrice()*item.getQuantity()%>
-                <form class="remove-button" action="addItem" method="post">
+                <form class="remove-button" action="items" method="post">
                     <input type="hidden" name="action" value="removeFromCart">
                     <input type="hidden" name="itemIdToRemove" value="<%= item.getId() %>">
                     <button type="submit">Remove</button>

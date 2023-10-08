@@ -8,7 +8,6 @@
 <head>
     <title>All orders</title>
     <style>
-        /* Reset some default styles */
         body, h1, h2, h3, p, ul, li {
             margin: 0;
             padding: 0;
@@ -82,7 +81,7 @@
         form {
             display: inline-block;
         }
-        a.checkout-button {
+        a.home-button {
             display: inline-block;
             padding: 10px 20px;
             background-color: #007bff;
@@ -94,7 +93,7 @@
             transition: background-color 0.3s ease;
 
         }
-        a.checkout-button:hover {
+        a.home-button:hover {
             background-color: #0056b3;
         }
         .add-button {
@@ -148,7 +147,7 @@
     <h1>All orders</h1>
 </header>
 <nav>
-    <a class="checkout-button" href="index.jsp">Home</a>
+    <a class="home-button" href="index.jsp">Home</a>
 </nav>
 <div class="container">
     <%
@@ -171,13 +170,11 @@
             <li>
                 <h3>Order ID: <%=order.getId()%>
                 <form action="transaction" method="post">
-                    <!-- Hidden input field to store the item's attributes -->
                     <input type="hidden" name="transaction" value="<%="deleteOrder"%>">
                     <input type="hidden" name="transactionId" value="<%=order.getId()%>">
                     <input type="hidden" name="username" value="<%=user.getUsername()%>">
 
                     <div class="add-button">
-                        <!-- Submit button to add the item to the cart -->
                         <button type="submit">Delete</button>
                     </div>
                 </form></h3>
@@ -208,11 +205,3 @@
 </div>
 </body>
 </html>
-<script type="text/javascript">
-    <% Boolean transactionSuccess = (Boolean) request.getAttribute("transactionSuccess"); %>
-    <% String transactionMessage = (String) request.getAttribute("transactionMessage"); %>
-
-    <% if (transactionSuccess != null && transactionSuccess) { %>
-    alert("<%= transactionMessage %>");
-    <% } %>
-</script>
