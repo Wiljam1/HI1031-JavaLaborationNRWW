@@ -66,6 +66,7 @@
 <br><br>
 <h2>Create account</h2>
 <form action="user" method="post">
+    <input type="hidden" name="transaction" value="create">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br><br>
 

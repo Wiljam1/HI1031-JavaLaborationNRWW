@@ -57,4 +57,12 @@ public class UserHandler {
     public static void removeOrder(String username, String transaction) {
         UserDB.removeOrderWithTransaction(username, transaction);
     }
+
+    public static boolean editUser(String username, String name, Authorization authorization) {
+        return UserDB.editUserDB(username,name,authorization);
+    }
+
+    public static boolean deleteUser(String username) {
+        return false;
+    }
 }

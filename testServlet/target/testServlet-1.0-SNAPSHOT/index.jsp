@@ -92,8 +92,15 @@
     %>
     <br><br>
     <a href="allOrders">All orders</a>
+
     <%
         }
+        if ("admin".equals(authLevel)){
+            %>
+    <br><br>
+    <a href="allUsers.jsp">All Users</a>
+    <%
+    }
     %>
 </div>
 
