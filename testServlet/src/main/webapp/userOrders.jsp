@@ -9,93 +9,137 @@
 <head>
     <title>My orders</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        body, h1, h2, h3, p, ul, li {
             margin: 0;
             padding: 0;
         }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
         header {
             background-color: #333;
             color: #fff;
             padding: 10px;
             text-align: center;
         }
+
+        header h1 {
+            font-size: 24px;
+        }
+
         nav {
             background-color: #444;
-            color: #fff;
-            padding: 10px;
             text-align: center;
+            padding: 10px;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
         }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
         #items-container {
-            flex-basis: 68%; /* Adjust the width as needed */
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
-        #shopping-cart-container {
-            flex-basis: 30%;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
         }
-        #items h2 {
-            text-align: center; /* Center-align the "Available Items" heading */
-        }
+
         ul {
             list-style: none;
-            padding: 0;
         }
+
         li {
-            margin: 5px 0;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
         }
+
+        h3 {
+            font-size: 18px;
+        }
+
         form {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .item-info {
-            flex-basis: 70%;
-        }
-        .add-button {
-            flex-basis: 20%;
-            text-align: right;
-        }
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        button[type="submit"]:hover {
-            background-color: #0056b3;
+            display: inline-block;
         }
         a.home-button {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff; /* Blue color */
-            color: #fff; /* Text color */
-            text-decoration: none; /* Remove underlines */
-            border: none; /* Remove borders */
-            border-radius: 5px; /* Rounded corners */
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            transition: background-color 0.3s ease;
 
-            /* Optional: Add hover effect */
         }
         a.home-button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
+        }
+        .add-button {
+            text-align: right;
+            margin-top: 10px;
+            margin-left: 1000%;
+        }
+
+        .add-button button {
+            background-color: #fa2626;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .add-button button:hover {
+            background-color: #a61b1b;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        ul ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        ul ul li {
+            margin-bottom: 2px;
+        }
+
+        b {
+            font-weight: bold;
+        }
+
+        #items-container {
+            margin-top: 20px;
+            border: 3px solid #4cb4ff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -104,7 +148,7 @@
     <h1>My orders</h1>
 </header>
 <nav>
-    <a class="checkout-button" href="index.jsp">Home</a>
+    <a class="home-button" href="index.jsp">Home</a>
 </nav>
 <div class="container">
     <div id="items-container">
@@ -131,7 +175,7 @@
             <h3>Order ID: <%=order.getId()%></h3>
             <p>Date: <%=order.getDate()%></p>
             <p>Total Cost: <%=order.getTotalCost()%></p>
-            <p>Assigned Staff: <%=order.getAssignedStaff()%></p>
+<%--            <p>Assigned Staff: <%=order.getAssignedStaff()%></p>--%>
 
             <ul>
                 <% for (ItemInfo item : order.getItems()) { %>

@@ -2,6 +2,7 @@ package ui;
 
 import bo.CartHandler;
 import bo.ItemHandler;
+import db.Authorization;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,6 +16,29 @@ import java.util.Collection;
 //TODO: Döp om till något mer passande
 @WebServlet("/items")
 public class ItemServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+
+        String name;
+        String authLevel;
+        if(userInfo != null) {
+            name = userInfo.getName();
+            authLevel = userInfo.getAuthorizationLevel();
+        } else {
+            name = null;
+            authLevel = Authorization.UNAUTHORIZED.toString();
+        }
+
+        session.setAttribute("name", name);
+        session.setAttribute("authLevel", authLevel);
+
+        request.getRequestDispatcher("/items.jsp").forward(request, response);
+
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

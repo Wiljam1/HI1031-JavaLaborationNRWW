@@ -1,7 +1,7 @@
 package db;
 
 public enum Authorization {
-    ADMIN, STAFF, USER;
+    ADMIN, STAFF, USER, UNAUTHORIZED;
 
     @Override
     public String toString() {

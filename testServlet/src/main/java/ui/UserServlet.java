@@ -10,14 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-<<<<<<<< HEAD:testServlet/src/main/java/ui/UserServlet.java
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
-========
-@WebServlet("/createUser")
-public class CreateUserServlet extends HttpServlet {
->>>>>>>> 9999a7ec206a72a435048b995cf828e5df239a8f:testServlet/src/main/java/ui/CreateUserServlet.java
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
