@@ -59,16 +59,18 @@ public class UserHandler {
     protected static Collection<OrderInfo> convertToOrderInfo(Collection<OrderDB> orderDBCollection) {
         Collection<OrderInfo> orderInfoCollection = new ArrayList<>();
 
-        for (OrderDB orderDB : orderDBCollection) {
-            String orderId = orderDB.getId();
-            String orderDate = orderDB.getDate();
-            Collection<ItemInfo> orderItems = ItemHandler.convertItemsToItemInfo(orderDB.getItems());
-            String orderCost = orderDB.getTotalCost();
-            String orderStaff = orderDB.getAssignedStaff();
+        if(orderDBCollection != null) {
+            for (OrderDB orderDB : orderDBCollection) {
+                String orderId = orderDB.getId();
+                String orderDate = orderDB.getDate();
+                Collection<ItemInfo> orderItems = ItemHandler.convertItemsToItemInfo(orderDB.getItems());
+                String orderCost = orderDB.getTotalCost();
+                String orderStaff = orderDB.getAssignedStaff();
 
-            OrderInfo orderInfo = new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff);
+                OrderInfo orderInfo = new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff);
 
-            orderInfoCollection.add(orderInfo);
+                orderInfoCollection.add(orderInfo);
+            }
         }
 
         return orderInfoCollection;

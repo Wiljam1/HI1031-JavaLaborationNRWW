@@ -76,11 +76,20 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
 
-    <label for="authorization">Choose Authorization:</label>
+    <label for="authorization">Authorization:</label>
     <select name="authorization" id="authorization">
-        <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>">Admin</option>
-        <option value="<%= Authorization.STAFF.toString().toUpperCase() %>">Staff</option>
         <option value="<%= Authorization.USER.toString().toUpperCase() %>">User</option>
+    <%
+        //Only admins can create Staff or Admin users
+        String authLevel = (String) session.getAttribute("authLevel");
+        if(authLevel != null && authLevel.equals(Authorization.ADMIN.toString())) {
+    %>
+        <option value="<%= Authorization.STAFF.toString().toUpperCase() %>">Staff</option>
+        <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>">Admin</option>
+
+    <%
+        }
+    %>
     </select>
     <br><br>
 

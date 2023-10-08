@@ -7,11 +7,27 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+
+        //Check if admin
+        if (userInfo != null && userInfo.getAuthorizationLevel().equals(Authorization.ADMIN.toString())) {
+            session.setAttribute("authLevel", Authorization.ADMIN.toString());
+        }
+
+        response.sendRedirect("createUser.jsp");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String transactionAction = request.getParameter("transaction");

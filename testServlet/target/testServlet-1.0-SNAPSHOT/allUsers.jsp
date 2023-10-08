@@ -7,7 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>All orders</title>
+  <title>All users</title>
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -48,6 +48,14 @@
       padding: 5px 10px;
       margin: 0 5px;
       border-radius: 5px;
+    }
+
+    nav a.new-button {
+      background-color: green;
+    }
+
+    nav a.new-button:hover {
+      background-color: darkgreen;
     }
 
     nav a.home-button {
@@ -91,13 +99,31 @@
       border-radius: 3px;
     }
 
+    .delete-button {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .delete-button button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .delete-button button:hover {
+      background-color: darkred;
+    }
+
     .submit-button {
       text-align: right;
       margin-top: 10px;
     }
 
     .submit-button button {
-      background-color: #fa2626;
+      background-color: #27b2fd;
       color: #fff;
       border: none;
       padding: 5px 10px;
@@ -106,7 +132,20 @@
     }
 
     .submit-button button:hover {
-      background-color: #a61b1b;
+      background-color: #1b75a6;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+
+    label {
+      display: block;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
     }
   </style>
 </head>
@@ -116,6 +155,7 @@
 </header>
 <nav>
   <a class="home-button" href="index.jsp">Home</a>
+  <a class="new-button" href="${pageContext.request.contextPath}/user">Create new</a>
 </nav>
 <div class="container">
   <div class="content">
@@ -126,21 +166,37 @@
     <div class="user-container">
       <form action="user" method="post">
         <input type="hidden" name="transaction" value="edit">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="<%=user.getUsername()%>">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%=user.getName()%>">
 
-        <label for="authorization">Choose Authorization:</label>
-        <select name="authorization" id="authorization">
-          <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.ADMIN.toString()) ? "selected" : "" %>>Admin</option>
-          <option value="<%= Authorization.STAFF.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.STAFF.toString().toUpperCase()) ? "selected" : "" %>>Staff</option>
-          <option value="<%= Authorization.USER.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.USER.toString().toUpperCase()) ? "selected" : "" %>>User</option>
-        </select>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="<%=user.getUsername()%>" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" value="<%=user.getName()%>">
+        </div>
+
+        <div class="form-group">
+          <label for="authorization">Choose Authorization:</label>
+          <select name="authorization" id="authorization">
+            <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.ADMIN.toString()) ? "selected" : "" %>>Admin</option>
+            <option value="<%= Authorization.STAFF.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.STAFF.toString().toUpperCase()) ? "selected" : "" %>>Staff</option>
+            <option value="<%= Authorization.USER.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.USER.toString().toUpperCase()) ? "selected" : "" %>>User</option>
+          </select>
+        </div>
+
         <div class="submit-button">
           <button type="submit">Submit</button>
         </div>
       </form>
+      <div class="delete-button">
+        <form action="user" method="post">
+          <input type="hidden" name="transaction" value="delete">
+
+          <button type="submit">Delete (not implemented)</button>
+        </form>
+      </div>
     </div>
     <%
       }
