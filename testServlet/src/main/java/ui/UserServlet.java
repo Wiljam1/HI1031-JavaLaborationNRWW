@@ -20,7 +20,6 @@ public class UserServlet extends HttpServlet {
         String authParameter = request.getParameter("authorization");
         Authorization authorization = Authorization.valueOf(authParameter);
 
-        // TODO: implement check of validity of user inputs (ingen skadlig/för lång kod)
         boolean userCreation = UserHandler.createUser(username, name, password, authorization);
         if(userCreation) {
             // Valid user to create

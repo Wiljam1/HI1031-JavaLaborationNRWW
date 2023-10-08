@@ -38,7 +38,7 @@ public class User {
     }
 
     public static boolean initTransaction(String username, Collection<ItemInfo> cart, String finalPrice) {
-        Collection<ItemDB> cartItems = Item.convertItemInfosToItem(cart);
+        Collection<ItemDB> cartItems = ItemHandler.convertItemInfosToItem(cart);
         return UserDB.performTransaction(username, cartItems, finalPrice);
     }
 
@@ -46,25 +46,7 @@ public class User {
         return orders;
     }
 
-    // Ser både view och model?
-    public static Collection<OrderInfo> convertToOrderInfo(Collection<OrderDB> orderDBCollection) {
-        Collection<OrderInfo> orderInfoCollection = new ArrayList<>();
 
-        for (OrderDB orderDB : orderDBCollection) {
-            String orderId = orderDB.getId();
-            String orderDate = orderDB.getDate();
-            System.out.println("converting, getItems(): " + orderDB.getItems());
-            Collection<ItemInfo> orderItems = Item.convertItemsToItemInfo(orderDB.getItems()); // Kanske inte funkar
-            String orderCost = orderDB.getTotalCost();
-            String orderStaff = orderDB.getAssignedStaff();
-
-            OrderInfo orderInfo = new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff);
-
-            orderInfoCollection.add(orderInfo);
-        }
-
-        return orderInfoCollection;
-    }
 
     public static Collection fetchOrders(String username) {
         return UserDB.fetchOrders(username);

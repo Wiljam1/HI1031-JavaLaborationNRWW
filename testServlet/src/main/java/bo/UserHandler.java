@@ -1,6 +1,7 @@
 package bo;
 
 import db.Authorization;
+import db.OrderDB;
 import db.UserDB;
 import org.bson.Document;
 import ui.ItemInfo;
@@ -12,9 +13,10 @@ import java.util.Collection;
 
 public class UserHandler {
 
+    @SuppressWarnings("unchecked")
     public static UserInfo getUserInfo(String username) {
         User u = User.searchUser(username);
-        Collection<OrderInfo> orders = User.convertToOrderInfo(u.getOrders());
+        Collection<OrderInfo> orders = convertToOrderInfo(u.getOrders());
         return new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorizationLevel(), orders);
     }
 
@@ -41,18 +43,36 @@ public class UserHandler {
         return User.initTransaction(username, cart, finalPrice);
     }
 
+    @SuppressWarnings("unchecked")
     public static Collection<UserInfo> getAllUsers() {
         Collection c = User.getAllUsers();
         ArrayList<UserInfo> users = new ArrayList<>();
         for (Object o : c) {
             User u = (User) o;
-            Collection<OrderInfo> orders = User.convertToOrderInfo(u.getOrders());
+            Collection<OrderInfo> orders = convertToOrderInfo(u.getOrders());
             users.add(new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorization(), orders));
         }
         return users;
     }
 
+    @SuppressWarnings("unchecked")
+    protected static Collection<OrderInfo> convertToOrderInfo(Collection<OrderDB> orderDBCollection) {
+        Collection<OrderInfo> orderInfoCollection = new ArrayList<>();
 
+        for (OrderDB orderDB : orderDBCollection) {
+            String orderId = orderDB.getId();
+            String orderDate = orderDB.getDate();
+            Collection<ItemInfo> orderItems = ItemHandler.convertItemsToItemInfo(orderDB.getItems());
+            String orderCost = orderDB.getTotalCost();
+            String orderStaff = orderDB.getAssignedStaff();
+
+            OrderInfo orderInfo = new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff);
+
+            orderInfoCollection.add(orderInfo);
+        }
+
+        return orderInfoCollection;
+    }
 
     public static void removeOrder(String username, String transaction) {
         UserDB.removeOrderWithTransaction(username, transaction);
