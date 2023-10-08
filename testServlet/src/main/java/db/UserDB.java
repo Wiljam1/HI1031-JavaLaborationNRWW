@@ -7,7 +7,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Updates;
-import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -298,17 +297,16 @@ public class UserDB extends bo.User{
         }
     }
 
-    public static boolean editUserDB(String username, String name, Authorization authorization) {
+    public static boolean editUser(String username, String name, Authorization authorization) {
         try {
             MongoCollection<Document> collection = DBManager.getCollection("users");
-            System.out.println("test3");
+
             for (Document doc : collection.find()) {
                 if (doc.get("username").equals(username)) {
                     Document updateDoc = new Document("$set", new Document("name", name)
                             .append("authorization", authorization.toString().toLowerCase()));
 
                     collection.updateOne(eq("username", username), updateDoc);
-                    System.out.println("test4");
                     break;
                 }
             }
@@ -320,4 +318,23 @@ public class UserDB extends bo.User{
             return false;
         }
     }
+
+    public static boolean deleteUser(String username) {
+        try {
+            MongoCollection<Document> collection = DBManager.getCollection("users");
+
+            for (Document doc : collection.find()) {
+                if (doc.get("username").equals(username)) {
+                    collection.deleteOne(eq("username", username));
+                    break;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            // Robust logging implementation
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

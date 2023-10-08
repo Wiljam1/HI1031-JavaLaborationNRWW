@@ -169,7 +169,7 @@
 
         <div class="form-group">
           <label for="username">Username:</label>
-          <input type="text" id="username" name="username" value="<%=user.getUsername()%>" disabled>
+          <input type="text" id="username" name="username" value="<%=user.getUsername()%>" readonly>
         </div>
 
         <div class="form-group">
@@ -193,8 +193,9 @@
       <div class="delete-button">
         <form action="user" method="post">
           <input type="hidden" name="transaction" value="delete">
+          <input type="hidden" name="username" value="<%=user.getUsername()%>">
 
-          <button type="submit">Delete (not implemented)</button>
+          <button type="submit">Delete</button>
         </form>
       </div>
     </div>

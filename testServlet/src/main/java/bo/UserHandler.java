@@ -32,11 +32,11 @@ public class UserHandler {
             String DBPassword = userDoc.getString("password");
 
             if (password.equals(DBPassword)) {
-                return true; // Passwords match
+                return true;
             }
         }
 
-        return false; // User not found or password doesn't match
+        return false;
     }
 
     public static boolean transaction(String username, Collection<ItemInfo> cart, String finalPrice){
@@ -81,10 +81,11 @@ public class UserHandler {
     }
 
     public static boolean editUser(String username, String name, Authorization authorization) {
-        return UserDB.editUserDB(username,name,authorization);
+        return UserDB.editUser(username,name,authorization);
     }
 
     public static boolean deleteUser(String username) {
-        return false;
+        return UserDB.deleteUser(username);
     }
+
 }

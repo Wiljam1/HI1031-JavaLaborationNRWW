@@ -30,13 +30,18 @@ public class UserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
         String transactionAction = request.getParameter("transaction");
         String username = request.getParameter("username");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String authParameter = request.getParameter("authorization");
-        Authorization authorization = Authorization.valueOf(authParameter);
-        // TODO: implement check of validity of user inputs (ingen skadlig/för lång kod)
+        Authorization authorization;
+        if(authParameter != null)
+             authorization = Authorization.valueOf(authParameter);
+        else
+            authorization = Authorization.USER;
 
         switch (transactionAction){
             case "create":
@@ -52,32 +57,23 @@ public class UserServlet extends HttpServlet {
             case "edit":
                 boolean userEdit = UserHandler.editUser(username, name, authorization);
                 if(userEdit) {
-                    // Valid user to create
-                    System.out.println("test1");
-                    //TODO: maybe an alert here
-                    response.sendRedirect("allUsers.jsp");
+                    // Valid user to edit
                 } else {
-                    // Failed to create user
-                    //TODO: maybe an alert here
-                    System.out.println("test1");
-                    response.sendRedirect("allUsers.jsp");
+                    // Failed to edit user
                 }
+                response.sendRedirect("allUsers.jsp");
                 break;
             case "delete":
                 boolean deleteEdit = UserHandler.deleteUser(username);
-                if(deleteEdit) {
-                    // Valid user to create
-                    //TODO: maybe an alert here
-                    response.sendRedirect("allUsers.jsp");
+                if (deleteEdit) {
+                    // Successfully deleted user
                 } else {
-                    // Failed to create user
-                    //TODO: maybe an alert here
-                    response.sendRedirect("allUsers.jsp");
+                    // Failed to delete user
                 }
+                response.sendRedirect("allUsers.jsp");
                 break;
             default:
                 break;
-
         }
 
 
