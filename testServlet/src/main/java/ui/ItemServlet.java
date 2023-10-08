@@ -1,5 +1,6 @@
 package ui;
 
+import bo.CartHandler;
 import bo.ItemHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,9 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 //TODO: Döp om till något mer passande
 @WebServlet("/addItem")
@@ -52,51 +51,16 @@ public class ItemServlet extends HttpServlet {
                 response.sendRedirect("items.jsp");
                 break;
             case "addToCart":
-                //TODO: Flytta till metod
-                //ADD TO SHOPPING CART
-                //TODO: Klassens logik borde flyttas till ett Business Object. Detta är en controller class!
-
-                int amount = Integer.parseInt(itemAmount);
-
                 Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
-                if(cartItems == null) {
-                    cartItems = new ArrayList<>();
-                }
-                boolean itemExists = false;
-                for(ItemInfo item : cartItems) {
-                    if(item.getName().equals(itemName)) {
-                        if(amount > item.getQuantity())
-                            item.incrementQuantity();
-                        itemExists = true;
-                        break;
-                    }
-                }
-
-                if(!itemExists && amount > 0) {
-                    // TODO: Fixa snyggare, parse någon annanstans
-                    cartItems.add(new ItemInfo(itemId, itemName, itemDesc, "1", itemAmount, itemPrice, itemCategory));
-                }
-
+                cartItems = CartHandler.addToCart(itemId,itemName,itemDesc,itemAmount,itemPrice,itemCategory, cartItems);
                 session.setAttribute("items", cartItems);
                 response.sendRedirect("items.jsp");
                 break;
             case "removeFromCart":
                 String itemIdToRemove = request.getParameter("itemIdToRemove");
-                Collection<ItemInfo> cartItemsToRemove = (Collection<ItemInfo>) session.getAttribute("items");
-                if (cartItemsToRemove != null) {
-                    Iterator<ItemInfo> iterator = cartItemsToRemove.iterator();
-                    while (iterator.hasNext()) {
-                        ItemInfo item = iterator.next();
-                        if (item.getId().equals(itemIdToRemove)) {
-                            if (item.getQuantity() > 1) {
-                                item.decrementQuantity();
-                            } else {
-                                iterator.remove();
-                            }
-                            break;
-                        }
-                    }
-                    session.setAttribute("items", cartItemsToRemove);
+                Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
+                if (cart != null) {
+                    session.setAttribute("items",  CartHandler.removeFromCart(itemIdToRemove, cart));
                 }
                 response.sendRedirect("items.jsp");
                 break;

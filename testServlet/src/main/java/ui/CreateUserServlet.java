@@ -7,12 +7,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 @WebServlet("/createUser")
-public class createUserServlet extends HttpServlet {
+public class CreateUserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,9 +22,9 @@ public class createUserServlet extends HttpServlet {
         Authorization authorization = Authorization.valueOf(authParameter);
 
         // TODO: implement check of validity of user inputs (ingen skadlig/för lång kod)
-        if(true) {
+        boolean userCreation = UserHandler.createUser(username, name, password, authorization);
+        if(userCreation) {
             // Valid user to create
-            UserHandler.createUser(username, name, password, authorization);
             response.sendRedirect("login.jsp");
         } else {
             // Failed to create user

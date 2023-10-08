@@ -310,8 +310,17 @@
         <%
                 session.setAttribute("finalPrice", price);
             }
+            Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+            if (cartItems != null){
+                if(!cartItems.isEmpty()){
         %>
         <a href="checkout.jsp" class="checkout-button">Checkout</a>
+        <%
+                }
+            }
+        %>
+
+
     </div>
     <%
         }

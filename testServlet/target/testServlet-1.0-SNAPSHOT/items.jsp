@@ -229,7 +229,6 @@
                     items = ItemHandler.getItemsWithGroup(filter);
 
                 for (ItemInfo item : items) {
-                    System.out.println("Item:" + item.getName() + " fetched");
             %>
             <form action="addItem" method="post">
                 <% //TODO: Fixa så att man kan skicka hela item typ?%>
@@ -311,8 +310,17 @@
         <%
                 session.setAttribute("finalPrice", price);
             }
+            Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
+            if (cartItems != null){
+                if(!cartItems.isEmpty()){
         %>
         <a href="checkout.jsp" class="checkout-button">Checkout</a>
+        <%
+                }
+            }
+        %>
+
+
     </div>
     <%
         }
