@@ -31,7 +31,6 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
         String transactionAction = request.getParameter("transaction");
         String username = request.getParameter("username");
         String name = request.getParameter("name");
@@ -75,7 +74,5 @@ public class UserServlet extends HttpServlet {
             default:
                 break;
         }
-
-
     }
 }
