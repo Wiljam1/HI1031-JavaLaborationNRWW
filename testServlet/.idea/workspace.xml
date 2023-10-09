@@ -10,10 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ui/UserOrdersServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/TransactionServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/allOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/allOrders.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/userOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/userOrders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/userOrders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/userOrders.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +279,7 @@
       <workItem from="1696402528204" duration="18333000" />
       <workItem from="1696580964700" duration="9265000" />
       <workItem from="1696762552108" duration="7618000" />
-      <workItem from="1696837914459" duration="7340000" />
+      <workItem from="1696837914459" duration="8003000" />
     </task>
     <servers />
   </component>
