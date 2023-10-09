@@ -68,7 +68,7 @@ public class ItemServlet extends HttpServlet {
                 session.setAttribute("itemAmount", itemAmount);
                 session.setAttribute("itemPrice", itemPrice);
                 session.setAttribute("itemCategory", itemCategory);
-                response.sendRedirect("items.jsp");
+                request.getRequestDispatcher("/editItem").forward(request, response);
                 break;
             case "editItem":
                 ItemHandler.editItem(itemId, itemName, itemDesc, itemAmount, itemPrice, itemCategory);

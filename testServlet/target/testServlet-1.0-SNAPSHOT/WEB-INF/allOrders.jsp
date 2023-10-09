@@ -209,7 +209,6 @@
                 <p>Date: <%=order.getDate()%></p>
                 <p>Total Cost: <%=order.getTotalCost()%></p>
                 <p>Status: <%=order.getStatus()%></p>
-<%--                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>--%>
 
                 <ul>
                     <% for (ItemInfo item : order.getItems()) { %>

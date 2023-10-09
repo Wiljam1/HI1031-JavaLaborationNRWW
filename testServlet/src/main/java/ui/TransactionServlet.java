@@ -34,12 +34,12 @@ public class TransactionServlet extends HttpServlet {
     }
 
     private void handlePackedOrder(HttpServletRequest request, HttpServletResponse response)
-            throws IOException{
+            throws IOException, ServletException {
         String username = request.getParameter("username");
         String transactionId = request.getParameter("transactionId");
         UserHandler.orderIsPacked(username, transactionId);
 
-        response.sendRedirect("allOrders.jsp");
+        request.getRequestDispatcher("/WEB-INF/allOrders.jsp").forward(request, response);
     }
 
     private void handleCreateOrder(HttpServletRequest request, HttpServletResponse response)
