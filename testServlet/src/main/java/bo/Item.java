@@ -61,6 +61,7 @@ public class Item {
     public String getAmount() {
         return this.amount;
     }
+
     public String getPrice() {
         return this.price;
     }

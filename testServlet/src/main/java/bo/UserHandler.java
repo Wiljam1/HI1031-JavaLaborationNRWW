@@ -1,6 +1,7 @@
 package bo;
 
 import db.Authorization;
+import db.ItemDB;
 import db.OrderDB;
 import db.UserDB;
 import org.bson.Document;
@@ -30,17 +31,16 @@ public class UserHandler {
 
         if (userDoc != null) {
             String DBPassword = userDoc.getString("password");
-
             if (password.equals(DBPassword)) {
                 return true;
             }
         }
-
         return false;
     }
 
-    public static boolean transaction(String username, Collection<ItemInfo> cart, String finalPrice){
-        return User.initTransaction(username, cart, finalPrice);
+    public static boolean addOrder(String username, Collection<ItemInfo> cart, String finalPrice) {
+        Collection<ItemDB> cartItems = ItemHandler.convertItemInfosToItem(cart);
+        return UserDB.addOrderDB(username, cartItems, finalPrice);
     }
 
     @SuppressWarnings("unchecked")
@@ -72,7 +72,6 @@ public class UserHandler {
                 orderInfoCollection.add(orderInfo);
             }
         }
-
         return orderInfoCollection;
     }
 

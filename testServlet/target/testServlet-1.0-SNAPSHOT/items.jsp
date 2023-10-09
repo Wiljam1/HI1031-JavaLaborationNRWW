@@ -273,7 +273,6 @@
         </ul>
     </div>
         <%
-            //TODO: Flytta logik till en servlet/Business object
             String name = (String) session.getAttribute("name");
             if(name != null) {
         %>
@@ -285,7 +284,6 @@
                 Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                 int price = 0;
                 if (cartItems != null) {
-                    //TODO: Price kanske kan beräknas i ett business object (logik)
                     for (ItemInfo item : cartItems) {
             %>
             <li><b>Product:</b> <%= item.getName() %> - <b>Quantity:</b> <%= item.getQuantity() %> - <b>Cost:</b> <%=item.getPrice()*item.getQuantity()%>
