@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/allOrders")
-public class AllOrdersServlet extends HttpServlet {
+@WebServlet("/allUsers")
+public class AllUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -20,11 +20,12 @@ public class AllOrdersServlet extends HttpServlet {
 
         if(userInfo != null) {
             String authLevel = userInfo.getAuthorization();
-            boolean isAuthorized = "admin".equals(authLevel) || "staff".equals(authLevel);
+            boolean isAuthorized = "admin".equals(authLevel);
 
             if(isAuthorized)
-                request.getRequestDispatcher("/WEB-INF/allOrders.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/allUsers.jsp").forward(request, response);
             else {
+                session.invalidate();
                 response.sendRedirect("index.jsp");
             }
         }

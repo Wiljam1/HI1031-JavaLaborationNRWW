@@ -69,7 +69,7 @@
         if (userInfo == null) {
             authString = "";
         } else {
-            authLevel = userInfo.getAuthorizationLevel();
+            authLevel = userInfo.getAuthorization();
             authString = "Authorization: " + authLevel;
         }
     %>
@@ -91,14 +91,14 @@
         if("admin".equals(authLevel) || "staff".equals(authLevel)) {
     %>
     <br><br>
-    <a href="allOrders">All orders</a>
+    <a href="${pageContext.request.contextPath}/allOrders">All orders</a>
 
     <%
         }
         if ("admin".equals(authLevel)){
             %>
     <br><br>
-    <a href="allUsers.jsp">All Users</a>
+    <a href="${pageContext.request.contextPath}/allUsers">All Users</a>
     <%
     }
     %>

@@ -165,7 +165,7 @@
     <h1>All orders</h1>
 </header>
 <nav>
-    <a class="home-button" href="index.jsp">Home</a>
+    <a class="home-button" href="${pageContext.request.contextPath}/index.jsp">Home</a>
 </nav>
 <div class="container">
     <%
@@ -173,7 +173,7 @@
         for(UserInfo user : users) {
 
             Collection<OrderInfo> orders = user.getOrders();
-            if(orders != null) {
+            if(orders != null && !orders.isEmpty()) {
     %>
     <div id="items-container">
         <%
