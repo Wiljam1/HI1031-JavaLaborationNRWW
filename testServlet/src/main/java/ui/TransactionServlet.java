@@ -56,11 +56,11 @@ public class TransactionServlet extends HttpServlet {
     }
 
     private void handleDeleteOrder(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
         String username = request.getParameter("username");
         String transactionId = request.getParameter("transactionId");
         UserHandler.removeOrder(username, transactionId);
 
-        response.sendRedirect("allOrders.jsp");
+        request.getRequestDispatcher("/WEB-INF/allOrders.jsp").forward(request, response);
     }
 }

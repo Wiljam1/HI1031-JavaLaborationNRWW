@@ -23,7 +23,7 @@ public class AllOrdersServlet extends HttpServlet {
             boolean isAuthorized = "admin".equals(authLevel) || "staff".equals(authLevel);
 
             if(isAuthorized)
-                request.getRequestDispatcher("/allOrders.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/allOrders.jsp").forward(request, response);
             else {
                 response.sendRedirect("index.jsp");
             }

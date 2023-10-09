@@ -81,7 +81,7 @@
     <input type="submit" value="Login">
 </form>
 <br><br>
-<a href="createUser.jsp">Don't have an account? Create one here!</a>
+<a href="${pageContext.request.contextPath}/user">Don't have an account? Create one here!</a>
 </body>
 </html>
 

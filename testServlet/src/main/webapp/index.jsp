@@ -91,7 +91,7 @@
         if("admin".equals(authLevel) || "staff".equals(authLevel)) {
     %>
     <br><br>
-    <a href="allOrders">All orders</a>
+    <a href="${pageContext.request.contextPath}/allOrders">All orders</a>
 
     <%
         }
