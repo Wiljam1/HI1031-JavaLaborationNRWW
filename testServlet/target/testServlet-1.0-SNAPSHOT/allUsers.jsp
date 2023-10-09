@@ -206,13 +206,6 @@
 </div>
 </body>
 </html>
-<script type="text/javascript">
-  <% String userManageMessage = (String) request.getAttribute("userManageMessage"); %>
-
-  <% if (userManageMessage != null) { %>
-  alert("<%= userManageMessage %>");
-  <% } %>
-</script>
 
 
 

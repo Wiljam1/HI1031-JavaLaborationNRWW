@@ -22,7 +22,7 @@ public class User {
         this.name = name;
         this.authorization = authorization;
         this.cart = null;
-        this.orders = null; //Kanske borde hämta existerande ordrar från databasen?
+        this.orders = null;
     }
 
     protected User(String username, String name, String authorization, Collection orders) {
@@ -37,16 +37,9 @@ public class User {
         return UserDB.createUser(username, name, password, authorization);
     }
 
-    public static boolean initTransaction(String username, Collection<ItemInfo> cart, String finalPrice) {
-        Collection<ItemDB> cartItems = ItemHandler.convertItemInfosToItem(cart);
-        return UserDB.performTransaction(username, cartItems, finalPrice);
-    }
-
     public Collection getOrders() {
         return orders;
     }
-
-
 
     public static Collection fetchOrders(String username) {
         return UserDB.fetchOrders(username);

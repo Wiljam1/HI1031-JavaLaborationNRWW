@@ -174,4 +174,19 @@ public class ItemDB extends bo.Item {
         }
         return categories;
     }
+
+    public static void changeAmountOfItems(String name, String quantity, ClientSession session){
+        MongoCollection<Document> collectionItems = DBManager.getCollection("items");
+        Bson filterItems = eq("name", name);
+        Document items = collectionItems.find(filterItems).first();
+        if (items != null){
+            int quantityItems = Integer.parseInt(items.getString("amount"));
+            quantityItems -= Integer.parseInt(quantity);
+            if (quantityItems < 0){
+                session.abortTransaction();
+            }
+            items.put("amount", quantityItems);
+            collectionItems.updateOne(session,filterItems, Updates.set("amount", String.valueOf(quantityItems)));
+        }
+    }
 }

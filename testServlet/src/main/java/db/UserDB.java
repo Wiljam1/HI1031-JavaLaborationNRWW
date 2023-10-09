@@ -143,11 +143,10 @@ public class UserDB extends bo.User{
             return false;
         }
     }
-    public static boolean performTransaction(String username, Collection<ItemDB> cart, String finalPrice) {
+    public static boolean addOrderDB(String username, Collection<ItemDB> cart, String finalPrice) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
         MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
-        MongoCollection<Document> collectionItems = DBManager.getCollection("items");
 
         try {
             session.startTransaction();
@@ -200,18 +199,7 @@ public class UserDB extends bo.User{
                 itemsList.add(itemDocument);
 
                 //For changing item amount in database
-                //could be own method
-                Bson filterItems = eq("name", name);
-                Document items = collectionItems.find(filterItems).first();
-                if (items != null){
-                    int quantityItems = Integer.parseInt(items.getString("amount"));
-                    quantityItems -= Integer.parseInt(quantity);
-                    if (quantityItems < 0){
-                        session.abortTransaction();
-                    }
-                    items.put("amount", quantityItems);
-                    collectionItems.updateOne(session,filterItems, Updates.set("amount", String.valueOf(quantityItems)));
-                }
+                ItemDB.changeAmountOfItems(name,quantity,session);
             }
             order.append("items", itemsList);
             orderList.add(order);
@@ -238,7 +226,6 @@ public class UserDB extends bo.User{
 
         for (Object item: cart.getItems()){
             if (item instanceof ItemDB) {
-                // hokuspokus
                 Document itemDocument = new Document();
                 itemDocument.append("id", ((ItemDB) item).getId())
                         .append("name", ((ItemDB) item).getName())
