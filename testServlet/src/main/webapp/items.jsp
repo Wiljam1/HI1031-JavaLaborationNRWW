@@ -307,7 +307,7 @@
             if (cartItems != null){
                 if(!cartItems.isEmpty()){
         %>
-        <a href="checkout.jsp" class="checkout-button">Checkout</a>
+        <a href="${pageContext.request.contextPath}/checkout" class="checkout-button">Checkout</a>
         <%
                 }
             }
