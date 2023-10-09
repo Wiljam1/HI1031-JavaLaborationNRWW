@@ -180,9 +180,9 @@
         <div class="form-group">
           <label for="authorization">Choose Authorization:</label>
           <select name="authorization" id="authorization">
-            <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.ADMIN.toString()) ? "selected" : "" %>>Admin</option>
-            <option value="<%= Authorization.STAFF.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.STAFF.toString().toUpperCase()) ? "selected" : "" %>>Staff</option>
-            <option value="<%= Authorization.USER.toString().toUpperCase() %>" <%= user.getAuthorizationLevel().equalsIgnoreCase(Authorization.USER.toString().toUpperCase()) ? "selected" : "" %>>User</option>
+            <option value="<%= Authorization.ADMIN.toString().toUpperCase() %>" <%= user.getAuthorization().equalsIgnoreCase(Authorization.ADMIN.toString()) ? "selected" : "" %>>Admin</option>
+            <option value="<%= Authorization.STAFF.toString().toUpperCase() %>" <%= user.getAuthorization().equalsIgnoreCase(Authorization.STAFF.toString().toUpperCase()) ? "selected" : "" %>>Staff</option>
+            <option value="<%= Authorization.USER.toString().toUpperCase() %>" <%= user.getAuthorization().equalsIgnoreCase(Authorization.USER.toString().toUpperCase()) ? "selected" : "" %>>User</option>
           </select>
         </div>
 

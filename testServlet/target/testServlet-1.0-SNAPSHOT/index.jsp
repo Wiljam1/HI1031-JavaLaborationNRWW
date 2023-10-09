@@ -69,7 +69,7 @@
         if (userInfo == null) {
             authString = "";
         } else {
-            authLevel = userInfo.getAuthorizationLevel();
+            authLevel = userInfo.getAuthorization();
             authString = "Authorization: " + authLevel;
         }
     %>

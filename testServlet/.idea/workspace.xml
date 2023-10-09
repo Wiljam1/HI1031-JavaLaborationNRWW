@@ -11,8 +11,16 @@
   <component name="ChangeListManager">
     <list default="true" id="5f428ea2-4d92-4483-8ccf-d2dd47b3b431" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/db/OrderDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db/OrderDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/AllOrdersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/AllOrdersServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ControllerServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/ItemServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/UserInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/allUsers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/allUsers.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/UserDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/WEB-INF/classes/db/UserDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allUsers.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/testServlet-1.0-SNAPSHOT/allUsers.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,6 +284,7 @@
       <workItem from="1696402528204" duration="18333000" />
       <workItem from="1696580964700" duration="9265000" />
       <workItem from="1696762552108" duration="7618000" />
+      <workItem from="1696837914459" duration="1509000" />
     </task>
     <servers />
   </component>

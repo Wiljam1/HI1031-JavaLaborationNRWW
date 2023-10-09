@@ -25,7 +25,7 @@ public class UserInfo {
         return cart;
     }
 
-    public String getAuthorizationLevel() { return authorization; }
+    public String getAuthorization() { return authorization; }
 
     public Collection<OrderInfo> getOrders() {
         return orders;

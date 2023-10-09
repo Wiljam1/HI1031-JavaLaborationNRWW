@@ -21,7 +21,7 @@ public class UserServlet extends HttpServlet {
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
         //Check if admin
-        if (userInfo != null && userInfo.getAuthorizationLevel().equals(Authorization.ADMIN.toString())) {
+        if (userInfo != null && userInfo.getAuthorization().equals(Authorization.ADMIN.toString())) {
             session.setAttribute("authLevel", Authorization.ADMIN.toString());
         }
 
@@ -30,6 +30,11 @@ public class UserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        String currentUsername = userInfo.getUsername();
+        Authorization currentAuthorization = Authorization.valueOf(userInfo.getAuthorization().toUpperCase());
 
         String transactionAction = request.getParameter("transaction");
         String username = request.getParameter("username");
@@ -57,10 +62,16 @@ public class UserServlet extends HttpServlet {
                 boolean userEdit = UserHandler.editUser(username, name, authorization);
                 if(userEdit) {
                     // Valid user to edit
+                    if(currentUsername.equals(username) && !currentAuthorization.equals(authorization)) {
+                        session.invalidate();
+                        response.sendRedirect("index.jsp");
+                    } else {
+                        response.sendRedirect("allUsers.jsp");
+                    }
                 } else {
                     // Failed to edit user
+                    response.sendRedirect("allUsers.jsp");
                 }
-                response.sendRedirect("allUsers.jsp");
                 break;
             case "delete":
                 boolean deleteEdit = UserHandler.deleteUser(username);

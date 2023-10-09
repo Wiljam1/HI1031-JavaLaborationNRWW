@@ -19,7 +19,7 @@ public class AllOrdersServlet extends HttpServlet {
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
         if(userInfo != null) {
-            String authLevel = userInfo.getAuthorizationLevel();
+            String authLevel = userInfo.getAuthorization();
             boolean isAuthorized = "admin".equals(authLevel) || "staff".equals(authLevel);
 
             if(isAuthorized)

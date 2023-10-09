@@ -27,7 +27,7 @@ public class ItemServlet extends HttpServlet {
         String authLevel;
         if(userInfo != null) {
             name = userInfo.getName();
-            authLevel = userInfo.getAuthorizationLevel();
+            authLevel = userInfo.getAuthorization();
         } else {
             name = null;
             authLevel = Authorization.UNAUTHORIZED.toString();
