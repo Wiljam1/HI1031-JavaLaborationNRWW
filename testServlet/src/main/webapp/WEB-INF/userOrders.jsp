@@ -148,14 +148,14 @@
     <h1>My orders</h1>
 </header>
 <nav>
-    <a class="home-button" href="index.jsp">Home</a>
+    <a class="home-button" href="${pageContext.request.contextPath}/index.jsp">Home</a>
 </nav>
 <div class="container">
     <div id="items-container">
         <%
             session = request.getSession();
             UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-            String username = "null";
+            String username;
             String name = "null";
             Collection<OrderInfo> orders = Collections.emptyList();
             if(userInfo != null) {

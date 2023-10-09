@@ -85,7 +85,7 @@
         if(userInfo != null) {
     %>
     <br><br>
-    <a href="userOrders.jsp">Your orders</a>
+    <a href="${pageContext.request.contextPath}/userOrders">Your orders</a>
     <%
         }
         if("admin".equals(authLevel) || "staff".equals(authLevel)) {
