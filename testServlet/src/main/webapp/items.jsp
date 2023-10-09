@@ -183,12 +183,11 @@
     <a class="checkout-button" href="index.jsp">Home</a>
     <%
         session = request.getSession();
-        //UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         String authLevel = (String) session.getAttribute("authLevel");
 
         if(authLevel != null && authLevel.equals(Authorization.ADMIN.toString())) {
     %>
-    <a class="new-item-button" href="addItem.jsp">Add new item</a>
+    <a class="new-item-button" href="${pageContext.request.contextPath}/addItem">Add new item</a>
     <%
         }
     %>

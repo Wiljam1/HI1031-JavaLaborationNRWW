@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add item</title>
+    <title>Edit item</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -62,30 +62,39 @@
 </head>
 <body>
 <nav>
-    <a href="index.jsp">Home</a>
+    <a href="${pageContext.request.contextPath}/index.jsp">Home</a>
 </nav>
-<a href="items.jsp">Back to items</a>
+<a href="${pageContext.request.contextPath}/items.jsp">Back to items</a>
 <br><br>
-<h2>Add item </h2>
+<h2>Edit item </h2>
+<%
+    String itemId = (String) session.getAttribute("itemId");
+    String itemName = (String) session.getAttribute("itemName");
+    String itemDesc = (String) session.getAttribute("itemDesc");
+    String itemAmount = (String) session.getAttribute("itemAmount");
+    String itemPrice = (String) session.getAttribute("itemPrice");
+    String itemCategory = (String) session.getAttribute("itemCategory");
+%>
 <form action="items" method="post">
-    <input type="hidden" name="action" value="addNewItem">
+    <input type="hidden" name="action" value="editItem">
+    <input type="hidden" name="itemId" value="<%=itemId%>">
 
     <label for="name">Name:</label>
-    <input type="text" id="name" name="itemName" required><br><br>
+    <input type="text" id="name" name="itemName" required value="<%=itemName%>"><br><br>
 
     <label for="description">Description:</label>
-    <input type="text" id="description" name="itemDesc" required><br><br>
+    <input type="text" id="description" name="itemDesc" required value="<%=itemDesc%>"><br><br>
 
     <label for="amount">Amount:</label>
-    <input type="text" id="amount" name="itemAmount" required><br><br>
+    <input type="text" id="amount" name="itemAmount" required value="<%=itemAmount%>"><br><br>
 
     <label for="price">Price:</label>
-    <input type="text" id="price" name="itemPrice" required><br><br>
+    <input type="text" id="price" name="itemPrice" required value="<%=itemPrice%>"><br><br>
 
     <label for="category">Category:</label>
-    <input type="text" id="category" name="itemCategory" required><br><br>
+    <input type="text" id="category" name="itemCategory" required value="<%=itemCategory%>"><br><br>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit edit">
 </form>
 </body>
 </html>
