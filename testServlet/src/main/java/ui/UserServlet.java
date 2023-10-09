@@ -66,11 +66,11 @@ public class UserServlet extends HttpServlet {
                         session.invalidate();
                         response.sendRedirect("index.jsp");
                     } else {
-                        response.sendRedirect("allUsers.jsp");
+                        request.getRequestDispatcher("/WEB-INF/allUsers.jsp").forward(request, response);
                     }
                 } else {
                     // Failed to edit user
-                    response.sendRedirect("allUsers.jsp");
+                    request.getRequestDispatcher("/WEB-INF/allUsers.jsp").forward(request, response);
                 }
                 break;
             case "delete":
@@ -80,7 +80,7 @@ public class UserServlet extends HttpServlet {
                 } else {
                     // Failed to delete user
                 }
-                response.sendRedirect("allUsers.jsp");
+                request.getRequestDispatcher("/WEB-INF/allUsers.jsp").forward(request, response);
                 break;
             default:
                 break;

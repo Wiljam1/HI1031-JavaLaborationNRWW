@@ -98,7 +98,7 @@
         if ("admin".equals(authLevel)){
             %>
     <br><br>
-    <a href="allUsers.jsp">All Users</a>
+    <a href="${pageContext.request.contextPath}/allUsers">All Users</a>
     <%
     }
     %>

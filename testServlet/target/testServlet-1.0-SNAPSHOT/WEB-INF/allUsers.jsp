@@ -154,7 +154,7 @@
   <h1>All users</h1>
 </header>
 <nav>
-  <a class="home-button" href="index.jsp">Home</a>
+  <a class="home-button" href="${pageContext.request.contextPath}/index.jsp">Home</a>
   <a class="new-button" href="${pageContext.request.contextPath}/user">Create new</a>
 </nav>
 <div class="container">
