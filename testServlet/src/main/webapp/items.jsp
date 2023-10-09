@@ -204,7 +204,7 @@
                 String filter = (String) session.getAttribute("filter");
                 Collection<String> categories = new ArrayList<>();
                 categories.add("All items");
-                categories.addAll(ItemHandler.getCategories());
+                categories.addAll((Collection<? extends String>) session.getAttribute("allItemCategories"));
 
                 for (String category : categories) {
                     boolean isSelected = (filter == null && "All items".equals(category)) ||
@@ -223,10 +223,10 @@
         <h2>Available Items</h2>
         <ul>
             <%
-                Collection<ItemInfo> items = ItemHandler.getItemsWithGroup();
+                Collection<ItemInfo> items = (Collection<ItemInfo>) session.getAttribute("getAllItemsWithoutGroup");
 
                 if(filter != null && !filter.equals("All items"))
-                    items = ItemHandler.getItemsWithGroup(filter);
+                    items = (Collection<ItemInfo>) session.getAttribute("getAllItemsWithGroup");      //This one might be hard to move
 
                 for (ItemInfo item : items) {
             %>
@@ -295,7 +295,7 @@
             </li>
             <%
                         }
-                    price = CartHandler.calculatePrice(cartItems);
+                    price = (int) session.getAttribute("totalPriceCart");     //might be hard to move this one as well
                 }
             %>
         </ul>

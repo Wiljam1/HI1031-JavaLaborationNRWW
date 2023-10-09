@@ -22,7 +22,8 @@ public class ItemServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-
+        session.setAttribute("allItemCategories", ItemHandler.getCategories());
+        session.setAttribute("getAllItemsWithoutGroup", ItemHandler.getItemsWithGroup());
         String name;
         String authLevel;
         if(userInfo != null) {
@@ -77,6 +78,7 @@ public class ItemServlet extends HttpServlet {
                 Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
                 cartItems = CartHandler.addToCart(itemId,itemName,itemDesc,itemAmount,itemPrice,itemCategory, cartItems);
                 session.setAttribute("items", cartItems);
+                session.setAttribute("totalPriceCart", CartHandler.calculatePrice(cartItems));
                 response.sendRedirect("items.jsp");
                 break;
             case "removeFromCart":
@@ -90,6 +92,7 @@ public class ItemServlet extends HttpServlet {
             case "setFilter":
                 String filter = request.getParameter("selectedCategory");
                 session.setAttribute("filter", filter);
+                session.setAttribute("getAllItemsWithGroup", ItemHandler.getItemsWithGroup(filter));
                 response.sendRedirect("items.jsp");
                 break;
             default:
