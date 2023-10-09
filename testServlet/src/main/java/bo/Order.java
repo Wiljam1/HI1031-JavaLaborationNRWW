@@ -9,19 +9,19 @@ public class Order {
     private String date;
     private Collection items;
     private String totalCost;
-    private String assignedStaff;
+    private String status;
 
-    protected Order(String id, String date, Collection items, String totalCost, String assignedStaff) {
+    protected Order(String id, String date, Collection items, String totalCost, String status) {
         this.id = id;
         this.date = date;
         this.items = items;
         this.totalCost = totalCost;
-        this.assignedStaff = assignedStaff;
+        this.status = status;
     }
 
     // Factory
-    protected static Order createOrder(String orderId, String orderDate, Collection orderItems, String orderCost, String orderStaff) {
-        return new Order(orderId, orderDate, orderItems, orderCost, orderStaff);
+    protected static Order createOrder(String orderId, String orderDate, Collection orderItems, String orderCost, String status) {
+        return new Order(orderId, orderDate, orderItems, orderCost, status);
     }
 
     public String getId() {
@@ -40,7 +40,7 @@ public class Order {
         return totalCost;
     }
 
-    public String getAssignedStaff() {
-        return assignedStaff;
+    public String getStatus() {
+        return status;
     }
 }

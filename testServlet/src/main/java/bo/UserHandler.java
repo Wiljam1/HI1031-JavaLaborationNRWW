@@ -65,9 +65,9 @@ public class UserHandler {
                 String orderDate = orderDB.getDate();
                 Collection<ItemInfo> orderItems = ItemHandler.convertItemsToItemInfo(orderDB.getItems());
                 String orderCost = orderDB.getTotalCost();
-                String orderStaff = orderDB.getAssignedStaff();
+                String status = orderDB.getStatus();
 
-                OrderInfo orderInfo = new OrderInfo(orderId, orderDate, orderItems, orderCost, orderStaff);
+                OrderInfo orderInfo = new OrderInfo(orderId, orderDate, orderItems, orderCost, status);
 
                 orderInfoCollection.add(orderInfo);
             }
@@ -87,4 +87,7 @@ public class UserHandler {
         return UserDB.deleteUser(username);
     }
 
+    public static void orderIsPacked(String username, String transactionId) {
+        UserDB.orderIsPackedDB(username,transactionId);
+    }
 }

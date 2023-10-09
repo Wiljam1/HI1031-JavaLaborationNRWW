@@ -106,8 +106,8 @@ public class UserDB extends bo.User{
                         orderItems.add(item);
                     }
                 String orderCost = order.getString("totalCost");
-                String orderStaff = order.getString("assignedStaff");
-                OrderDB createdOrder = OrderDB.createOrder(orderId, orderDate, orderItems, orderCost, orderStaff);
+                String status = order.getString("status");
+                OrderDB createdOrder = OrderDB.createOrder(orderId, orderDate, orderItems, orderCost, status);
                 allOrders.add(createdOrder);
             }
             return allOrders;
@@ -179,7 +179,7 @@ public class UserDB extends bo.User{
             order.append("id", String.valueOf(largestId))
                     .append("date", date.toString())
                     .append("totalCost", finalPrice)
-                    .append("assignedStaff", "ingen");
+                    .append("status", "not Packed");
             ArrayList<Document> itemsList = new ArrayList<>();
             for (ItemDB item: cart) {
                 Document itemDocument = new Document();
@@ -222,7 +222,7 @@ public class UserDB extends bo.User{
         order.append("id", cart.getId())
                 .append("date", cart.getDate())
                 .append("totalCost", cart.getTotalCost())
-                .append("assignedStaff", cart.getAssignedStaff());
+                .append("status", cart.getStatus());
 
         for (Object item: cart.getItems()){
             if (item instanceof ItemDB) {
@@ -324,4 +324,17 @@ public class UserDB extends bo.User{
         }
     }
 
+    public static void orderIsPackedDB(String username, String transactionId) {
+        MongoCollection<Document> collection = DBManager.getCollection("users");
+
+        // Create a filter to find the document matching the username and transactionId
+        Document filter = new Document("username", username)
+                .append("orders.id", transactionId);
+
+        // Create an update to set the status field
+        Document update = new Document("$set", new Document("orders.$.status", "Packed"));
+
+        // Use updateOne to perform the update
+        collection.updateOne(filter, update);
+    }
 }

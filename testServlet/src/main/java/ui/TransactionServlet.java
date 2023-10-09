@@ -25,9 +25,21 @@ public class TransactionServlet extends HttpServlet {
             case "deleteOrder":
                 handleDeleteOrder(request, response);
                 break;
+            case "orderPacked":
+                handlePackedOrder(request,response);
+                break;
             default:
                 break;
         }
+    }
+
+    private void handlePackedOrder(HttpServletRequest request, HttpServletResponse response)
+            throws IOException{
+        String username = request.getParameter("username");
+        String transactionId = request.getParameter("transactionId");
+        UserHandler.orderIsPacked(username, transactionId);
+
+        response.sendRedirect("allOrders.jsp");
     }
 
     private void handleCreateOrder(HttpServletRequest request, HttpServletResponse response)
