@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
-//TODO: Döp om till något mer passande
 @WebServlet("/items")
 public class ItemServlet extends HttpServlet {
 

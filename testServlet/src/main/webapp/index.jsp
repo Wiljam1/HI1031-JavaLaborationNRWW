@@ -52,7 +52,7 @@
 <div id="current-user">
     <%
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-        // nameString be set in doGet() in IndexServlet but couldn't get mappings to work on server startup.
+        // nameString could be set in doGet() in an IndexServlet but couldn't get mappings to work on server startup.
         String nameString;
         if (userInfo == null) {
             nameString = "Not logged in";
