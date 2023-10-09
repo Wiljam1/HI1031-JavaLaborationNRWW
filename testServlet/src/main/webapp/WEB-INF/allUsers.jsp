@@ -160,7 +160,7 @@
 <div class="container">
   <div class="content">
     <%
-      Collection<UserInfo> users = UserHandler.getAllUsers();
+      Collection<UserInfo> users = (Collection<UserInfo>) session.getAttribute("getAllUsers");
       for(UserInfo user : users) {
     %>
     <div class="user-container">

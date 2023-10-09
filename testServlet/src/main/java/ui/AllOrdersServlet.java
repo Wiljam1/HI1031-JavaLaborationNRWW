@@ -1,6 +1,7 @@
 package ui;
 
 
+import bo.UserHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ public class AllOrdersServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-
+        session.setAttribute("getAllUsers", UserHandler.getAllUsers());
         if(userInfo != null) {
             String authLevel = userInfo.getAuthorization();
             boolean isAuthorized = "admin".equals(authLevel) || "staff".equals(authLevel);
