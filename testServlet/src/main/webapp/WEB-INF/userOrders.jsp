@@ -161,7 +161,8 @@
             if(userInfo != null) {
                 username = userInfo.getUsername();
                 name = userInfo.getName();
-                orders = UserHandler.getUserInfo(username).getOrders(); //Update orders
+                orders = (Collection<OrderInfo>) session.getAttribute("getUserOrders"); //Update orders
+
                 if(orders == null)
                     orders = Collections.emptyList();
             }

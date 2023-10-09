@@ -169,7 +169,7 @@
 </nav>
 <div class="container">
     <%
-        Collection<UserInfo> users = UserHandler.getAllUsers();
+        Collection<UserInfo> users = (Collection<UserInfo>) session.getAttribute("getAllUsers");
         for(UserInfo user : users) {
 
             Collection<OrderInfo> orders = user.getOrders();

@@ -1,6 +1,7 @@
 package ui;
 
 
+import bo.UserHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ public class UserOrdersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-
+        session.setAttribute("getUserOrders", UserHandler.getUserInfo(userInfo.getUsername()).getOrders());
         if(userInfo != null) {
             request.getRequestDispatcher("/WEB-INF/userOrders.jsp").forward(request, response);
         }
