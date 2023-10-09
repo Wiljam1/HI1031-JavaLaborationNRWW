@@ -111,6 +111,24 @@
             cursor: pointer;
         }
 
+        .packed-button {
+            display: inline-block;
+            margin-left: 10px; /* Adjust the margin as needed */
+        }
+
+        .packed-button button {
+            background-color: #4caf50; /* Green color for "Pack" button */
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .packed-button button:hover {
+            background-color: #45a049; /* Darker green color on hover */
+        }
+        
         .add-button button:hover {
             background-color: #a61b1b;
         }
@@ -177,9 +195,20 @@
                     <div class="add-button">
                         <button type="submit">Delete</button>
                     </div>
-                </form></h3>
+
+                </form>
+                    <div class="packed-button">
+                        <form action="transaction" method="post">
+                            <input type="hidden" name="transaction" value="orderPacked">
+                            <input type="hidden" name="username" value="<%=user.getUsername()%>">
+                            <input type="hidden" name="transactionId" value="<%=order.getId()%>">
+                            <button type="submit">Pack</button>
+                        </form>
+                    </div>
+                </h3>
                 <p>Date: <%=order.getDate()%></p>
                 <p>Total Cost: <%=order.getTotalCost()%></p>
+                <p>Status: <%=order.getStatus()%></p>
 <%--                <p>Assigned Staff: <%=order.getAssignedStaff()%></p>--%>
 
                 <ul>

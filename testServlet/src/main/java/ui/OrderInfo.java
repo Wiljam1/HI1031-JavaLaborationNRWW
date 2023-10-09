@@ -7,14 +7,14 @@ public class OrderInfo {
     private String date;
     private Collection<ItemInfo> items;
     private String totalCost;
-    private String assignedStaff;
+    private String status;
 
-    public OrderInfo(String id, String date, Collection<ItemInfo> items, String totalCost, String assignedStaff) {
+    public OrderInfo(String id, String date, Collection<ItemInfo> items, String totalCost, String status) {
         this.id = id;
         this.date = date;
         this.items = items;
         this.totalCost = totalCost;
-        this.assignedStaff = assignedStaff;
+        this.status = status;
     }
 
     public String getId() {
@@ -33,7 +33,5 @@ public class OrderInfo {
         return totalCost;
     }
 
-    public String getAssignedStaff() {
-        return assignedStaff;
-    }
+    public Object getStatus() {return status;}
 }
