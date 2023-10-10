@@ -4,7 +4,7 @@ Java laboration i HI1031 skriven av Niklas Roslund & Wiljam Wilmi
 
 Kontakt: wiljam@kth.se
 
-För att köra programmet;
+Om man vill köra programmet;
 1. Använd IntelliJ Ultimate.
 2. Project Structure - SDK: OpenJDK version 21 - Modules: Web: Tomcat Context Descriptor
 3. Tomcat version 10.1.13 bör vara i en mapp på datorn och länkad i projektet.
