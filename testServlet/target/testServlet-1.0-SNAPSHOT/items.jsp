@@ -225,7 +225,7 @@
                 Collection<ItemInfo> items = (Collection<ItemInfo>) session.getAttribute("getAllItemsWithoutGroup");
 
                 if(filter != null && !filter.equals("All items"))
-                    items = (Collection<ItemInfo>) session.getAttribute("getAllItemsWithGroup");      //This one might be hard to move
+                    items = (Collection<ItemInfo>) session.getAttribute("getAllItemsWithGroup");
 
                 for (ItemInfo item : items) {
             %>
@@ -233,7 +233,6 @@
                 <input type="hidden" name="itemId" value="<%= item.getId() %>">
                 <input type="hidden" name="itemName" value="<%= item.getName() %>">
                 <input type="hidden" name="itemDesc" value="<%= item.getDesc() %>">
-<%--                <input type="hidden" name="itemQuantity" value="<%= item.getQuantity() %>">--%>
                 <input type="hidden" name="itemAmount" value="<%= item.getAmount() %>">
                 <input type="hidden" name="itemPrice" value="<%= item.getPrice() %>">
                 <input type="hidden" name="itemCategory" value="<%= item.getCategory() %>">
@@ -294,7 +293,7 @@
             </li>
             <%
                         }
-                    price = (int) session.getAttribute("totalPriceCart");     //might be hard to move this one as well
+                    price = (int) session.getAttribute("totalPriceCart");
                 }
             %>
         </ul>
@@ -319,10 +318,8 @@
 </body>
 </html>
 <script type="text/javascript">
-    // Alert for if transaction fails
     <% Boolean transactionSuccess = (Boolean) request.getAttribute("transactionSuccess"); %>
     <% String transactionMessage = (String) request.getAttribute("transactionMessage"); %>
-
     <% if (transactionSuccess != null && !transactionSuccess) { %>
     alert("<%= transactionMessage %>");
     <% } %>

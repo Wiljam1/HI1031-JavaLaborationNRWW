@@ -14,18 +14,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.eq;
 
 public class UserDB extends bo.User{
 
-    //Kanske dåligt att den här returnar en User? Kanske bör returna något mer generellt
     public static User searchUser(String searchedUsername) {
         User user = null;
         try {
             MongoCollection<Document> collection = DBManager.getCollection("users");
             Bson filter = eq("username", searchedUsername);
-            FindIterable<Document> results = collection.find(filter); //Kanske kan göras om med getUserDocument
+            FindIterable<Document> results = collection.find(filter);
 
             for(Document doc : results) {
                 String username = doc.getString("username");
@@ -42,6 +42,7 @@ public class UserDB extends bo.User{
         }
         return user;
     }
+
 
     public static Collection getAllUsers() {
         Collection<Object> users = new ArrayList<>();
@@ -146,63 +147,62 @@ public class UserDB extends bo.User{
     public static boolean addOrderDB(String username, Collection<ItemDB> cart, String finalPrice) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
-        MongoCollection<Document> collection = DBManager.getCollection("users"); // kanske ska vara inne i transaktionen?
+        MongoCollection<Document> collection = DBManager.getCollection("users");
 
         try {
             session.startTransaction();
 
-            ArrayList<Document> orderList = new ArrayList<>();
-            Bson filterUsername = eq("username", username);
+            // Fetch existing orders
+            Collection<OrderDB> existingOrders = fetchOrders(username);
+
+            // Find the largest order ID
+            int largestId = existingOrders.stream()
+                    .mapToInt(orderDB -> Integer.parseInt(orderDB.getId()))
+                    .max()
+                    .orElse(0);
+
+            // Create a new order document
             Date date = new Date();
-            Document order = new Document();
-
-            // TODO: Byt plats på detta
-            //handles old orders
-            Collection generalOrders = fetchOrders(username);
-            Collection<OrderDB> existingOrders = new ArrayList<>();
-
-            //fix type for each order (could cause problems)
-            for(Object o : generalOrders) {
-                OrderDB orderDB = (OrderDB) o;
-                existingOrders.add(orderDB);
-            }
-
-            int largestId = 0;
-            for (OrderDB orderDB : existingOrders) {
-                orderList.add(addExistingOrders(orderDB));
-                int id = Integer.parseInt(orderDB.getId());
-                if (id > largestId) {
-                    largestId = id;
-                }
-            }
-            largestId++;
-            order.append("id", String.valueOf(largestId))
+            Document order = new Document()
+                    .append("id", String.valueOf(largestId + 1))
                     .append("date", date.toString())
                     .append("totalCost", finalPrice)
                     .append("status", "not Packed");
+
             ArrayList<Document> itemsList = new ArrayList<>();
-            for (ItemDB item: cart) {
-                Document itemDocument = new Document();
-                String desc = item.getDesc();
-                String name = item.getName();
-                String amount = String.valueOf(item.getAmount());
-                String price = String.valueOf(item.getPrice());
-                String quantity = String.valueOf(item.getQuantity());
-                String category = item.getCategory();
-                itemDocument.append("id", item.getId())
-                        .append("name", name)
-                        .append("description", desc)
-                        .append("amount", amount)
-                        .append("price", price)
-                        .append("quantity", quantity)
-                        .append("category", category);
+
+            // Create item documents
+            for (ItemDB item : cart) {
+                Document itemDocument = new Document()
+                        .append("id", item.getId())
+                        .append("name", item.getName())
+                        .append("description", item.getDesc())
+                        .append("amount", String.valueOf(item.getAmount()))
+                        .append("price", String.valueOf(item.getPrice()))
+                        .append("quantity", String.valueOf(item.getQuantity()))
+                        .append("category", item.getCategory());
+
                 itemsList.add(itemDocument);
 
-                //For changing item amount in database
-                ItemDB.changeAmountOfItems(name,quantity,session);
+                // For changing item amount in the database
+                ItemDB.changeAmountOfItems(item.getName(), String.valueOf(item.getQuantity()), session);
             }
             order.append("items", itemsList);
-            orderList.add(order);
+            // Add the new order to the existing orders
+            existingOrders.add(OrderDB.createOrder(
+                    order.getString("id"),
+                    order.getString("date"),
+                    cart,
+                    finalPrice,
+                    "not Packed"
+            ));
+
+            // Update the user document with the new orders
+            Bson filterUsername = eq("username", username);
+            List<Document> orderList = existingOrders.stream()
+                    .map(UserDB::addExistingOrders)
+                    .collect(Collectors.toList());
+
             collection.updateOne(session, filterUsername, Updates.set("orders", orderList));
             session.commitTransaction();
         } catch (MongoException e) {
@@ -268,6 +268,7 @@ public class UserDB extends bo.User{
 
             for (OrderDB orderDB: existingOrders) {
                 if (orderDB.getId().equals(transactionId)){
+                    //removes the item by not adding it
                 }
                 else {
                      orderList.add(addExistingOrders(orderDB));
@@ -325,16 +326,17 @@ public class UserDB extends bo.User{
     }
 
     public static void orderIsPackedDB(String username, String transactionId) {
-        MongoCollection<Document> collection = DBManager.getCollection("users");
+        try {
+            MongoCollection<Document> collection = DBManager.getCollection("users");
 
-        // Create a filter to find the document matching the username and transactionId
-        Document filter = new Document("username", username)
-                .append("orders.id", transactionId);
+            Document filter = new Document("username", username)
+                    .append("orders.id", transactionId);
 
-        // Create an update to set the status field
-        Document update = new Document("$set", new Document("orders.$.status", "Packed"));
+            Document update = new Document("$set", new Document("orders.$.status", "Packed"));
 
-        // Use updateOne to perform the update
-        collection.updateOne(filter, update);
+            collection.updateOne(filter, update);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
