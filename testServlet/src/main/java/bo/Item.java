@@ -8,12 +8,12 @@ import java.util.Collection;
 
 public class Item {
     private String id;
-    private String name;
+    private final String name;
     private String desc;
-    private String quantity;
+    private final String quantity;
     private String amount;
-    private String price;
-    private String category;
+    private final String price;
+    private final String category;
 
     protected Item(String id, String name, String desc, String quantity, String amount, String price, String category) {
         this.id = id;

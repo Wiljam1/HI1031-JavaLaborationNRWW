@@ -40,7 +40,7 @@ public class TransactionServlet extends HttpServlet {
         String username = request.getParameter("username");
         String transactionId = request.getParameter("transactionId");
         UserHandler.orderIsPacked(username, transactionId);
-        
+
         response.sendRedirect(request.getContextPath() + "/allOrders");
     }
 

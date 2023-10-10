@@ -34,9 +34,7 @@ public class UserHandler {
 
         if (userDoc != null) {
             String DBPassword = userDoc.getString("password");
-            if (password.equals(DBPassword)) {
-                return true;
-            }
+            return password.equals(DBPassword);
         }
         return false;
     }

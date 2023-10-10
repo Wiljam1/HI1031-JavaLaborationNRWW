@@ -8,11 +8,11 @@ import java.util.Collection;
  * such as order ID, order date, order items, total cost, and order status.
  */
 public class Order {
-    private String id;
-    private String date;
-    private Collection items;
-    private String totalCost;
-    private String status;
+    private final String id;
+    private final String date;
+    private final Collection items;
+    private final String totalCost;
+    private final String status;
 
     protected Order(String id, String date, Collection items, String totalCost, String status) {
         this.id = id;

@@ -5,13 +5,13 @@ package ui;
  * category, quantity, amount, and price. It provides methods for incrementing and decrementing the quantity of the item.
  */
 public class ItemInfo {
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
     private String desc;
-    private String category;
+    private final String category;
     private int quantity; //TODO: gör om till String
-    private int amount;
-    private int price;
+    private final int amount;
+    private final int price;
     public ItemInfo(String id, String name, String desc, String quantity, String amount, String price, String category) {
         this.id = id;
         this.name = name;

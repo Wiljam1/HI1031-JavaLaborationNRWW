@@ -5,11 +5,11 @@ import java.util.Collection;
  * Represents information about an order, including its unique identifier, date, items, total cost, and status.
  */
 public class OrderInfo {
-    private String id;
-    private String date;
-    private Collection<ItemInfo> items;
-    private String totalCost;
-    private String status;
+    private final String id;
+    private final String date;
+    private final Collection<ItemInfo> items;
+    private final String totalCost;
+    private final String status;
 
     public OrderInfo(String id, String date, Collection<ItemInfo> items, String totalCost, String status) {
         this.id = id;

@@ -14,11 +14,11 @@ import java.util.Collection;
  * such as username, name, authorization level, shopping cart, and order history.
  */
 public class User {
-    private String username;
-    private String name;
-    private Collection<ItemInfo> cart;
-    private String authorization;
-    private Collection orders; //Vet inte om det ska vara Collection<Order> eller bara Collection
+    private final String username;
+    private final String name;
+    private final Collection<ItemInfo> cart;
+    private final String authorization;
+    private final Collection orders; //Vet inte om det ska vara Collection<Order> eller bara Collection
 
     protected User(String username, String name, String authorization) {
         this.username = username;

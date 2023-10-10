@@ -6,11 +6,11 @@ import java.util.Collection;
  * and a collection of user orders.
  */
 public class UserInfo {
-    private String username;
-    private String name;
-    private Collection<ItemInfo> cart;
-    private String authorization;
-    private Collection<OrderInfo> orders;
+    private final String username;
+    private final String name;
+    private final Collection<ItemInfo> cart;
+    private final String authorization;
+    private final Collection<OrderInfo> orders;
 
     public UserInfo(String username, String name, Collection<ItemInfo> cart, String authorization, Collection<OrderInfo> orders) {
         this.username = username;
