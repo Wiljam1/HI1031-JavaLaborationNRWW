@@ -7,7 +7,7 @@ public class ItemInfo {
     private String name;
     private String desc;
     private String category;
-    private int quantity;
+    private int quantity; //TODO: gör om till String
     private int amount;
     private int price;
     public ItemInfo(String id, String name, String desc, String quantity, String amount, String price, String category) {

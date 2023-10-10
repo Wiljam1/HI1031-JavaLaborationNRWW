@@ -16,106 +16,82 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class ItemDB extends bo.Item {
 
-
-    public static Collection searchItems(String item_group) {
-        Collection<Object> items = new ArrayList<>();
+    public static Collection<ItemDB> searchItems(String filter) {
+        Collection<ItemDB> items = new ArrayList<>();
         try {
             MongoCollection<Document> collection = DBManager.getCollection("items");
 
-            Bson filterCategory = eq("category", item_group);
+            Bson filterCategory = eq("category", filter);
 
-            for(Document doc : collection.find(filterCategory)) {
-                String id = doc.getString("id");
-                String name = doc.getString("name");
-                String desc = doc.getString("description");
-                String quantity = doc.getString("quantity");
-                String amount = doc.getString("amount");
-                String price = doc.getString("price");
-                String category = doc.getString("category");
-                items.add(new ItemDB(id, name, desc, quantity, amount, price, category));
+            for (Document doc : collection.find(filterCategory)) {
+                items.add(createItemFromDocument(doc));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return items;
     }
 
-    //Tar just nu alla items i collection
-    public static Collection searchItems() {
-        Collection<Object> items = new ArrayList<>();
+    public static Collection<ItemDB> searchItems() {
+        Collection<ItemDB> items = new ArrayList<>();
         try {
             MongoCollection<Document> collection = DBManager.getCollection("items");
 
-            for(Document doc : collection.find()) {
-                String id = doc.getString("id");
-                String name = doc.getString("name");
-                String desc = doc.getString("description");
-                String quantity = doc.getString("quantity");
-                String amount = doc.getString("amount");
-                String price = doc.getString("price");
-                String category = doc.getString("category");
-                items.add(new ItemDB(id, name, desc, quantity, amount, price, category));
+            for (Document doc : collection.find()) {
+                items.add(createItemFromDocument(doc));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return items;
     }
 
     public static ItemDB searchItem(String itemId) {
-        ItemDB item = null;
         try {
             MongoCollection<Document> collection = DBManager.getCollection("items");
-
             Document filter = new Document("id", itemId);
             FindIterable<Document> result = collection.find(filter);
 
-            for(Document doc : result) {
-                String id = doc.getString("id");
-                String name = doc.getString("name");
-                String desc = doc.getString("description");
-                String quantity = doc.getString("quantity");
-                String amount = doc.getString("amount");
-                String price = doc.getString("price");
-                String category = doc.getString("category");
-                item = new ItemDB(id, name, desc, quantity, amount, price, category);
+            for (Document doc : result) {
+                return createItemFromDocument(doc);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return item;
+        return null;
+    }
+
+    protected static ItemDB createItemFromDocument(Document doc) {
+        String id = doc.getString("id");
+        String name = doc.getString("name");
+        String desc = doc.getString("description");
+        String quantity = doc.getString("quantity");
+        String amount = doc.getString("amount");
+        String price = doc.getString("price");
+        String category = doc.getString("category");
+
+        return ItemDB.createItemDB(id, name, desc, quantity, amount, price, category);
     }
 
     private ItemDB(String id, String name, String desc, String quantity, String amount, String price, String category) {
         super(id, name, desc, quantity, amount, price, category);
     }
 
-    //Public factory (dåligt kanske)
+    //Factory
     public static ItemDB createItemDB(String id, String name, String desc, String quantity, String amount, String price, String category) {
-        return new ItemDB(id, name, desc, quantity, amount, price, category);
-    }
-    //protected factory (bra typ)
-    protected static ItemDB createItem(String id, String name, String desc, String quantity, String amount, String price, String category) {
         return new ItemDB(id, name, desc, quantity, amount, price, category);
     }
 
     public static boolean createItem(String name, String description, String amount, String price, String itemCategory) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
-        ClientSession session = mongoClient.startSession();
-        try {
+
+        try (ClientSession session = mongoClient.startSession()) {
             session.startTransaction();
             MongoCollection<Document> collection = DBManager.getCollection("items");
-            int largestId = 0;
-            for (Document doc: collection.find()){
-                int id = Integer.parseInt(doc.getString("id"));
-                if (id > largestId){
-                    largestId = id;
-                }
-            }
+
+            int largestId = findLargestItemId(collection);
             largestId++;
+
             Document itemDoc = new Document()
                     .append("id", String.valueOf(largestId))
                     .append("name", name)
@@ -126,21 +102,28 @@ public class ItemDB extends bo.Item {
 
             collection.insertOne(itemDoc);
             session.commitTransaction();
-        }
-        catch (Exception e) {
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
-            session.abortTransaction();
             return false;
-        } finally {
-            session.close();
         }
-        return true;
+    }
+
+    private static int findLargestItemId(MongoCollection<Document> collection) {
+        int largestId = 0;
+        for (Document doc : collection.find()) {
+            int id = Integer.parseInt(doc.getString("id"));
+            if (id > largestId) {
+                largestId = id;
+            }
+        }
+        return largestId;
     }
 
     public static boolean editItem(String id, String name, String description, String amount, String price, String itemCategory) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
-        ClientSession session = mongoClient.startSession();
-        try {
+
+        try (ClientSession session = mongoClient.startSession()) {
             session.startTransaction();
             MongoCollection<Document> collection = DBManager.getCollection("items");
             ItemDB item = searchItem(id);
@@ -157,15 +140,14 @@ public class ItemDB extends bo.Item {
             collection.updateOne(filter, updateQuery);
 
             session.commitTransaction();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            session.abortTransaction();
             return false;
-        } finally {
-            session.close();
         }
-        return true;
     }
+
+
     public static HashSet<String> getCategories(){
         HashSet<String> categories = new HashSet<>();
         MongoCollection<Document> collection = DBManager.getCollection("items");
@@ -175,18 +157,22 @@ public class ItemDB extends bo.Item {
         return categories;
     }
 
-    public static void changeAmountOfItems(String name, String quantity, ClientSession session){
+    public static void modifyItemAmount(String itemName, String quantity, ClientSession session) {
         MongoCollection<Document> collectionItems = DBManager.getCollection("items");
-        Bson filterItems = eq("name", name);
-        Document items = collectionItems.find(filterItems).first();
-        if (items != null){
-            int quantityItems = Integer.parseInt(items.getString("amount"));
-            quantityItems -= Integer.parseInt(quantity);
-            if (quantityItems < 0){
+        Bson filterItems = eq("name", itemName);
+
+        Document item = collectionItems.find(filterItems).first();
+        if (item != null) {
+            int currentAmount = Integer.parseInt(item.getString("amount"));
+            int updatedAmount = currentAmount - Integer.parseInt(quantity);
+
+            if (updatedAmount < 0) {
                 session.abortTransaction();
+                return;
             }
-            items.put("amount", quantityItems);
-            collectionItems.updateOne(session,filterItems, Updates.set("amount", String.valueOf(quantityItems)));
+
+            item.put("amount", updatedAmount);
+            collectionItems.updateOne(session, filterItems, Updates.set("amount", updatedAmount));
         }
     }
 }
