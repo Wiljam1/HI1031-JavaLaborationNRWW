@@ -1,6 +1,6 @@
 # JavaLaborationNRWW
 
-Java laboration skriven av Wiljam Wilmi & Niklas Roslund
+Java laboration i HI1031 skriven av Niklas Roslund & Wiljam Wilmi
 
 Kontakt: wiljam@kth.se
 
