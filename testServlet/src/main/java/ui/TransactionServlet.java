@@ -59,7 +59,7 @@ public class TransactionServlet extends HttpServlet {
 
     private void forwardToTransactionResult(HttpServletRequest request, HttpServletResponse response, boolean success)
             throws ServletException, IOException {
-        String targetJSP = success ? "userOrders.jsp" : "items.jsp";
+        String targetJSP = success ? "/userOrders" : "/items";
         String message = success ? "Transaction successful!" : "Transaction failed!";
 
         request.setAttribute("transactionSuccess", success);

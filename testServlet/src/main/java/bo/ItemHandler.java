@@ -21,7 +21,7 @@ public class ItemHandler {
     }
 
     public static Collection<ItemInfo> getItemsWithGroup() {
-        Collection c = bo.Item.searchItems();
+        Collection c = Item.searchItems();
         ArrayList<ItemInfo> items = new ArrayList<>();
         for (Object o : c) {
             bo.Item item = (bo.Item) o;

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static db.ItemDB.createItemFromDocument;
 
 public class UserDB extends bo.User{
 
@@ -65,6 +66,10 @@ public class UserDB extends bo.User{
         return users;
     }
 
+    public static Document getUserDocument(String username) {
+        return DBManager.getCollection("users").find(new Document("username", username)).first();
+    }
+
     public static Collection fetchOrders(String username) {
         User user = searchUser(username);
         if (user != null) {
@@ -87,36 +92,34 @@ public class UserDB extends bo.User{
 
             Collection<OrderDB> allOrders = new ArrayList<>();
 
-            for(Document order : ordersList) {
+            for (Document order : ordersList) {
                 String orderId = order.getString("id");
                 String orderDate = order.getString("date");
-                Collection<ItemDB> orderItems = new ArrayList<>();
-                List<Document> items = order.getList("items", Document.class);
-                if(items != null)
-                    for(Document itemDoc : items) {
-                        String itemId = itemDoc.getString("id");
-                        String itemName = itemDoc.getString("name");
-                        String itemDesc = itemDoc.getString("description");
-                        String itemQuantity = itemDoc.getString("quantity");
-                        String itemAmount = itemDoc.getString("amount");
-                        String itemPrice = itemDoc.getString("price");
-                        String category = itemDoc.getString("category");
-
-                        ItemDB item = ItemDB.createItem(itemId, itemName, itemDesc, itemQuantity, itemAmount, itemPrice, category);
-                        orderItems.add(item);
-                    }
+                Collection<ItemDB> orderItems = createItemsFromDocumentList(order.getList("items", Document.class));
                 String orderCost = order.getString("totalCost");
                 String status = order.getString("status");
+
                 OrderDB createdOrder = OrderDB.createOrder(orderId, orderDate, orderItems, orderCost, status);
                 allOrders.add(createdOrder);
             }
             return allOrders;
-        }
-        catch (Exception e) {
-            //Robust logging implementation?
+        } catch (Exception e) {
+            // Robust logging implementation?
             e.printStackTrace();
             return null;
         }
+    }
+
+    private static Collection<ItemDB> createItemsFromDocumentList(List<Document> itemsList) {
+        if (itemsList == null)
+            return null;
+
+        Collection<ItemDB> orderItems = new ArrayList<>();
+        for (Document itemDoc : itemsList) {
+            ItemDB item = createItemFromDocument(itemDoc);
+            orderItems.add(item);
+        }
+        return orderItems;
     }
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
@@ -198,8 +201,7 @@ public class UserDB extends bo.User{
                         .append("category", category);
                 itemsList.add(itemDocument);
 
-                //For changing item amount in database
-                ItemDB.changeAmountOfItems(name,quantity,session);
+                ItemDB.modifyItemAmount(name,quantity,session);
             }
             order.append("items", itemsList);
             orderList.add(order);
@@ -240,10 +242,6 @@ public class UserDB extends bo.User{
         }
         order.append("items", itemsList);
         return order;
-    }
-
-    public static Document getUserDocument(String username) {
-        return DBManager.getCollection("users").find(new Document("username", username)).first();
     }
 
     private UserDB(String username, String name, String authorization, Collection orders) {
@@ -327,14 +325,11 @@ public class UserDB extends bo.User{
     public static void orderIsPackedDB(String username, String transactionId) {
         MongoCollection<Document> collection = DBManager.getCollection("users");
 
-        // Create a filter to find the document matching the username and transactionId
         Document filter = new Document("username", username)
                 .append("orders.id", transactionId);
 
-        // Create an update to set the status field
         Document update = new Document("$set", new Document("orders.$.status", "Packed"));
 
-        // Use updateOne to perform the update
         collection.updateOne(filter, update);
     }
 }
