@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * Servlet responsible for displaying a list of all orders in the online store's admin and staff interfaces.
+ * This servlet retrieves order data and ensures that only authorized administrators and staff members can access it.
+ */
 @WebServlet("/allOrders")
 public class AllOrdersServlet extends HttpServlet {
     @Override

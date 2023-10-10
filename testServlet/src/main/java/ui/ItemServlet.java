@@ -12,7 +12,10 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.Collection;
-
+/**
+ * Servlet responsible for managing item-related functionality. It handles both GET and POST requests related to
+ * displaying and modifying items in the store.
+ */
 @WebServlet("/items")
 public class ItemServlet extends HttpServlet {
 

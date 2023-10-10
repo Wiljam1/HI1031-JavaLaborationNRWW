@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * Servlet responsible for rendering the "Add Item" page in the online store.
+ * This servlet ensures that only authenticated users can access the item addition functionality.
+ */
 @WebServlet("/addItem")
 public class AddItemServlet extends HttpServlet {
     @Override

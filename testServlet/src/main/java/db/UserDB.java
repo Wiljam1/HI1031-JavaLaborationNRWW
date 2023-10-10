@@ -18,7 +18,11 @@ import java.util.stream.Collectors;
 
 import static com.mongodb.client.model.Filters.eq;
 import static db.ItemDB.createItemFromDocument;
-
+/**
+ * Extension of the User class that provides database-related functionality for user management.
+ * This class handles tasks such as searching for users, creating users, adding orders, editing user profiles,
+ * deleting users, and updating order statuses in the database.
+ */
 public class UserDB extends bo.User{
 
     public static User searchUser(String searchedUsername) {
@@ -187,7 +191,7 @@ public class UserDB extends bo.User{
 
                 itemsList.add(itemDocument);
 
-                ItemDB.modifyItemAmount(name,quantity,session);
+                ItemDB.modifyItemAmount(item.getName(),item.getQuantity(),session);
             }
             order.append("items", itemsList);
             // Add the new order to the existing orders

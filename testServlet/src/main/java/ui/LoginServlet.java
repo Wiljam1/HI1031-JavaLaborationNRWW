@@ -14,15 +14,13 @@ import jakarta.servlet.http.HttpSession;
 import javax.swing.text.Document;
 import java.io.IOException;
 
-
+/**
+ * Servlet responsible for handling user login functionality. It provides both a GET method for displaying the login
+ * page and a POST method for processing login attempts.
+ */
 @WebServlet(name = "LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
-    // Få bort .jsp från URL;
-    // TUTORIAL: Skriv mapping i web.xml-filen ->
-    // Ändra @WebServlet-taggen för servet -> Implementera doGet()
-    // -> Ändra länkar till utan .jsp på slutet.
-    // (Kan inte göras på alla sidor för då behöver varje sida en Servlet? Känns rätt onödigt)
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward the request to the login.jsp page

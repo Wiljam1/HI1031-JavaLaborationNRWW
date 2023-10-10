@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * This servlet handles user-related operations such as creating, editing, and deleting users.
+ * It also manages user authorization levels and redirects users to appropriate pages.
+ */
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
 

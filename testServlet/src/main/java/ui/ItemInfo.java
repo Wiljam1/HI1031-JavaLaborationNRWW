@@ -1,7 +1,9 @@
 package ui;
 
-import bo.Item;
-
+/**
+ * Represents information about an item in the store. This class stores details such as item ID, name, description,
+ * category, quantity, amount, and price. It provides methods for incrementing and decrementing the quantity of the item.
+ */
 public class ItemInfo {
     private String id;
     private String name;

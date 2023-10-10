@@ -11,7 +11,10 @@ import ui.UserInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+/**
+ * The UserHandler class provides methods for handling user-related operations, including
+ * user authentication, user creation, and retrieving user information.
+ */
 public class UserHandler {
 
     @SuppressWarnings("unchecked")

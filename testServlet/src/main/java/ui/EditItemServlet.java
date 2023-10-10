@@ -9,7 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * Servlet responsible for handling requests to edit an item in the online store. This servlet provides the user
+ * interface for editing item details. It ensures that only authenticated users can access the edit item page.
+ */
 @WebServlet("/editItem")
 public class EditItemServlet extends HttpServlet {
 

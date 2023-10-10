@@ -3,7 +3,10 @@ package bo;
 import ui.ItemInfo;
 
 import java.util.Collection;
-
+/**
+ * The Order class represents an order in the system. It contains order-specific information
+ * such as order ID, order date, order items, total cost, and order status.
+ */
 public class Order {
     private String id;
     private String date;

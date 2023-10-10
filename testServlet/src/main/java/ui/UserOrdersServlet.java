@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * This servlet handles user-specific order-related operations, such as displaying user orders.
+ * It retrieves user order information and forwards the request to the userOrders.jsp page.
+ */
 @WebServlet("/userOrders")
 public class UserOrdersServlet extends HttpServlet {
     @Override

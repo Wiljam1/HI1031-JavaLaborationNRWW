@@ -1,7 +1,10 @@
 package ui;
 
 import java.util.Collection;
-
+/**
+ * Represents user information, including username, name, shopping cart, authorization level,
+ * and a collection of user orders.
+ */
 public class UserInfo {
     private String username;
     private String name;

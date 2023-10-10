@@ -11,7 +11,9 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-
+/**
+ * Servlet responsible for handling user transactions, such as creating, deleting, or marking orders as packed.
+ */
 @WebServlet("/transaction")
 public class TransactionServlet extends HttpServlet {
 

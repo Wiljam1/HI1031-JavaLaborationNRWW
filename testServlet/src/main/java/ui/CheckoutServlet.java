@@ -10,7 +10,11 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.Collection;
-
+/**
+ * Servlet responsible for handling requests related to the checkout process in the online store.
+ * This servlet provides the user interface for the checkout page and ensures that only authenticated
+ * users can access it.
+ */
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
     @Override

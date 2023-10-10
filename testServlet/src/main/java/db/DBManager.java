@@ -9,7 +9,11 @@ import org.bson.Document;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+/**
+ * The DBManager class is responsible for managing the connection to the MongoDB database.
+ * It provides methods for obtaining a reference to a MongoDB collection, as well as access
+ * to the underlying MongoDatabase and MongoClient.
+ */
 public class DBManager {
     private static DBManager instance = null;
     private static MongoClient client;

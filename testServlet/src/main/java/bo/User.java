@@ -9,7 +9,10 @@ import ui.OrderInfo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+/**
+ * The User class represents a user in the system. It contains user-specific information
+ * such as username, name, authorization level, shopping cart, and order history.
+ */
 public class User {
     private String username;
     private String name;

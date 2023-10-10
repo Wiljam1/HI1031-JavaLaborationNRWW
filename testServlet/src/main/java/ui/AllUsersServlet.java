@@ -10,7 +10,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * Servlet responsible for displaying a list of all users in the online store's admin interface.
+ * This servlet retrieves user data and ensures that only authorized administrators can access it.
+ */
 @WebServlet("/allUsers")
 public class AllUsersServlet extends HttpServlet {
     @Override

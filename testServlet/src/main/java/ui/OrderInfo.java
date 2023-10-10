@@ -1,7 +1,9 @@
 package ui;
 
 import java.util.Collection;
-
+/**
+ * Represents information about an order, including its unique identifier, date, items, total cost, and status.
+ */
 public class OrderInfo {
     private String id;
     private String date;
