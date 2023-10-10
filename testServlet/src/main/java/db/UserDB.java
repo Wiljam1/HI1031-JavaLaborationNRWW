@@ -126,6 +126,12 @@ public class UserDB extends bo.User{
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
         try {
+            if (username.length() < 3 || username.length() > 12 ||
+                    name.length() < 3 || name.length() > 12 ||
+                    password.length() < 3 || password.length() > 16) {
+                return false;
+            }
+
             MongoCollection<Document> collection = DBManager.getCollection("users");
             for (Document doc : collection.find()){
                 if (doc.get("username", username).equals(username)){
@@ -280,6 +286,9 @@ public class UserDB extends bo.User{
 
     public static boolean editUser(String username, String name, Authorization authorization) {
         try {
+            if (username.length() < 3 || username.length() > 12 || name.length() < 3 || name.length() > 12) {
+                return false;
+            }
             MongoCollection<Document> collection = DBManager.getCollection("users");
 
             for (Document doc : collection.find()) {

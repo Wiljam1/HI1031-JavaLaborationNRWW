@@ -126,8 +126,17 @@ public class ItemDB extends bo.Item {
     }
 
     public static boolean editItem(String id, String name, String description, String amount, String price, String itemCategory) {
-        MongoClient mongoClient = DBManager.getInstance().getMongoClient();
+        if (name.length() < 3 || description.length() < 3) {
+            return false;
+        }
 
+        int amountValue = Integer.parseInt(amount);
+        int priceValue = Integer.parseInt(price);
+        if (amountValue <= 0 || priceValue <= 0) {
+            return false;
+        }
+
+        MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         try (ClientSession session = mongoClient.startSession()) {
             session.startTransaction();
             MongoCollection<Document> collection = DBManager.getCollection("items");
