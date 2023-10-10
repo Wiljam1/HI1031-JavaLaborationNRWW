@@ -25,28 +25,6 @@ public class Item {
         this.category = category;
     }
 
-    // TODO: Ta bort kanske
-    //Factory
-    protected static Item createItem(String id, String name, String desc, String quantity, String amount, String price, String category) {
-        return new Item(id, name, desc, quantity, amount, price, category);
-    }
-
-//    public static Collection searchItems(String group) {
-//        return ItemDB.searchItems(group);
-//    }
-//
-//    public static Collection searchItems() {
-//        return ItemDB.searchItems();
-//    }
-//
-//    public static boolean createItem(String name, String description, String amount, String price, String itemCategory) {
-//        return ItemDB.createItem(name, description, amount, price, itemCategory);
-//    }
-//
-//    public static boolean editItem(String id, String name, String description, String amount, String price, String itemCategory) {
-//        return ItemDB.editItem(id, name, description, amount, price, itemCategory);
-//    }
-
     public String getName() {
         return name;
     }
@@ -63,20 +41,12 @@ public class Item {
         this.id = id;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
     public String getAmount() {
         return this.amount;
     }
 
     public String getPrice() {
         return this.price;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
     }
 
     public String getQuantity() {

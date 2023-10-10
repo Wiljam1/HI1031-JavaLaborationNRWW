@@ -19,7 +19,6 @@ public class DBManager {
     private static MongoClient client;
     MongoDatabase database = null;
 
-    //kanske inte är singelton längre
     static DBManager getInstance() {
         if(instance == null)
             instance = new DBManager();
@@ -40,10 +39,6 @@ public class DBManager {
 
     public static MongoCollection<Document> getCollection(String collection) {
         return getInstance().database.getCollection(collection);
-    }
-
-    public MongoDatabase getDatabase() {
-        return database;
     }
 
     public MongoClient getMongoClient() {

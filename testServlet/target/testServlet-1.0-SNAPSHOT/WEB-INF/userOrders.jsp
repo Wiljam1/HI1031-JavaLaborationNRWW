@@ -1,6 +1,5 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="ui.ItemInfo" %>
-<%@ page import="bo.UserHandler" %>
 <%@ page import="ui.OrderInfo" %>
 <%@ page import="ui.UserInfo" %>
 <%@ page import="java.util.Collections" %>
@@ -155,13 +154,11 @@
         <%
             session = request.getSession();
             UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
-            String username;
             String name = "null";
             Collection<OrderInfo> orders = Collections.emptyList();
             if(userInfo != null) {
-                username = userInfo.getUsername();
                 name = userInfo.getName();
-                orders = (Collection<OrderInfo>) session.getAttribute("getUserOrders"); //Update orders
+                orders = (Collection<OrderInfo>) session.getAttribute("getUserOrders");
 
                 if(orders == null)
                     orders = Collections.emptyList();

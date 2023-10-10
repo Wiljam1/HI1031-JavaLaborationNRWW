@@ -110,7 +110,6 @@
         let currentDateElement = document.getElementById("currentDate");
         currentDateElement.innerHTML = new Date();
     }
-
     let set = false;
     if(!set) {
         setInterval(updateDate, 1);

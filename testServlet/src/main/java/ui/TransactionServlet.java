@@ -53,7 +53,7 @@ public class TransactionServlet extends HttpServlet {
 
         Collection<ItemInfo> cart = (Collection<ItemInfo>) session.getAttribute("items");
         boolean success = UserHandler.addOrder(username, cart, finalPrice);
-        // Empty cart
+
         session.setAttribute("items", new ArrayList<ItemInfo>());
 
         forwardToTransactionResult(request, response, success);
@@ -75,6 +75,6 @@ public class TransactionServlet extends HttpServlet {
         String transactionId = request.getParameter("transactionId");
         UserHandler.removeOrder(username, transactionId);
 
-        request.getRequestDispatcher("/WEB-INF/allOrders.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/allOrders");
     }
 }

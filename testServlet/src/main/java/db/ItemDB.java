@@ -152,7 +152,6 @@ public class ItemDB extends bo.Item {
         }
     }
 
-
     public static HashSet<String> getCategories(){
         HashSet<String> categories = new HashSet<>();
         MongoCollection<Document> collection = DBManager.getCollection("items");

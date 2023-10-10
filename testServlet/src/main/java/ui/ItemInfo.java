@@ -9,7 +9,7 @@ public class ItemInfo {
     private final String name;
     private String desc;
     private final String category;
-    private int quantity; //TODO: gör om till String
+    private int quantity;
     private final int amount;
     private final int price;
     public ItemInfo(String id, String name, String desc, String quantity, String amount, String price, String category) {
@@ -50,9 +50,8 @@ public class ItemInfo {
     public void incrementQuantity() {
         this.quantity++;
     }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void decrementQuantity() {
+        this.quantity--;
     }
 
     @Override
@@ -66,7 +65,5 @@ public class ItemInfo {
                 '}';
     }
 
-    public void decrementQuantity() {
-        this.quantity--;
-    }
+
 }

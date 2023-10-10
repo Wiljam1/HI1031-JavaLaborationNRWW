@@ -42,7 +42,6 @@ public class UserDB extends bo.User{
             }
         }
         catch (Exception e) {
-            //Robust logging implementation?
             e.printStackTrace();
         }
         return user;
@@ -65,7 +64,6 @@ public class UserDB extends bo.User{
             }
         }
         catch (Exception e) {
-            //Robust logging implementation?
             e.printStackTrace();
         }
         return users;
@@ -109,7 +107,6 @@ public class UserDB extends bo.User{
             }
             return allOrders;
         } catch (Exception e) {
-            // Robust logging implementation?
             e.printStackTrace();
             return null;
         }
@@ -146,11 +143,12 @@ public class UserDB extends bo.User{
             return true;
         }
         catch (Exception e) {
-            //Robust logging implementation?
             e.printStackTrace();
             return false;
         }
     }
+
+    @SuppressWarnings("unchecked")
     public static boolean addOrderDB(String username, Collection<ItemDB> cart, String finalPrice) {
         MongoClient mongoClient = DBManager.getInstance().getMongoClient();
         ClientSession session = mongoClient.startSession();
@@ -263,7 +261,7 @@ public class UserDB extends bo.User{
 
             for (OrderDB orderDB: existingOrders) {
                 if (orderDB.getId().equals(transactionId)){
-                    //removes the item by not adding it
+                    //Removes the item by not adding it
                 }
                 else {
                      orderList.add(addExistingOrders(orderDB));
@@ -296,7 +294,6 @@ public class UserDB extends bo.User{
             return true;
         }
         catch (Exception e) {
-            //Robust logging implementation?
             e.printStackTrace();
             return false;
         }
@@ -314,7 +311,6 @@ public class UserDB extends bo.User{
             }
             return true;
         } catch (Exception e) {
-            // Robust logging implementation
             e.printStackTrace();
             return false;
         }

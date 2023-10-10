@@ -24,10 +24,6 @@ public class UserInfo {
         return name;
     }
 
-    public Collection<ItemInfo> getCart() {
-        return cart;
-    }
-
     public String getAuthorization() { return authorization; }
 
     public Collection<OrderInfo> getOrders() {

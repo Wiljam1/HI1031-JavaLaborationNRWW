@@ -19,13 +19,13 @@ public class UserHandler {
 
     @SuppressWarnings("unchecked")
     public static UserInfo getUserInfo(String username) {
-        User u = User.searchUser(username);
+        User u = UserDB.searchUser(username);
         Collection<OrderInfo> orders = convertToOrderInfo(u.getOrders());
         return new UserInfo(u.getUsername(), u.getName(), u.getCart(), u.getAuthorizationLevel(), orders);
     }
 
     public static boolean createUser(String username, String name, String password, Authorization authorization) {
-        return User.createUser(username, name, password, authorization);
+        return UserDB.createUser(username, name, password, authorization);
     }
 
     public static boolean authenticateUser(String username, String password) {
@@ -46,7 +46,7 @@ public class UserHandler {
 
     @SuppressWarnings("unchecked")
     public static Collection<UserInfo> getAllUsers() {
-        Collection c = User.getAllUsers();
+        Collection c = UserDB.getAllUsers();
         ArrayList<UserInfo> users = new ArrayList<>();
         for (Object o : c) {
             User u = (User) o;

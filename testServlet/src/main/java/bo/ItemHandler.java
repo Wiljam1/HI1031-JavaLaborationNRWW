@@ -16,16 +16,15 @@ public class ItemHandler {
 
     public static Collection<ItemInfo> getItemsWithGroup(String s) {
         Collection c = ItemDB.searchItems(s);
-        ArrayList<ItemInfo> items = new ArrayList<>();
-        for (Object o : c) {
-            Item item = (Item) o;
-            items.add(new ItemInfo(item.getId(), item.getName(), item.getDesc(), "0", item.getAmount(), item.getPrice(), item.getCategory()));
-        }
-        return items;
+        return getItemInfos(c);
     }
 
     public static Collection<ItemInfo> getItemsWithGroup() {
         Collection c = ItemDB.searchItems();
+        return getItemInfos(c);
+    }
+
+    private static Collection<ItemInfo> getItemInfos(Collection c) {
         ArrayList<ItemInfo> items = new ArrayList<>();
         for (Object o : c) {
             Item item = (Item) o;
@@ -42,7 +41,6 @@ public class ItemHandler {
         return ItemDB.editItem(id, name, description, amount, price, itemCategory);
     }
 
-    // Ser både View och Model (men vi är i en controller klass? eller aa ett business object)
     protected static Collection<ItemInfo> convertItemsToItemInfo(Collection<ItemDB> itemDBCollection) {
         Collection<ItemInfo> itemInfoCollection = new ArrayList<>();
 

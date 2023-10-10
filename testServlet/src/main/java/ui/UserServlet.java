@@ -23,7 +23,6 @@ public class UserServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 
-        //Check if admin
         if (userInfo != null && userInfo.getAuthorization().equals(Authorization.ADMIN.toString())) {
             session.setAttribute("authLevel", Authorization.ADMIN.toString());
         }
@@ -83,7 +82,7 @@ public class UserServlet extends HttpServlet {
                 } else {
                     // Failed to delete user
                 }
-                request.getRequestDispatcher("/WEB-INF/allUsers.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/allUsers");
                 break;
             default:
                 break;

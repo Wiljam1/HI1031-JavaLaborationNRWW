@@ -43,10 +43,9 @@ public class ItemServlet extends HttpServlet {
 
     }
 
+    @SuppressWarnings("unchecked")
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        //Item parameters
         String itemId = request.getParameter("itemId");
         String itemName = request.getParameter("itemName");
         String itemDesc = request.getParameter("itemDesc");
@@ -60,10 +59,9 @@ public class ItemServlet extends HttpServlet {
         switch (action) {
             case "addNewItem":
                 ItemHandler.createItem(itemName, itemDesc, itemAmount, itemPrice, itemCategory);
-                response.sendRedirect("items.jsp");
+                response.sendRedirect(request.getContextPath() + "/items");
                 break;
             case "sendToEdit":
-                //Send parameters
                 session.setAttribute("itemId", itemId);
                 session.setAttribute("itemName", itemName);
                 session.setAttribute("itemDesc", itemDesc);
@@ -74,7 +72,7 @@ public class ItemServlet extends HttpServlet {
                 break;
             case "editItem":
                 ItemHandler.editItem(itemId, itemName, itemDesc, itemAmount, itemPrice, itemCategory);
-                response.sendRedirect("items.jsp");
+                response.sendRedirect(request.getContextPath() + "/items");
                 break;
             case "addToCart":
                 Collection<ItemInfo> cartItems = (Collection<ItemInfo>) session.getAttribute("items");
@@ -98,7 +96,7 @@ public class ItemServlet extends HttpServlet {
                 response.sendRedirect("items.jsp");
                 break;
             default:
-                System.out.println("error in itemservlet switch input action: " + action);
+                break;
         }
     }
 }

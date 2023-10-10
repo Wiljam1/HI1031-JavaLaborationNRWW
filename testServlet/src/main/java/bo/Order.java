@@ -22,11 +22,6 @@ public class Order {
         this.status = status;
     }
 
-    // Factory
-    protected static Order createOrder(String orderId, String orderDate, Collection orderItems, String orderCost, String status) {
-        return new Order(orderId, orderDate, orderItems, orderCost, status);
-    }
-
     public String getId() {
         return id;
     }

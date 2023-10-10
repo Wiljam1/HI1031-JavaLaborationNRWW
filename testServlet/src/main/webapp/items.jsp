@@ -1,10 +1,6 @@
 <%@ page import="ui.ItemInfo" %>
-<%@ page import="bo.ItemHandler" %>
-<%@ page import="bo.UserHandler" %>
-<%@ page import="ui.UserInfo" %>
 <%@ page import="java.util.*" %>
 <%@ page import="db.Authorization" %>
-<%@ page import="bo.CartHandler" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -323,7 +319,4 @@
     <% if (transactionSuccess != null && !transactionSuccess) { %>
     alert("<%= transactionMessage %>");
     <% } %>
-    function submitForm() {
-        document.getElementById("filter-form").submit();
-    }
 </script>

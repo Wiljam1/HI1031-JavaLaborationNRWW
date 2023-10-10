@@ -80,7 +80,6 @@
     <select name="authorization" id="authorization">
         <option value="<%= Authorization.USER.toString().toUpperCase() %>">User</option>
     <%
-        //Only admins can create Staff or Admin users
         String authLevel = (String) session.getAttribute("authLevel");
         if(authLevel != null && authLevel.equals(Authorization.ADMIN.toString())) {
     %>

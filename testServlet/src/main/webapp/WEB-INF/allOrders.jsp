@@ -113,11 +113,11 @@
 
         .packed-button {
             display: inline-block;
-            margin-left: 10px; /* Adjust the margin as needed */
+            margin-left: 10px;
         }
 
         .packed-button button {
-            background-color: #4caf50; /* Green color for "Pack" button */
+            background-color: #4caf50;
             color: #fff;
             border: none;
             padding: 5px 10px;
@@ -126,7 +126,7 @@
         }
 
         .packed-button button:hover {
-            background-color: #45a049; /* Darker green color on hover */
+            background-color: #45a049;
         }
         
         .add-button button:hover {

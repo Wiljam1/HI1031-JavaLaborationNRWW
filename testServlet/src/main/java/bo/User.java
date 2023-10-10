@@ -1,13 +1,9 @@
 package bo;
 
 import db.Authorization;
-import db.ItemDB;
-import db.OrderDB;
 import db.UserDB;
 import ui.ItemInfo;
-import ui.OrderInfo;
 
-import java.util.ArrayList;
 import java.util.Collection;
 /**
  * The User class represents a user in the system. It contains user-specific information
@@ -18,7 +14,7 @@ public class User {
     private final String name;
     private final Collection<ItemInfo> cart;
     private final String authorization;
-    private final Collection orders; //Vet inte om det ska vara Collection<Order> eller bara Collection
+    private final Collection orders;
 
     protected User(String username, String name, String authorization) {
         this.username = username;
@@ -36,16 +32,8 @@ public class User {
         this.orders = orders;
     }
 
-    public static boolean createUser(String username, String name, String password, Authorization authorization) {
-        return UserDB.createUser(username, name, password, authorization);
-    }
-
     public Collection getOrders() {
         return orders;
-    }
-
-    public static Collection fetchOrders(String username) {
-        return UserDB.fetchOrders(username);
     }
 
     public String getUsername() {
@@ -58,14 +46,6 @@ public class User {
 
     public Collection<ItemInfo> getCart() {
         return cart;
-    }
-
-    public static User searchUser(String username) {
-        return UserDB.searchUser(username);
-    }
-
-    public static Collection getAllUsers() {
-        return UserDB.getAllUsers();
     }
 
     public String getAuthorizationLevel() { return authorization ;}
