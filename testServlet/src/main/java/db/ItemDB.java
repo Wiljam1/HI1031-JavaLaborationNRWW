@@ -14,6 +14,11 @@ import java.util.HashSet;
 
 import static com.mongodb.client.model.Filters.eq;
 
+/**
+ * The ItemDB class represents items stored in a MongoDB database.
+ * It provides methods for searching, creating, editing, and managing items.
+ * This class extends the bo.Item class.
+ */
 public class ItemDB extends bo.Item {
 
     public static Collection<ItemDB> searchItems(String filter) {
@@ -171,8 +176,8 @@ public class ItemDB extends bo.Item {
                 return;
             }
 
-            item.put("amount", updatedAmount);
-            collectionItems.updateOne(session, filterItems, Updates.set("amount", updatedAmount));
+            item.put("amount", String.valueOf(updatedAmount));
+            collectionItems.updateOne(session, filterItems, Updates.set("amount", String.valueOf(updatedAmount)));
         }
     }
 }

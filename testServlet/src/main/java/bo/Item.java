@@ -15,14 +15,6 @@ public class Item {
     private String price;
     private String category;
 
-    public static Collection searchItems(String group) {
-        return ItemDB.searchItems(group);
-    }
-
-    public static Collection searchItems() {
-        return ItemDB.searchItems();
-    }
-
     protected Item(String id, String name, String desc, String quantity, String amount, String price, String category) {
         this.id = id;
         this.name = name;
@@ -33,10 +25,27 @@ public class Item {
         this.category = category;
     }
 
+    // TODO: Ta bort kanske
     //Factory
     protected static Item createItem(String id, String name, String desc, String quantity, String amount, String price, String category) {
         return new Item(id, name, desc, quantity, amount, price, category);
     }
+
+//    public static Collection searchItems(String group) {
+//        return ItemDB.searchItems(group);
+//    }
+//
+//    public static Collection searchItems() {
+//        return ItemDB.searchItems();
+//    }
+//
+//    public static boolean createItem(String name, String description, String amount, String price, String itemCategory) {
+//        return ItemDB.createItem(name, description, amount, price, itemCategory);
+//    }
+//
+//    public static boolean editItem(String id, String name, String description, String amount, String price, String itemCategory) {
+//        return ItemDB.editItem(id, name, description, amount, price, itemCategory);
+//    }
 
     public String getName() {
         return name;
@@ -74,13 +83,7 @@ public class Item {
         return quantity;
     }
 
-    public static boolean createItem(String name, String description, String amount, String price, String itemCategory) {
-        return ItemDB.createItem(name, description, amount, price, itemCategory);
-    }
-
-    public static boolean editItem(String id, String name, String description, String amount, String price, String itemCategory) {
-        return ItemDB.editItem(id, name, description, amount, price, itemCategory);
-    }
-
     public String getCategory() { return this.category;}
+
+
 }

@@ -158,17 +158,13 @@ public class UserDB extends bo.User{
 
         try {
             session.startTransaction();
-
-            // Fetch existing orders
             Collection<OrderDB> existingOrders = fetchOrders(username);
 
-            // Find the largest order ID
             int largestId = existingOrders.stream()
                     .mapToInt(orderDB -> Integer.parseInt(orderDB.getId()))
                     .max()
                     .orElse(0);
 
-            // Create a new order document
             Date date = new Date();
             Document order = new Document()
                     .append("id", String.valueOf(largestId + 1))
@@ -178,7 +174,6 @@ public class UserDB extends bo.User{
 
             ArrayList<Document> itemsList = new ArrayList<>();
 
-            // Create item documents
             for (ItemDB item : cart) {
                 Document itemDocument = new Document()
                         .append("id", item.getId())
@@ -194,7 +189,6 @@ public class UserDB extends bo.User{
                 ItemDB.modifyItemAmount(item.getName(),item.getQuantity(),session);
             }
             order.append("items", itemsList);
-            // Add the new order to the existing orders
             existingOrders.add(OrderDB.createOrder(
                     order.getString("id"),
                     order.getString("date"),
@@ -203,7 +197,6 @@ public class UserDB extends bo.User{
                     "not Packed"
             ));
 
-            // Update the user document with the new orders
             Bson filterUsername = eq("username", username);
             List<Document> orderList = existingOrders.stream()
                     .map(UserDB::addExistingOrders)

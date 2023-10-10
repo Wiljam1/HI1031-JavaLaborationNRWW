@@ -40,8 +40,8 @@ public class TransactionServlet extends HttpServlet {
         String username = request.getParameter("username");
         String transactionId = request.getParameter("transactionId");
         UserHandler.orderIsPacked(username, transactionId);
-
-        request.getRequestDispatcher("/WEB-INF/allOrders.jsp").forward(request, response);
+        
+        response.sendRedirect(request.getContextPath() + "/allOrders");
     }
 
     private void handleCreateOrder(HttpServletRequest request, HttpServletResponse response)

@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * The CartHandler class provides methods for managing a shopping cart, including adding,
+ * removing, and calculating the total price of items in the cart.
+ */
 public class CartHandler {
 
     public static Collection<ItemInfo> addToCart(String itemId, String itemName, String itemDesc, String itemAmount, String itemPrice, String itemCategory, Collection<ItemInfo> cartItems){
 
         int amount = Integer.parseInt(itemAmount);
-
         if(cartItems == null) {
             cartItems = new ArrayList<>();
         }
